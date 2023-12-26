@@ -58,7 +58,7 @@
             <!-- Default configuration for running with: mvn clean javafx:run -->
             <id>default-cli</id>
             <configuration>
-              <mainClass>dblab1.dblab1_jdbc/dblab1.dblab1_jdbc.HelloApplication</mainClass>
+              <mainClass>dblab1.dblab1_jdbc/dblab1.dblab1_jdbc.Main</mainClass>
               <launcher>app</launcher>
               <jlinkZipName>app</jlinkZipName>
               <jlinkImageName>app</jlinkImageName>
