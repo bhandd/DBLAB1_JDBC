@@ -1,37 +1,52 @@
 package dblab1.dblab1_jdbc;
 
+import dblab1.dblab1_jdbc.model.BooksDbMockImpl;
+import dblab1.dblab1_jdbc.view.BooksPane;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 
-import dblab1.dblab1_jdbc.view.Controller;
-import dblab1.dblab1_jdbc.view.View;
-
-
-
-import javafx.scene.control.MenuBar;
 import javafx.scene.layout.VBox;
-//todo
+
+//import dbgui.lab1examplegui.model.BooksDbMockImpl;
+//import dbgui.lab1examplegui.view.BooksPane;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
+//import se.kth.anderslm.booksdb.model.BooksDbMockImpl;
+//import se.kth.anderslm.booksdb.view.BooksPane;
+
+/**
+ * Application start up.
+ *
+ * @author anderslm@kth.se
+ */
 public class Main extends Application {
 
     @Override
-    public void start(Stage stage) throws Exception {
-        Controller controller = new Controller();
-        View gridView = new View();
-        // MenuBar menuBar = View.getMenu();
+    public void start(Stage primaryStage) {
 
-        //  VBox root = new VBox(menuBar, gridView); //pane VBox kallad root
-        VBox root = new VBox(gridView);
-        Scene scene = new Scene(root);  //Lägger in pane root i scene
-        stage.setScene(scene);
-        stage.sizeToScene();
-        stage.setResizable(false);
-        stage.setTitle("Database-O-matic 40.000");
-        stage.show();
+        BooksDbMockImpl booksDb = new BooksDbMockImpl(); // model
+        // Don't forget to connect to the db, somewhere...
+
+        BooksPane root = new BooksPane(booksDb);
+
+        Scene scene = new Scene(root, 800, 600);
+
+        primaryStage.setTitle("Books Database Client");
+        // add an exit handler to the stage (X) ?
+        primaryStage.setOnCloseRequest(event -> {
+            try {
+                booksDb.disconnect();
+            } catch (Exception e) {}
+        });
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
 
     public static void main(String[] args) {
-        launch();
+        launch(args);
     }
 }
