@@ -4,16 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9d7239cd-08d7-4e6b-8966-b7b7055103ea" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/JDBCTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/view/Controller.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/view/View.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="9d7239cd-08d7-4e6b-8966-b7b7055103ea" name="Changes" comment="uppladdning av projekt">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,9 +30,9 @@
       </MavenGeneralSettings>
     </option>
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 6
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
   <component name="ProjectId" id="2a5YJOLu3Yi0gFNB5YN81gmPA5j" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -53,11 +45,30 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "main"
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/bjorn/Desktop/Studier/Datateknik/år 2/HI1030 Databasteknik/LAB/Lab1/tillhörande filer och drivers/mysql-connector-j-8.2.0.jar",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.lookFeel"
   }
 }]]></component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.JDBCTest">
+    <configuration name="JDBCTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="dblab1.dblab1_jdbc.model.JDBCTest" />
+      <module name="DBLab1_JDBC" />
+      <option name="PROGRAM_PARAMETERS" value="root 77eyuy3fittaN3!" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="dblab1.dblab1_jdbc.model.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="dblab1.dblab1_jdbc.Main" />
       <module name="DBLab1_JDBC" />
@@ -73,6 +84,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.JDBCTest" />
         <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
@@ -86,6 +98,19 @@
       <option name="presentableId" value="Default" />
       <updated>1703609834744</updated>
     </task>
+    <task id="LOCAL-00001" summary="uppladdning av projekt">
+      <option name="closed" value="true" />
+      <created>1703610552121</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1703610552121</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="uppladdning av projekt" />
+    <option name="LAST_COMMIT_MESSAGE" value="uppladdning av projekt" />
   </component>
 </project>
