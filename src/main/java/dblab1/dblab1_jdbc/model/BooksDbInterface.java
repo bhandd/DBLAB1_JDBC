@@ -1,6 +1,5 @@
 package dblab1.dblab1_jdbc.model;
 
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -21,12 +20,12 @@ public interface BooksDbInterface {
     
     /**
      * Connect to the database.
-     * @param database
+     *
      * @return true on successful connection.
      */
-    public boolean connect(String database) throws BooksDbException;
+    public boolean connect() throws Exception;
     
-    public void disconnect() throws BooksDbException;
+    public void disconnect() throws BooksDbException, SQLException;
     
     public List<Book> searchBooksByTitle(String title) throws BooksDbException;
     

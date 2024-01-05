@@ -1,11 +1,14 @@
 package dblab1.dblab1_jdbc.view;
 
+import java.sql.Connection;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.List;
 
 import dblab1.dblab1_jdbc.model.Book;
 import dblab1.dblab1_jdbc.model.BooksDbMockImpl;
 import dblab1.dblab1_jdbc.model.SearchMode;
+import dblab1.dblab1_jdbc.model.getConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -39,6 +42,8 @@ public class BooksPane extends VBox {
 
     private MenuBar menuBar;
 
+    private List<Book> books;
+
     public BooksPane(BooksDbMockImpl booksDb) {
         final Controller controller = new Controller(booksDb, this);
         this.init(controller);
@@ -48,7 +53,7 @@ public class BooksPane extends VBox {
      * Display a new set of books, e.g. from a database select, in the
      * booksTable table view.
      *
-     * @param books the books to display
+     *
      */
     public void displayBooks(List<Book> books) {
         booksInTable.clear();
@@ -74,7 +79,7 @@ public class BooksPane extends VBox {
         // init views and event handlers
         initBooksTable();
         initSearchView(controller);
-        initMenus();
+        initMenus(controller);
 
         FlowPane bottomPane = new FlowPane();
         bottomPane.setHgap(10);
@@ -132,13 +137,17 @@ public class BooksPane extends VBox {
         });
     }
 
-    private void initMenus() {
+    private void initMenus(Controller controller) {
 
         Menu fileMenu = new Menu("File");
         MenuItem exitItem = new MenuItem("Exit");
         MenuItem connectItem = new MenuItem("Connect to Db");
+        connectItem.addEventHandler(ActionEvent.ACTION, controller.connectHandler);
         MenuItem disconnectItem = new MenuItem("Disconnect");
-        fileMenu.getItems().addAll(exitItem, connectItem, disconnectItem);
+        disconnectItem.addEventHandler(ActionEvent.ACTION, controller.endConnectHandler);
+        MenuItem addBoks = new MenuItem("Add books");
+        addBoks.addEventHandler(ActionEvent.ACTION, controller.addBooksDB);
+        fileMenu.getItems().addAll(exitItem, connectItem, disconnectItem, addBoks);
 
         Menu searchMenu = new Menu("Search");
         MenuItem titleItem = new MenuItem("Title");
@@ -155,4 +164,6 @@ public class BooksPane extends VBox {
         menuBar = new MenuBar();
         menuBar.getMenus().addAll(fileMenu, searchMenu, manageMenu);
     }
+
+
 }

@@ -5,7 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9d7239cd-08d7-4e6b-8966-b7b7055103ea" name="Changes" comment="Updated with GUI from AndersLm">
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/DialogExample/Test.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/getConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/Book.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/BooksDbInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/BooksDbInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/BooksDbMockImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/BooksDbMockImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/view/BooksPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/view/BooksPane.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/view/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/view/Controller.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -42,19 +51,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/bjorn/Desktop/Studier/Datateknik/år 2/HI1027 Objektorienterad programmering/ideaProjects/DBLab1_JDBC/src/main/java/dblab1/dblab1_jdbc/view",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.lookFeel"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Datalab_driver/mysql-connector-j-8.2.0/mysql-connector-j-8.2.0.jar&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
+    ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\bjorn\Desktop\Studier\Datateknik\år 2\HI1027 Objektorienterad programmering\ideaProjects\DBLab1_JDBC\src\main\java\dblab1\dblab1_jdbc\view" />
@@ -64,13 +85,13 @@
       <recent name="C:\Users\bjorn\Desktop\Studier\Datateknik\år 2\HI1027 Objektorienterad programmering\ideaProjects\DBLab1_JDBC\src\main\java\dblab1\dblab1_jdbc\model" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.DialogExample">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="DialogExample" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="dblab1.dblab1_jdbc.model.DialogExample.DialogExample" />
       <module name="DBLab1_JDBC" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="dblab1.dblab1_jdbc.model.DialogExample.*" />
+          <option name="PATTERN" value="dblab1.dblab1_jdbc.model.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -95,6 +116,7 @@
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="dblab1.dblab1_jdbc.Main" />
       <module name="DBLab1_JDBC" />
+      <option name="PROGRAM_PARAMETERS" value="root 1234" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="dblab1.dblab1_jdbc.*" />
@@ -107,8 +129,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.DialogExample" />
         <item itemvalue="Application.Main" />
+        <item itemvalue="Application.DialogExample" />
         <item itemvalue="Application.JDBCTest" />
       </list>
     </recent_temporary>
@@ -121,6 +143,14 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1703609834744</updated>
+      <workItem from="1704028395929" duration="12000" />
+      <workItem from="1704028435708" duration="31000" />
+      <workItem from="1704028478658" duration="21000" />
+      <workItem from="1704029608039" duration="152000" />
+      <workItem from="1704050590694" duration="21000" />
+      <workItem from="1704278936904" duration="646000" />
+      <workItem from="1704405707457" duration="3000" />
+      <workItem from="1704411538506" duration="6058000" />
     </task>
     <task id="LOCAL-00001" summary="uppladdning av projekt">
       <option name="closed" value="true" />
@@ -148,6 +178,20 @@
     </task>
     <option name="localTasksCounter" value="4" />
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="uppladdning av projekt" />

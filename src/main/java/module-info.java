@@ -6,4 +6,5 @@ module dblab1.dblab1_jdbc {
     exports dblab1.dblab1_jdbc.model.DialogExample;
     opens dblab1.dblab1_jdbc to javafx.fxml;
     exports dblab1.dblab1_jdbc;
+    exports dblab1.dblab1_jdbc.model;
 }
