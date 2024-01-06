@@ -1,7 +1,7 @@
 package dblab1.dblab1_jdbc;
 
 import dblab1.dblab1_jdbc.model.BooksDb;
-import dblab1.dblab1_jdbc.view.BooksPane;
+import dblab1.dblab1_jdbc.view.BooksPaneView;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -27,7 +27,7 @@ public class Main extends Application {
         BooksDb booksDb = new BooksDb(); // model
         // Don't forget to connect to the db, somewhere...
 
-        BooksPane root = new BooksPane(booksDb);
+        BooksPaneView root = new BooksPaneView(booksDb);
 
         Scene scene = new Scene(root, 800, 600);
 

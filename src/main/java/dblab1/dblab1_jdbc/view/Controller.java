@@ -24,10 +24,10 @@ import static javafx.scene.control.Alert.AlertType.*;
  */
 public class Controller {
 
-    private final BooksPane booksView; // view
+    private final BooksPaneView booksView; // view
     private final BooksDbInterface booksDb; // model
 
-    public Controller(BooksDbInterface booksDb, BooksPane booksView) {
+    public Controller(BooksDbInterface booksDb, BooksPaneView booksView) {
         this.booksDb = booksDb;
         this.booksView = booksView;
     }

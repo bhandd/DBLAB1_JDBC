@@ -37,44 +37,49 @@ public interface BooksDbInterface {
 
 
     //TODO: kolla metoderna att de är rätt, (genererade av bard)
-//    /**
-//     * Adds a new book to the database.
-//     *
-//     * @param title The title of the book.
-//     * @param isbn The ISBN of the book.
-//     * @param authors The authors of the book.
-//     * @param genre The genre of the book.
-//     * @param rating The rating for the book (1-5).
-//     * @throws Exception If an error occurs during the insertion.
-//     */
-//    public void addBook(String title, String isbn, List<String> authors, String genre, int rating) throws Exception;
-//
-//    /**
-//     * Rates a book.
-//     *
-//     * @param bookId The ID of the book to be rated.
-//     * @param rating The rating for the book (1-5).
-//     * @throws Exception If an error occurs during the update.
-//     */
-//    public abstract void rateBook(int bookId, int rating) throws Exception;
-//
-//    /**
-//     * Searches for books in the database.
-//     *
-//     * @param title The title of the book.
-//     * @param isbn The ISBN of the book.
-//     * @param author The name of the author.
-//     * @param rating The rating for the book (1-5).
-//     * @param genre The genre of the book.
-//     * @return A list of books that match the search criteria.
-//     */
-//    public List<Book> searchBooks(String title, String isbn, String author, int rating, String genre);
-//
-//    /**
-//     * Adds a new author to the database.
-//     *
-//     * @param name The name of the author.
-//     * @throws Exception If an error occurs during the insertion.
-//     */
-//    public void addAuthor(String name) throws Exception;
+    // fler metoder kan behövas för de olika sök-frågorna tex SELECT * FROM T_author WHERE aut_id = 1 etc
+    /**
+     * Searches for books in the database.
+     *
+     * @param title The title of the book.
+     * @param isbn The ISBN of the book.
+     * @param author The name of the author.
+     * @param rating The rating for the book (1-5).
+     * @param genre The genre of the book.
+     * @return A list of books that match the search criteria.
+     */
+    public List<Book> searchBooks(String title, String isbn, String author, int rating, String genre);
+
+    /**
+     * Rates a book.
+     *
+     * @param bookId The ID of the book to be rated.
+     * @param rating The rating for the book (1-5).
+     * @throws Exception If an error occurs during the update.
+     */
+    public abstract void rateBook(int bookId, int rating) throws Exception;
+
+
+
+    /**
+     * Adds a new book to the database. (Rating is not done here?)
+     *
+     * @param title The title of the book.
+     * @param isbn The ISBN of the book.
+     * @param genre The genre of the book.
+     * @throws Exception If an error occurs during the insertion.
+     */
+
+    public void addBook(String title, String isbn, List<String> authors, String genre) throws Exception;
+
+
+
+    /**
+     * Adds a new author to the database.
+     *
+     * @param name The name of the author.
+     * @throws Exception If an error occurs during the insertion.
+     */
+    public void addAuthor(String name) throws Exception;
+
 }

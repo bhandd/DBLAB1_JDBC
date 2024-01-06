@@ -28,7 +28,7 @@ import javafx.scene.layout.VBox;
  *
  * @author anderslm@kth.se
  */
-public class BooksPane extends VBox {
+public class BooksPaneView extends VBox {
 
     private TableView<Book> booksTable;
     private ObservableList<Book> booksInTable; // the data backing the table view
@@ -41,7 +41,7 @@ public class BooksPane extends VBox {
 
     private List<Book> books;
 
-    public BooksPane(BooksDb booksDb) {
+    public BooksPaneView(BooksDb booksDb) {
         final Controller controller = new Controller(booksDb, this);
         this.init(controller);
     }
