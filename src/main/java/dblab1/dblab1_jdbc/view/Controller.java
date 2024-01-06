@@ -5,6 +5,8 @@ package dblab1.dblab1_jdbc.view;
 //import se.kth.anderslm.booksdb.model.SearchMode;
 
 import dblab1.dblab1_jdbc.model.*;
+import dblab1.dblab1_jdbc.model.entityClasses.Book;
+import dblab1.dblab1_jdbc.model.exceptions.BooksDbException;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
@@ -62,10 +64,11 @@ public class Controller {
         }
     }
 
+
     public EventHandler<ActionEvent> connectHandler = new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent actionEvent) {
-            BooksDbInterface booksDbInterface = new BooksDbMockImpl();
+            BooksDbInterface booksDbInterface = new BooksDb();
             try {
                 booksDbInterface.connect();
             } catch (Exception e) {
@@ -73,6 +76,7 @@ public class Controller {
             }
         }
     };
+
 
     public static void executeQuery(java.sql.Connection con, String query, List<Book> books) throws SQLException {
 
@@ -120,7 +124,7 @@ public class Controller {
     public EventHandler<ActionEvent> endConnectHandler = new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent actionEvent) {
-            BooksDbInterface booksDbInterface = new BooksDbMockImpl();
+            BooksDbInterface booksDbInterface = new BooksDb();
             try {
                 booksDbInterface.disconnect();
             } catch (SQLException | BooksDbException e) {

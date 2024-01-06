@@ -1,4 +1,4 @@
-package dblab1.dblab1_jdbc.model;
+package dblab1.dblab1_jdbc.model.entityClasses;
 
 import java.sql.Date;
 

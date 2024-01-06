@@ -5,14 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9d7239cd-08d7-4e6b-8966-b7b7055103ea" name="Changes" comment="Updated with GUI from AndersLm">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/DialogExample/Test.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/getConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/entityClasses/Author.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/entityClasses/Review.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/Book.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/entityClasses/Book.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/BooksDbException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/exceptions/BooksDbException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/BooksDbInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/BooksDbInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/BooksDbMockImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/BooksDbMockImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/BooksDbMockImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/BooksDb.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/DialogExample/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/Dialog/Test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/JDBCTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/JDBCTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/getConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/getConnection.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/view/BooksPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/view/BooksPane.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/view/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/view/Controller.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
@@ -84,14 +87,18 @@
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\bjorn\Desktop\Studier\Datateknik\år 2\HI1027 Objektorienterad programmering\ideaProjects\DBLab1_JDBC\src\main\java\dblab1\dblab1_jdbc\model" />
     </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="dblab1.dblab1_jdbc.model.entityClasses" />
+      <recent name="dblab1.dblab1_jdbc.model.exceptions" />
+    </key>
   </component>
   <component name="RunManager" selected="Application.Main">
     <configuration name="DialogExample" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="dblab1.dblab1_jdbc.model.DialogExample.DialogExample" />
+      <option name="MAIN_CLASS_NAME" value="dblab1.dblab1_jdbc.model.Dialog.DialogExample" />
       <module name="DBLab1_JDBC" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="dblab1.dblab1_jdbc.model.*" />
+          <option name="PATTERN" value="dblab1.dblab1_jdbc.model.exceptions.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -102,10 +109,10 @@
     <configuration name="JDBCTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="dblab1.dblab1_jdbc.model.JDBCTest" />
       <module name="DBLab1_JDBC" />
-      <option name="PROGRAM_PARAMETERS" value="root 77eyuy3fittaN3!" />
+      <option name="PROGRAM_PARAMETERS" value="app_user spion" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="dblab1.dblab1_jdbc.model.*" />
+          <option name="PATTERN" value="dblab1.dblab1_jdbc.model.exceptions.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -116,7 +123,7 @@
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="dblab1.dblab1_jdbc.Main" />
       <module name="DBLab1_JDBC" />
-      <option name="PROGRAM_PARAMETERS" value="root 1234" />
+      <option name="PROGRAM_PARAMETERS" value="app_user spion" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="dblab1.dblab1_jdbc.*" />
@@ -130,8 +137,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
-        <item itemvalue="Application.DialogExample" />
         <item itemvalue="Application.JDBCTest" />
+        <item itemvalue="Application.DialogExample" />
       </list>
     </recent_temporary>
   </component>
@@ -198,5 +205,16 @@
     <MESSAGE value="JDBC driver" />
     <MESSAGE value="Updated with GUI from AndersLm" />
     <option name="LAST_COMMIT_MESSAGE" value="Updated with GUI from AndersLm" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/Main.java</url>
+          <line>45</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

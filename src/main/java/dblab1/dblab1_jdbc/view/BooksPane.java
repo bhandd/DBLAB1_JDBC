@@ -1,14 +1,11 @@
 package dblab1.dblab1_jdbc.view;
 
-import java.sql.Connection;
 import java.sql.Date;
-import java.sql.SQLException;
 import java.util.List;
 
-import dblab1.dblab1_jdbc.model.Book;
-import dblab1.dblab1_jdbc.model.BooksDbMockImpl;
+import dblab1.dblab1_jdbc.model.entityClasses.Book;
+import dblab1.dblab1_jdbc.model.BooksDb;
 import dblab1.dblab1_jdbc.model.SearchMode;
-import dblab1.dblab1_jdbc.model.getConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -44,7 +41,7 @@ public class BooksPane extends VBox {
 
     private List<Book> books;
 
-    public BooksPane(BooksDbMockImpl booksDb) {
+    public BooksPane(BooksDb booksDb) {
         final Controller controller = new Controller(booksDb, this);
         this.init(controller);
     }
@@ -72,6 +69,8 @@ public class BooksPane extends VBox {
         alert.showAndWait();
     }
 
+
+    //TODO: kolla vilka metoder som går att flytta till model
     private void init(Controller controller) {
 
         booksInTable = FXCollections.observableArrayList();

@@ -1,5 +1,8 @@
 package dblab1.dblab1_jdbc.model;
 
+import dblab1.dblab1_jdbc.model.entityClasses.Book;
+import dblab1.dblab1_jdbc.model.exceptions.BooksDbException;
+
 import java.sql.SQLException;
 import java.util.List;
 
@@ -29,6 +32,49 @@ public interface BooksDbInterface {
     
     public List<Book> searchBooksByTitle(String title) throws BooksDbException;
     
-    // TODO: Add abstract methods for all inserts, deletes and queries 
+    // TODO: Add abstract methods for all inserts, deletes and queries
     // mentioned in the instructions for the assignement.
+
+
+    //TODO: kolla metoderna att de är rätt, (genererade av bard)
+//    /**
+//     * Adds a new book to the database.
+//     *
+//     * @param title The title of the book.
+//     * @param isbn The ISBN of the book.
+//     * @param authors The authors of the book.
+//     * @param genre The genre of the book.
+//     * @param rating The rating for the book (1-5).
+//     * @throws Exception If an error occurs during the insertion.
+//     */
+//    public void addBook(String title, String isbn, List<String> authors, String genre, int rating) throws Exception;
+//
+//    /**
+//     * Rates a book.
+//     *
+//     * @param bookId The ID of the book to be rated.
+//     * @param rating The rating for the book (1-5).
+//     * @throws Exception If an error occurs during the update.
+//     */
+//    public abstract void rateBook(int bookId, int rating) throws Exception;
+//
+//    /**
+//     * Searches for books in the database.
+//     *
+//     * @param title The title of the book.
+//     * @param isbn The ISBN of the book.
+//     * @param author The name of the author.
+//     * @param rating The rating for the book (1-5).
+//     * @param genre The genre of the book.
+//     * @return A list of books that match the search criteria.
+//     */
+//    public List<Book> searchBooks(String title, String isbn, String author, int rating, String genre);
+//
+//    /**
+//     * Adds a new author to the database.
+//     *
+//     * @param name The name of the author.
+//     * @throws Exception If an error occurs during the insertion.
+//     */
+//    public void addAuthor(String name) throws Exception;
 }

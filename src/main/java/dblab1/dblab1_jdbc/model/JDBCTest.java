@@ -20,10 +20,11 @@ import java.sql.Statement;
                 System.exit(0);
             }
 
+            //todo: fixa så att appen har en egen användare
             String user = args[0]; // user name
             String pwd = args[1]; // password
             System.out.println(user + ", *********");
-            String database = "Company"; // the name of the specific database
+            String database = "Library"; // the name of the specific database
             String server
                     = "jdbc:mysql://localhost:3306/" + database
                     + "?UseClientEnc=UTF8";
@@ -34,7 +35,7 @@ import java.sql.Statement;
                 con = DriverManager.getConnection(server, user, pwd);
                 System.out.println("Connected!");
 
-                executeQuery(con, "SELECT * FROM T_Employee");
+                executeQuery(con, "SELECT * FROM T_book");
             } finally {
                 try {
                     if (con != null) {

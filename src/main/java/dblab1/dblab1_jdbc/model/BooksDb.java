@@ -5,6 +5,9 @@
  */
 package dblab1.dblab1_jdbc.model;
 
+import dblab1.dblab1_jdbc.model.entityClasses.Book;
+import dblab1.dblab1_jdbc.model.exceptions.BooksDbException;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,11 +21,11 @@ import java.util.List;
  *
  * @author anderslm@kth.se
  */
-public class BooksDbMockImpl implements BooksDbInterface {
+public class BooksDb implements BooksDbInterface {
 
     private final List<Book> books;
 
-    public BooksDbMockImpl() {
+    public BooksDb() {
         books = Arrays.asList(DATA);
     }
 

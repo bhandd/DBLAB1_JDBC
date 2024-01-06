@@ -1,4 +1,4 @@
-package dblab1.dblab1_jdbc.model;
+package dblab1.dblab1_jdbc.model.exceptions;
 
 /**
  * Representing exceptions in the BooksDb model.
