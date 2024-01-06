@@ -1,6 +1,8 @@
 package dblab1.dblab1_jdbc.model;
 
 import dblab1.dblab1_jdbc.model.entityClasses.Book;
+
+import dblab1.dblab1_jdbc.model.entityClasses.Book;
 import dblab1.dblab1_jdbc.model.exceptions.BooksDbException;
 
 import java.sql.SQLException;
@@ -28,11 +30,13 @@ public interface BooksDbInterface {
      */
     public boolean connect() throws Exception;
     
-    public void disconnect() throws BooksDbException, SQLException;
+    public void disconnect() throws SQLException;
     
-    public List<Book> searchBooksByTitle(String title) throws BooksDbException;
-    
-    // TODO: Add abstract methods for all inserts, deletes and queries
+    public List<Book> searchBooksByTitle(String title);
+
+    List<Book> getDBList();
+
+    // TODO: Add abstract methods for all inserts, deletes and queries 
     // mentioned in the instructions for the assignement.
 
 

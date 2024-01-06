@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class BooksDb implements BooksDbInterface {
 
-    private final List<Book> books;
+    private static List<Book> books;
 
     public BooksDb() {
         books = Arrays.asList(DATA);
@@ -41,13 +41,12 @@ public class BooksDb implements BooksDbInterface {
     }
 
     @Override
-    public void disconnect() throws BooksDbException, SQLException {
+    public void disconnect() throws SQLException {
         getConnection.EndConnection();
     }
 
     @Override
-    public List<Book> searchBooksByTitle(String searchTitle)
-            throws BooksDbException {
+    public List<Book> searchBooksByTitle(String searchTitle) {
         // mock implementation
         // NB! Your implementation should select the books matching
         // the search string via a query to a database (not load all books from db)
@@ -92,4 +91,8 @@ public class BooksDb implements BooksDbInterface {
             new Book(8, "345678901", "Shuggie Bain", 2020), //new Date(2020, 1, 1)),
             new Book(9, "345678912", "Microserfs", 2000) //new Date(2000, 1, 1)),
     };
+
+    public List<Book> getDBList() {
+        return books;
+    }
 }

@@ -3,6 +3,7 @@ package dblab1.dblab1_jdbc.model;
 import dblab1.dblab1_jdbc.model.entityClasses.Book;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class getConnection {
@@ -36,8 +37,8 @@ public class getConnection {
     }
 
 
-    public static void executeQuery(java.sql.Connection con, String query, List<Book> books) throws SQLException {
-
+    public static List<Book> executeQuery(Connection con, String query) throws SQLException {
+        List<Book> books = new ArrayList<>();
         try (Statement stmt = con.createStatement()) {
             // Execute the SQL statement
             ResultSet rs = stmt.executeQuery(query);
@@ -63,6 +64,7 @@ public class getConnection {
             }
             System.out.println();
         }
+        return books;
     }
     public static Connection getConnection() {
         return con;

@@ -152,7 +152,9 @@ public class BooksPaneView extends VBox {
         MenuItem titleItem = new MenuItem("Title");
         MenuItem isbnItem = new MenuItem("ISBN");
         MenuItem authorItem = new MenuItem("Author");
-        searchMenu.getItems().addAll(titleItem, isbnItem, authorItem);
+        MenuItem printAllItem = new MenuItem("PrintAll");
+        printAllItem.addEventHandler(ActionEvent.ACTION, controller.printDB);
+        searchMenu.getItems().addAll(titleItem, isbnItem, authorItem, printAllItem);
 
         Menu manageMenu = new Menu("Manage");
         MenuItem addItem = new MenuItem("Add");

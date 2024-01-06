@@ -35,7 +35,7 @@ public class Controller {
     protected void onSearchSelected(String searchFor, SearchMode mode) {
         try {
             if (searchFor != null && searchFor.length() > 1) {
-                List<Book> result = null;
+                List<Book> result = new ArrayList<>();
                 switch (mode) {
                     case Title:
                         result = booksDb.searchBooksByTitle(searchFor);
@@ -110,10 +110,11 @@ public class Controller {
         @Override
         public void handle(ActionEvent actionEvent) {
             Connection con = getConnection.getConnection();
-            List<Book> books = new ArrayList<>();
+
+            //List<Book> books = new ArrayList<>();
             try {
-                getConnection.executeQuery(con, "SELECT * FROM T_book", books);
-                booksView.displayBooks(books);
+                List<Book> booksDb = getConnection.executeQuery(con, "SELECT * FROM T_book");
+                booksView.displayBooks((List<Book>) booksDb);
 
             } catch (SQLException e) {
                 throw new RuntimeException(e);
@@ -127,8 +128,18 @@ public class Controller {
             BooksDbInterface booksDbInterface = new BooksDb();
             try {
                 booksDbInterface.disconnect();
-            } catch (SQLException | BooksDbException e) {
+            } catch (SQLException e) {
                 throw new RuntimeException(e);
+            }
+        }
+    };
+
+    public EventHandler<ActionEvent> printDB = new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent actionEvent) {
+            List<Book> books = booksDb.getDBList();
+            for (int i = 0;i < books.size();i++) {
+                System.out.println(books.get(i));
             }
         }
     };
