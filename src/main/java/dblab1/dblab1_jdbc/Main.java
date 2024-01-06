@@ -1,6 +1,7 @@
 package dblab1.dblab1_jdbc;
 
 import dblab1.dblab1_jdbc.model.BooksDb;
+import dblab1.dblab1_jdbc.model.getConnection;
 import dblab1.dblab1_jdbc.view.BooksPaneView;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -22,8 +23,8 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     @Override
-    public void start(Stage primaryStage) {
-
+    public void start(Stage primaryStage) throws Exception {
+        getConnection.StartConnection();
         BooksDb booksDb = new BooksDb(); // model
         // Don't forget to connect to the db, somewhere...
 

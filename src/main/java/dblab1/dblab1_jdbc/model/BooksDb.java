@@ -8,6 +8,7 @@ package dblab1.dblab1_jdbc.model;
 import dblab1.dblab1_jdbc.model.entityClasses.Book;
 import dblab1.dblab1_jdbc.model.exceptions.BooksDbException;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,7 +27,12 @@ public class BooksDb implements BooksDbInterface {
     private static List<Book> books;
 
     public BooksDb() {
-        books = Arrays.asList(DATA);
+        Connection con = getConnection.getConnection();
+        try {
+            books = getConnection.executeQuery(con, "SELECT * FROM T_book");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
