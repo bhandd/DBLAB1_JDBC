@@ -34,12 +34,13 @@ public class Controller {
 
     protected void onSearchSelected(String searchFor, SearchMode mode) {
         try {
+            Connection con = getConnection.getConnection();
+            List<Book> books = new ArrayList<>();
             if (searchFor != null && searchFor.length() > 1) {
                 List<Book> result = null;
                 switch (mode) {
                     case Title:
-                        Connection con = getConnection.getConnection();
-                        List<Book> books = new ArrayList<>();
+
                         try {
                             getConnection.executeQuery(con, "SELECT * FROM T_book WHERE title='" + searchFor + "'", books);
                             booksView.displayBooks(books);
@@ -50,9 +51,23 @@ public class Controller {
                         //result = booksDb.searchBooksByTitle(searchFor);
                         break;
                     case ISBN:
+                        try {
+                            getConnection.executeQuery(con, "SELECT * FROM T_book WHERE ISBN='" + searchFor + "'", books);
+                            booksView.displayBooks(books);
+
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                         // ...
                         break;
                     case Author:
+                        try {
+                            getConnection.executeQuery(con, "SELECT * FROM T_book WHERE author='" + searchFor + "'", books);
+                            booksView.displayBooks(books);
+
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                         // ...
                         break;
                     default:
