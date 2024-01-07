@@ -26,7 +26,7 @@ public class BooksDb implements BooksDbInterface {
     private final List<Book> books;
 
     public BooksDb() {
-        books = Arrays.asList(DATA);
+        books = Arrays.asList(DATA); //TODO: ska troligtvis ta bort DATA
     }
 
     @Override
@@ -44,7 +44,8 @@ public class BooksDb implements BooksDbInterface {
     public void disconnect() throws BooksDbException, SQLException {
         getConnection.EndConnection();
     }
-
+//TODO: implementera denna sökmetod
+    //Added by Anders
     @Override
     public List<Book> searchBooksByTitle(String searchTitle)
             throws BooksDbException {
@@ -58,6 +59,8 @@ public class BooksDb implements BooksDbInterface {
                 result.add(book);
             }
         }
+        //spara i books<-SQL-fråga till databas
+      //  result.add(books);
         return result;
     }
 

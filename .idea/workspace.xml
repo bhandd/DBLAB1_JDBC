@@ -6,7 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="9d7239cd-08d7-4e6b-8966-b7b7055103ea" name="Changes" comment="Search for title, ISBN and author">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/entityClasses/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/entityClasses/Book.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/BooksDb.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/BooksDb.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/view/BooksPaneView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/view/BooksPaneView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,31 +48,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "alternativeSearchMethod",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Datalab_driver/mysql-connector-j-8.2.0/mysql-connector-j-8.2.0.jar",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;alternativeSearchMethod&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Datalab_driver/mysql-connector-j-8.2.0/mysql-connector-j-8.2.0.jar&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\bjorn\Desktop\Studier\Datateknik\år 2\HI1027 Objektorienterad programmering\ideaProjects\DBLab1_JDBC\src\main\java\dblab1\dblab1_jdbc\view" />
@@ -133,6 +134,8 @@
         <item itemvalue="Application.Main" />
         <item itemvalue="Application.JDBCTest" />
         <item itemvalue="Application.DialogExampleMain" />
+        <item itemvalue="Application.Main" />
+        <item itemvalue="Application.JDBCTest" />
       </list>
     </recent_temporary>
   </component>
