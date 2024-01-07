@@ -38,7 +38,16 @@ public class Controller {
                 List<Book> result = null;
                 switch (mode) {
                     case Title:
-                        result = booksDb.searchBooksByTitle(searchFor);
+                        Connection con = getConnection.getConnection();
+                        List<Book> books = new ArrayList<>();
+                        try {
+                            getConnection.executeQuery(con, "SELECT * FROM T_book WHERE title='" + searchFor + "'", books);
+                            booksView.displayBooks(books);
+
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
+                        //result = booksDb.searchBooksByTitle(searchFor);
                         break;
                     case ISBN:
                         // ...
@@ -107,6 +116,21 @@ public class Controller {
         }
     }
     public EventHandler<ActionEvent> addBooksDB = new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent actionEvent) {
+            Connection con = getConnection.getConnection();
+            List<Book> books = new ArrayList<>();
+            try {
+                getConnection.executeQuery(con, "SELECT * FROM T_book", books);
+                booksView.displayBooks(books);
+
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    };
+
+    public EventHandler<ActionEvent> searchDB = new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent actionEvent) {
             Connection con = getConnection.getConnection();
