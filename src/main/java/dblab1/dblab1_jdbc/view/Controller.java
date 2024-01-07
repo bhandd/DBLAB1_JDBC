@@ -38,9 +38,10 @@ public class Controller {
                 List<Book> result = new ArrayList<>();
                 switch (mode) {
                     case Title:
-                        result = booksDb.searchBooksByTitle(searchFor);
+                        result = booksDb.searchBooksByTitleDB(searchFor);
                         break;
                     case ISBN:
+                        result = booksDb.searchBooksByISBNDb(searchFor);
                         // ...
                         break;
                     case Author:

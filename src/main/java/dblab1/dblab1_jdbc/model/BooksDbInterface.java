@@ -86,4 +86,7 @@ public interface BooksDbInterface {
      */
     public void addAuthor(String name) throws Exception;
 
+    List<Book> searchBooksByTitleDB(String searchFor);
+
+    List<Book> searchBooksByISBNDb(String searchFor);
 }

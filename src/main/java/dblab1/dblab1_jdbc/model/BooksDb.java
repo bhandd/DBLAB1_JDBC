@@ -65,6 +65,22 @@ public class BooksDb implements BooksDbInterface {
         }
         return result;
     }
+    @Override
+    public List<Book> searchBooksByTitleDB(String search) {
+        List<Book> result = new ArrayList<>();
+        Connection con = getConnection.getConnection();
+
+        getConnection.searchTitleInDB(con, "SELECT * FROM T_book", search, result);
+
+        return result;
+    }
+
+    public List<Book> searchBooksByISBNDb(String searchFor) {
+        List<Book> result = new ArrayList<>();
+        Connection con = getConnection.getConnection();
+        getConnection.searcgISBNInDB(con, "SELECT * FROM T_book", searchFor, result);
+        return result;
+    }
 
 
     //TODO: kolla om vi ska ha en lista av böcker eller ett bokobjekt i taget
