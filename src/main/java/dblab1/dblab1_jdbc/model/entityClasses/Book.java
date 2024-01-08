@@ -14,8 +14,10 @@ public class Book {
     private String isbn; // should check format
     private String title;
     private Date published;
-
     private int year;
+    private int grade;
+    private Genre genre;
+
     private String storyLine = "";
     private ArrayList<Author> authors;
     // TODO: 
@@ -25,20 +27,31 @@ public class Book {
     //TODO: avkommentera arraylist med authors då detta krävs för att representera relationen mellan book och author
     // avkommentera också String author som parameter i konstruktiorn
     // när detta göra behöver man anpassa implementeringen i övriga programmet
-    public Book(int bookId, String isbn, String title, /*String authors*/ int year/*Date published*/) {
+    public Book(int bookId, String isbn, String title, Author author, int year/*Date published*/ ) {
       //  this.authors = new ArrayList<>();
      //   this.authors.add(author)
         this.bookId = bookId;
         this.isbn = isbn;
         this.title = title;
         this.year = year;
-    }
-    
-    public Book(String isbn, String title, int year/*Date published*/) {
+        this.authors = new ArrayList<>();
+        this.authors.add(author);
+        this.grade = 0;
+        this.genre = Genre.UNDEFINED;
 
-        this(-1, isbn, title, year);
+
     }
-    
+
+    //todo: Check if needed
+//    public Book(String isbn, String title, int year/*Date published*/) {
+//
+//        this(isbn, title, year);
+//    }
+
+    public void addAuthor(Author author) {
+        this.authors.add(author);
+    }
+
     public int getBookId() { return bookId; }
     public String getIsbn() { return isbn; }
     public String getTitle() { return title; }

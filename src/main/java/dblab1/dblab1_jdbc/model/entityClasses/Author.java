@@ -3,14 +3,21 @@ package dblab1.dblab1_jdbc.model.entityClasses;
 public class Author {
 
    private int id;
-   private String fName;
+   private String fullName;
 
-   private String lName;
-
-   public Author(int id, String fName, String lName) {
+   //private String lName;
+/** Constructor for the Authors-class
+ *
+ * */
+//TODO: check if we need a fName and lName string or if a fullName will suffice
+   public Author(int id, String fullName/*String lName*/) {
       this.id = id;
-      this.fName = fName;
-      this.lName = lName;
+      this.fullName = fullName;
+    //  this.lName = lName;
+   }
+
+   public Author() {
+
    }
 
    public int getId() {
@@ -21,28 +28,32 @@ public class Author {
       this.id = id;
    }
 
-   public String getfName() {
-      return fName;
+   public String getFullName() {
+      return fullName;
    }
 
    public void setfName(String fName) {
-      this.fName = fName;
+      this.fullName = fName;
    }
 
-   public String getlName() {
-      return lName;
-   }
+   //TODO:Check if needed
+//   public String getlName() {
+//      return lName;
+//   }
 
-   public void setlName(String lName) {
-      this.lName = lName;
-   }
+
+//TODO: check if needed
+
+//   public void setlName(String lName) {
+//      this.lName = lName;
+//   }
 
    @Override
    public String toString() {
       return "Author{" +
               "id=" + id +
-              ", fName='" + fName + '\'' +
-              ", lName='" + lName + '\'' +
+              ", fName='" + fullName + '\'' +
+      /*        ", lName='" + lName + '\'' + */
               '}';
    }
 }

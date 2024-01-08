@@ -30,7 +30,7 @@ public interface BooksDbInterface {
     
     public void disconnect() throws BooksDbException, SQLException;
     
-    public List<Book> searchBooksByTitle(String title) throws BooksDbException;
+   // public List<Book> searchBooksByTitle(String title) throws BooksDbException;
     
     // TODO: Add abstract methods for all inserts, deletes and queries
     // mentioned in the instructions for the assignement.

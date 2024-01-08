@@ -82,42 +82,44 @@ public class Controller {
         }
     };
 
+//TODO: commented out for now. Already in getConnection. Should probably be moved to BooksDb
 
-    public static void executeQuery(java.sql.Connection con, String query, List<Book> books) throws SQLException {
-
-        try (Statement stmt = con.createStatement()) {
-            // Execute the SQL statement
-            ResultSet rs = stmt.executeQuery(query);
-
-            // Get the attribute names
-            ResultSetMetaData metaData = rs.getMetaData();
-            int ccount = metaData.getColumnCount();
-            for (int c = 1; c <= ccount; c++) {
-                System.out.print(metaData.getColumnName(c) + "\t");
-            }
-            System.out.println();
-
-            // Get the attribute values
-            while (rs.next()) {
-                int bookId = rs.getInt("book_id");
-                String title = rs.getString("title");
-                String author = rs.getString("author");
-                String ISBN = rs.getString("ISBN");
-                int year = rs.getInt("year");
-
-                Book book = new Book(bookId, ISBN, title, year);
-                books.add(book);
-            }
-            System.out.println();
-        }
-    }
+//    public static void executeQuery(java.sql.Connection con, String query, List<Book> books) throws SQLException {
+//
+//        try (Statement stmt = con.createStatement()) {
+//            // Execute the SQL statement
+//            ResultSet rs = stmt.executeQuery(query);
+//
+//            // Get the attribute names
+//            ResultSetMetaData metaData = rs.getMetaData();
+//            int ccount = metaData.getColumnCount();
+//            for (int c = 1; c <= ccount; c++) {
+//                System.out.print(metaData.getColumnName(c) + "\t");
+//            }
+//            System.out.println();
+//
+//            // Get the attribute values
+//            while (rs.next()) {
+//                int bookId = rs.getInt("book_id");
+//                String title = rs.getString("title");
+//                String author = rs.getString("author");
+//                String ISBN = rs.getString("ISBN");
+//                int year = rs.getInt("year");
+//
+//                Book book = new Book(bookId, ISBN, title, year);
+//                books.add(book);
+//            }
+//            System.out.println();
+//        }
+//    }
     public EventHandler<ActionEvent> addBooksDB = new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent actionEvent) {
             Connection con = getConnection.getConnection();
             List<Book> books = new ArrayList<>();
             try {
-                getConnection.executeQuery(con, "SELECT * FROM T_book", books);
+               // getConnection.executeQuery(con, "SELECT * FROM T_book", books);
+                getConnection.executeQuery( "SELECT * FROM T_book", books);
                 booksView.displayBooks(books);
 
             } catch (SQLException e) {
@@ -126,20 +128,22 @@ public class Controller {
         }
     };
 
-    public EventHandler<ActionEvent> searchDB = new EventHandler<ActionEvent>() {
-        @Override
-        public void handle(ActionEvent actionEvent) {
-            Connection con = getConnection.getConnection();
-            List<Book> books = new ArrayList<>();
-            try {
-                getConnection.executeQuery(con, "SELECT * FROM T_book", books);
-                booksView.displayBooks(books);
-
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    };
+    //TODO. Can be deleted
+//    public EventHandler<ActionEvent> searchDB = new EventHandler<ActionEvent>() {
+//        @Override
+//        public void handle(ActionEvent actionEvent) {
+//            Connection con = getConnection.getConnection();
+//            List<Book> books = new ArrayList<>();
+//            try {
+//                getConnection.executeQuery(con, "SELECT * FROM T_book", books);
+//                getConnection.executeQuery(con, "SELECT * FROM T_book", books);
+//                booksView.displayBooks(books);
+//
+//            } catch (SQLException e) {
+//                throw new RuntimeException(e);
+//            }
+//        }
+ //   };
 
     public EventHandler<ActionEvent> endConnectHandler = new EventHandler<ActionEvent>() {
         @Override
