@@ -3,6 +3,7 @@ package dblab1.dblab1_jdbc.model;
 import dblab1.dblab1_jdbc.model.entityClasses.Book;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class getConnection {
@@ -63,6 +64,32 @@ public class getConnection {
             }
             System.out.println();
         }
+    }
+    public static List<Book> searchBookDB( String query) {
+        List<Book> result = new ArrayList<>();
+
+        Connection con = getConnection.getConnection();
+        try (Statement stmt = con.createStatement()) {
+            // Execute the SQL statement
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                int bookIdDB = rs.getInt("book_id");
+                String titleDB = rs.getString("title");
+                String authorDB = rs.getString("author");
+                String ISBNDB = rs.getString("ISBN");
+                int yearDB = rs.getInt("year");
+
+//                titleDB = titleDB.toLowerCase();
+//                if (titleDB.toLowerCase().contains(title)) {
+                Book book = new Book(bookIdDB, ISBNDB, titleDB, yearDB);
+                result.add(book);
+                System.out.println("Yes");
+                // } else System.out.println("No");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
     }
     public static Connection getConnection() {
         return con;

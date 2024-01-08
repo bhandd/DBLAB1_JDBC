@@ -34,41 +34,22 @@ public class Controller {
 
     protected void onSearchSelected(String searchFor, SearchMode mode) {
         try {
-            Connection con = getConnection.getConnection();
-            List<Book> books = new ArrayList<>();
             if (searchFor != null && searchFor.length() > 1) {
-                List<Book> result = null;
+                List<Book> result = new ArrayList<>();
                 switch (mode) {
                     case Title:
 
-                        try {
-                            getConnection.executeQuery(con, "SELECT * FROM T_book WHERE title='" + searchFor + "'", books);
-                            booksView.displayBooks(books);
+                        // result = booksDb.searchBooksByTitleDB(searchFor);
+                        result = getConnection.searchBookDB("SELECT * FROM T_book WHERE title LIKE'%" + searchFor + "%'");
 
-                        } catch (SQLException e) {
-                            throw new RuntimeException(e);
-                        }
-                        //result = booksDb.searchBooksByTitle(searchFor);
                         break;
                     case ISBN:
-                        try {
-                            getConnection.executeQuery(con, "SELECT * FROM T_book WHERE ISBN='" + searchFor + "'", books);
-                            booksView.displayBooks(books);
+                        result = getConnection.searchBookDB("SELECT * FROM T_book WHERE isbn LIKE'%" + searchFor + "%'");
 
-                        } catch (SQLException e) {
-                            throw new RuntimeException(e);
-                        }
-                        // ...
                         break;
                     case Author:
-                        try {
-                            getConnection.executeQuery(con, "SELECT * FROM T_book WHERE author='" + searchFor + "'", books);
-                            booksView.displayBooks(books);
+                        result = getConnection.searchBookDB("SELECT * FROM T_book WHERE author LIKE'%" + searchFor + "%'");
 
-                        } catch (SQLException e) {
-                            throw new RuntimeException(e);
-                        }
-                        // ...
                         break;
                     default:
                         result= new ArrayList<>();
