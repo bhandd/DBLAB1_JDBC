@@ -41,9 +41,8 @@ public class getConnection {
     //TODO: check if searchBookDb should change name to excecuteQuery.
     //
 
-    public static void executeQuery(/*java.sql.Connection con,*/ String query, List<Book> books) throws SQLException {
-        List<Book> result = new ArrayList<>();
-        Connection con = getConnection.getConnection();
+    public static void executeQuery(java.sql.Connection con, String query, List<Book> books) throws SQLException {
+
         try (Statement stmt = con.createStatement()) {
             // Execute the SQL statement
             ResultSet rs = stmt.executeQuery(query);
@@ -58,19 +57,21 @@ public class getConnection {
 
             // Get the attribute values
             while (rs.next()) {
-                int bookIdDB = rs.getInt("book_id");
-                String titleDB = rs.getString("title");
-                Author authorDB = new Author();
-                authorDB.setfName(rs.getString("author"));
-                String ISBNDB = rs.getString("ISBN");
-                int yearDB = rs.getInt("year");
+              //  int bookId = rs.getInt("book_id");
+                String ISBN = rs.getString("ISBN");
+                String title = rs.getString("title");
+                /*
+                Author author = new Author();
+                author.setfName(rs.getString("author"));
+                */
+//                int year = rs.getInt("year");
+//                int grade = rs.getInt("grade");
+//                int pages = rs.getInt("pages");
+               // String language = rs.getString("language");
+//                int genreId = rs.getInt("genre id");
 
-//                titleDB = titleDB.toLowerCase();
-//                if (titleDB.toLowerCase().contains(title)) {
-                Book book = new Book(bookIdDB, ISBNDB, titleDB, authorDB, yearDB);
-                result.add(book);
-                System.out.println("Yes");
-                // } else System.out.println("No");
+                Book book = new Book(/*bookId,*/ ISBN, title);
+                books.add(book);
             }
             System.out.println();
         }
@@ -86,17 +87,24 @@ public class getConnection {
             // Execute the SQL statement
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
-                int bookIdDB = rs.getInt("book_id");
-                String titleDB = rs.getString("title");
-                Author authorDB = new Author();
-                authorDB.setfName(rs.getString("author"));
-                String ISBNDB = rs.getString("ISBN");
+                //  int bookId = rs.getInt("book_id");
+                String ISBN = rs.getString("ISBN");
+                String title = rs.getString("title");
+                /*
+                Author author = new Author();
+                author.setfName(rs.getString("author"));
+                */
+//                int year = rs.getInt("year");
+//                int grade = rs.getInt("grade");
+//                int pages = rs.getInt("pages");
+                // String language = rs.getString("language");
+//                int genreId = rs.getInt("genre id");
                 int yearDB = rs.getInt("year");
+
 
 //                titleDB = titleDB.toLowerCase();
 //                if (titleDB.toLowerCase().contains(title)) {
-                Book book = new Book(bookIdDB, ISBNDB, titleDB, authorDB, yearDB);
-                result.add(book);
+                Book book = new Book(/*bookId,*/ ISBN, title); result.add(book);
                 System.out.println("Yes");
                 // } else System.out.println("No");
             }

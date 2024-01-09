@@ -3,9 +3,11 @@ package dblab1.dblab1_jdbc.view;
 import java.sql.Date;
 import java.util.List;
 
+import dblab1.dblab1_jdbc.model.entityClasses.Author;
 import dblab1.dblab1_jdbc.model.entityClasses.Book;
 import dblab1.dblab1_jdbc.model.BooksDb;
 import dblab1.dblab1_jdbc.model.SearchMode;
+import dblab1.dblab1_jdbc.model.entityClasses.Genre;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -100,22 +102,31 @@ public class BooksPaneView extends VBox {
         booksTable.setPlaceholder(new Label("No rows to display"));
 
         // define columns
-        TableColumn<Book, String> titleCol = new TableColumn<>("Title");
+      //  TableColumn<Book, String> idCol = new TableColumn<>("Book ID");
         TableColumn<Book, String> isbnCol = new TableColumn<>("ISBN");
-        TableColumn<Book, Date> publishedCol = new TableColumn<>("Published");
-        TableColumn<Book, Date> authorCol = new TableColumn<>("Author");
-        TableColumn<Book, Date> genreCol = new TableColumn<>("Genre");
-        booksTable.getColumns().addAll(titleCol, isbnCol, publishedCol, authorCol, genreCol);
+        TableColumn<Book, String> titleCol = new TableColumn<>("Title");
+      //  TableColumn<Book, Author> authorCol = new TableColumn<>("Author");
+       // TableColumn<Book, Date> publishedCol = new TableColumn<>("Published");
+     //   TableColumn<Book, String> gradeCol = new TableColumn<>("Grade");
+     //   TableColumn<Book, String> pagesCol = new TableColumn<>("Pages");
+       // TableColumn<Book, String> languageCol = new TableColumn<>("Language");
+       // TableColumn<Book, Genre> genreCol = new TableColumn<>("Genre");
+        //TODO: add idCol, authorCol and gradeCol,,publishedCol , languageCol, genreCol(pages col can probably be omitted
+        booksTable.getColumns().addAll(isbnCol, titleCol);
         // give title column some extra space
         titleCol.prefWidthProperty().bind(booksTable.widthProperty().multiply(0.5));
 
         // define how to fill data for each cell, 
         // get values from Book properties
-        titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
+       // idCol.setCellValueFactory(new PropertyValueFactory<>("Book ID"));
         isbnCol.setCellValueFactory(new PropertyValueFactory<>("isbn"));
-        publishedCol.setCellValueFactory(new PropertyValueFactory<>("published"));
-        authorCol.setCellValueFactory(new PropertyValueFactory<>("author"));
-        genreCol.setCellValueFactory(new PropertyValueFactory<>("genre"));
+        titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
+       // authorCol.setCellValueFactory(new PropertyValueFactory<>("author"));
+       // publishedCol.setCellValueFactory(new PropertyValueFactory<>("published"));
+      //  gradeCol.setCellValueFactory(new PropertyValueFactory<>("grade"));
+       // pagesCol.setCellValueFactory(new PropertyValueFactory<>("pages"));
+       // languageCol.setCellValueFactory(new PropertyValueFactory<>("language"));
+       // genreCol.setCellValueFactory(new PropertyValueFactory<>("genre"));
         // associate the table view with the data
         booksTable.setItems(booksInTable);
     }

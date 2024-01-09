@@ -9,13 +9,16 @@ import java.util.ArrayList;
  * @author anderslm@kth.se
  */
 public class Book {
-    
+    //TODO: check if all ints has to be converted to strings when displayed in
+    // the booksPaneView
     private int bookId;
     private String isbn; // should check format
     private String title;
     private Date published;
     private int year;
     private int grade;
+    private String pages;
+    private String language;
     private Genre genre;
 
     private String storyLine = "";
@@ -27,15 +30,17 @@ public class Book {
     //TODO: avkommentera arraylist med authors då detta krävs för att representera relationen mellan book och author
     // avkommentera också String author som parameter i konstruktiorn
     // när detta göra behöver man anpassa implementeringen i övriga programmet
-    public Book(int bookId, String isbn, String title, Author author, int year/*Date published*/ ) {
+    public Book(String isbn,String title/*, Author author, int year, Date published,*/  ) {
       //  this.authors = new ArrayList<>();
      //   this.authors.add(author)
-        this.bookId = bookId;
+     //   this.bookId = bookId;
         this.isbn = isbn;
         this.title = title;
+       // this.authors = new ArrayList<>();
+      //  this.authors.add(author);
         this.year = year;
-        this.authors = new ArrayList<>();
-        this.authors.add(author);
+        this.pages = null;
+        this.language = " ";
         this.grade = 0;
         this.genre = Genre.UNDEFINED;
 

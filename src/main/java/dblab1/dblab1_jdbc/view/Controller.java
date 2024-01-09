@@ -119,7 +119,7 @@ public class Controller {
             List<Book> books = new ArrayList<>();
             try {
                // getConnection.executeQuery(con, "SELECT * FROM T_book", books);
-                getConnection.executeQuery( "SELECT * FROM T_book", books);
+                getConnection.executeQuery(con, "SELECT * FROM T_book", books);
                 booksView.displayBooks(books);
 
             } catch (SQLException e) {
