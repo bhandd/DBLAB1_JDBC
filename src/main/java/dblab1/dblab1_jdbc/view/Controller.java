@@ -82,35 +82,6 @@ public class Controller {
         }
     };
 
-
-    public static void executeQuery(java.sql.Connection con, String query, List<Book> books) throws SQLException {
-
-        try (Statement stmt = con.createStatement()) {
-            // Execute the SQL statement
-            ResultSet rs = stmt.executeQuery(query);
-
-            // Get the attribute names
-            ResultSetMetaData metaData = rs.getMetaData();
-            int ccount = metaData.getColumnCount();
-            for (int c = 1; c <= ccount; c++) {
-                System.out.print(metaData.getColumnName(c) + "\t");
-            }
-            System.out.println();
-
-            // Get the attribute values
-            while (rs.next()) {
-                int bookId = rs.getInt("book_id");
-                String title = rs.getString("title");
-                String author = rs.getString("author");
-                String ISBN = rs.getString("ISBN");
-                int year = rs.getInt("year");
-
-                Book book = new Book(bookId, ISBN, title, year);
-                books.add(book);
-            }
-            System.out.println();
-        }
-    }
     public EventHandler<ActionEvent> addBooksDB = new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent actionEvent) {

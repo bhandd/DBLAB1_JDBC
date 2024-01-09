@@ -4,6 +4,7 @@ import dblab1.dblab1_jdbc.model.entityClasses.Book;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class getConnection {
@@ -11,8 +12,8 @@ public class getConnection {
     private static Connection con = null;
     public static boolean StartConnection() throws Exception {
 
-        String user = ("app_user");//args[0]; // user name
-        String pwd = ("spion");//args[1]; // password
+        String user = ("root");//args[0]; // user name
+        String pwd = ("1234");//args[1]; // password
         System.out.println(user + ", *********");
         String database = "Library"; // the name of the specific database
         String server
@@ -57,9 +58,9 @@ public class getConnection {
                 String title = rs.getString("title");
                 String author = rs.getString("author");
                 String ISBN = rs.getString("ISBN");
-                int year = rs.getInt("year");
+                Date year = rs.getDate("year");
 
-                Book book = new Book(bookId, ISBN, title, year);
+                Book book = new Book(bookId, ISBN, title, (java.sql.Date) year);
                 books.add(book);
             }
             System.out.println();
@@ -77,11 +78,11 @@ public class getConnection {
                 String titleDB = rs.getString("title");
                 String authorDB = rs.getString("author");
                 String ISBNDB = rs.getString("ISBN");
-                int yearDB = rs.getInt("year");
+                Date yearDB = rs.getDate("year");
 
 //                titleDB = titleDB.toLowerCase();
 //                if (titleDB.toLowerCase().contains(title)) {
-                Book book = new Book(bookIdDB, ISBNDB, titleDB, yearDB);
+                Book book = new Book(bookIdDB, ISBNDB, titleDB, (java.sql.Date) yearDB);
                 result.add(book);
                 System.out.println("Yes");
                 // } else System.out.println("No");

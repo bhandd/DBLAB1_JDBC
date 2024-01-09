@@ -11,6 +11,7 @@ import dblab1.dblab1_jdbc.model.exceptions.BooksDbException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -87,14 +88,14 @@ public class BooksDb implements BooksDbInterface {
     }
 
     private static final Book[] DATA = {
-            new Book(1, "123456789", "Databases Illuminated", 2018),//new Date(2018, 1, 1)),
-            new Book(2, "234567891", "Dark Databases", 1990), //new Date(1990, 1, 1)),
-            new Book(3, "456789012", "The buried giant", 2000), //new Date(2000, 1, 1)),
-            new Book(4, "567890123", "Never let me go", 2000), //new Date(2000, 1, 1)),
-            new Book(5, "678901234", "The remains of the day", 2000), //new Date(2000, 1, 1)),
-            new Book(6, "234567890", "Alias Grace", 2000), //new Date(2000, 1, 1)),
-            new Book(7, "345678911", "The handmaids tale", 2010), //new Date(2010, 1, 1)),
-            new Book(8, "345678901", "Shuggie Bain", 2020), //new Date(2020, 1, 1)),
-            new Book(9, "345678912", "Microserfs", 2000) //new Date(2000, 1, 1)),
+            new Book(1, "123456789", "Databases Illuminated", new java.sql.Date(new Date(2018 - 1900, 0, 1).getTime())),
+            new Book(2, "234567891", "Dark Databases", new java.sql.Date(new Date(1990 - 1900, 0, 1).getTime())),
+            new Book(3, "456789012", "The buried giant", new java.sql.Date(new Date(2000 - 1900, 0, 1).getTime())),
+            new Book(4, "567890123", "Never let me go", new java.sql.Date(new Date(2000 - 1900, 0, 1).getTime())),
+            new Book(5, "678901234", "The remains of the day", new java.sql.Date(new Date(2000 - 1900, 0, 1).getTime())),
+            new Book(6, "234567890", "Alias Grace", new java.sql.Date(new Date(2000 - 1900, 0, 1).getTime())),
+            new Book(7, "345678911", "The handmaid's tale", new java.sql.Date(new Date(2010 - 1900, 0, 1).getTime())),
+            new Book(8, "345678901", "Shuggie Bain", new java.sql.Date(new Date(2020 - 1900, 0, 1).getTime())),
+            new Book(9, "345678912", "Microserfs", new java.sql.Date(new Date(2000 - 1900, 0, 1).getTime()))
     };
 }
