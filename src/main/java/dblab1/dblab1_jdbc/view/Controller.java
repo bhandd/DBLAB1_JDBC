@@ -40,15 +40,15 @@ public class Controller {
                     case Title:
 
                         // result = booksDb.searchBooksByTitleDB(searchFor);
-                        result = getConnection.searchBookDB("SELECT * FROM T_book WHERE title LIKE'%" + searchFor + "%'");
+                        result = BooksDb.searchBookDB("SELECT * FROM T_book WHERE title LIKE'%" + searchFor + "%'");
 
                         break;
                     case ISBN:
-                        result = getConnection.searchBookDB("SELECT * FROM T_book WHERE isbn LIKE'%" + searchFor + "%'");
+                        result = BooksDb.searchBookDB("SELECT * FROM T_book WHERE isbn LIKE'%" + searchFor + "%'");
 
                         break;
                     case Author:
-                        result = getConnection.searchBookDB("SELECT * FROM T_book WHERE author LIKE'%" + searchFor + "%'");
+                        result = BooksDb.searchBookDB("SELECT * FROM T_book WHERE author LIKE'%" + searchFor + "%'");
 
                         break;
                     default:
@@ -112,14 +112,20 @@ public class Controller {
 //            System.out.println();
 //        }
 //    }
+
     public EventHandler<ActionEvent> addBooksDB = new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent actionEvent) {
+            //TODO:try to make methods to retrieve the connection and the books
+
             Connection con = getConnection.getConnection();
             List<Book> books = new ArrayList<>();
+
             try {
-               // getConnection.executeQuery(con, "SELECT * FROM T_book", books);
-                getConnection.executeQuery(con, "SELECT * FROM T_book", books);
+              //  getConnection.executeQuery(con, "SELECT * FROM T_book", books);
+                BooksDb.executeQuery(con, "SELECT * FROM T_book", books);
+               // getConnection.searchBookDB("SELECT * FROM T_book"); //TODO: investigate if this is possible in some way
+
                 booksView.displayBooks(books);
 
             } catch (SQLException e) {

@@ -27,6 +27,7 @@ public interface BooksDbInterface {
      * @return true on successful connection.
      */
     public boolean connect() throws Exception;
+
     
     public void disconnect() throws BooksDbException, SQLException;
     

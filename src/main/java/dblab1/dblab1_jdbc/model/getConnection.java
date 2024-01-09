@@ -7,7 +7,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-//TODO: should probably move the whole class to BooksDb
+//TODO: should this be accessed trough the BooksDbInterface?
 public class getConnection {
 
     private static Connection con = null;
@@ -38,81 +38,81 @@ public class getConnection {
         System.out.println("Connection closed.");
     }
 
-    //TODO: check if searchBookDb should change name to excecuteQuery.
+    //TODO: Remove later
     //
 
-    public static void executeQuery(java.sql.Connection con, String query, List<Book> books) throws SQLException {
+//    public static void executeQuery(java.sql.Connection con, String query, List<Book> books) throws SQLException {
+//
+//        try (Statement stmt = con.createStatement()) {
+//            // Execute the SQL statement
+//            ResultSet rs = stmt.executeQuery(query);
+//
+//            // Get the attribute names
+//            ResultSetMetaData metaData = rs.getMetaData();
+//            int ccount = metaData.getColumnCount();
+//            for (int c = 1; c <= ccount; c++) {
+//                System.out.print(metaData.getColumnName(c) + "\t");
+//            }
+//            System.out.println();
+//
+//            // Get the attribute values
+//            while (rs.next()) {
+//              //  int bookId = rs.getInt("book_id");
+//                String ISBN = rs.getString("ISBN");
+//                String title = rs.getString("title");
+//                /*
+//                Author author = new Author();
+//                author.setfName(rs.getString("author"));
+//                */
+////                int year = rs.getInt("year");
+////                int grade = rs.getInt("grade");
+////                int pages = rs.getInt("pages");
+//               // String language = rs.getString("language");
+////                int genreId = rs.getInt("genre id");
+//
+//                Book book = new Book(/*bookId,*/ ISBN, title);
+//                books.add(book);
+//            }
+//            System.out.println();
+//        }
+//    }
 
-        try (Statement stmt = con.createStatement()) {
-            // Execute the SQL statement
-            ResultSet rs = stmt.executeQuery(query);
+    //TODO: Remove later
 
-            // Get the attribute names
-            ResultSetMetaData metaData = rs.getMetaData();
-            int ccount = metaData.getColumnCount();
-            for (int c = 1; c <= ccount; c++) {
-                System.out.print(metaData.getColumnName(c) + "\t");
-            }
-            System.out.println();
-
-            // Get the attribute values
-            while (rs.next()) {
-              //  int bookId = rs.getInt("book_id");
-                String ISBN = rs.getString("ISBN");
-                String title = rs.getString("title");
-                /*
-                Author author = new Author();
-                author.setfName(rs.getString("author"));
-                */
-//                int year = rs.getInt("year");
-//                int grade = rs.getInt("grade");
-//                int pages = rs.getInt("pages");
-               // String language = rs.getString("language");
-//                int genreId = rs.getInt("genre id");
-
-                Book book = new Book(/*bookId,*/ ISBN, title);
-                books.add(book);
-            }
-            System.out.println();
-        }
-    }
-
-    //TODO: Check if searchBookDb should be executeQuery
-
-    public static List<Book> searchBookDB( String query) {
-        List<Book> result = new ArrayList<>();
-
-        Connection con = getConnection.getConnection();
-        try (Statement stmt = con.createStatement()) {
-            // Execute the SQL statement
-            ResultSet rs = stmt.executeQuery(query);
-            while (rs.next()) {
-                //  int bookId = rs.getInt("book_id");
-                String ISBN = rs.getString("ISBN");
-                String title = rs.getString("title");
-                /*
-                Author author = new Author();
-                author.setfName(rs.getString("author"));
-                */
-//                int year = rs.getInt("year");
-//                int grade = rs.getInt("grade");
-//                int pages = rs.getInt("pages");
-                // String language = rs.getString("language");
-//                int genreId = rs.getInt("genre id");
-                int yearDB = rs.getInt("year");
-
-
-//                titleDB = titleDB.toLowerCase();
-//                if (titleDB.toLowerCase().contains(title)) {
-                Book book = new Book(/*bookId,*/ ISBN, title); result.add(book);
-                System.out.println("Yes");
-                // } else System.out.println("No");
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return result;
-    }
+//    public static List<Book> searchBookDB( String query) {
+//        List<Book> result = new ArrayList<>();
+//
+//        Connection con = getConnection.getConnection();
+//        try (Statement stmt = con.createStatement()) {
+//            // Execute the SQL statement
+//            ResultSet rs = stmt.executeQuery(query);
+//            while (rs.next()) {
+//                //  int bookId = rs.getInt("book_id");
+//                String ISBN = rs.getString("ISBN");
+//                String title = rs.getString("title");
+//                /*
+//                Author author = new Author();
+//                author.setfName(rs.getString("author"));
+//                */
+////                int year = rs.getInt("year");
+////                int grade = rs.getInt("grade");
+////                int pages = rs.getInt("pages");
+//                // String language = rs.getString("language");
+////                int genreId = rs.getInt("genre id");
+//                int yearDB = rs.getInt("year");
+//
+//
+////                titleDB = titleDB.toLowerCase();
+////                if (titleDB.toLowerCase().contains(title)) {
+//                Book book = new Book(/*bookId,*/ ISBN, title); result.add(book);
+//                System.out.println("Yes");
+//                // } else System.out.println("No");
+//            }
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
+//        return result;
+//    }
 
 
     //TODO: Temporary copy of searchBookDb, delete if not needed

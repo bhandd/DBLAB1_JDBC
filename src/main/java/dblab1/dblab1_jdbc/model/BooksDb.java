@@ -8,7 +8,7 @@ package dblab1.dblab1_jdbc.model;
 import dblab1.dblab1_jdbc.model.entityClasses.Book;
 import dblab1.dblab1_jdbc.model.exceptions.BooksDbException;
 
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -68,6 +68,77 @@ public class BooksDb implements BooksDbInterface {
 //      //  result.add(books);
 //        return result;
 //    }
+
+    public static void executeQuery(java.sql.Connection con, String query, List<Book> books) throws SQLException {
+
+        try (Statement stmt = con.createStatement()) {
+            // Execute the SQL statement
+            ResultSet rs = stmt.executeQuery(query);
+
+            // Get the attribute names
+            ResultSetMetaData metaData = rs.getMetaData();
+            int ccount = metaData.getColumnCount();
+            for (int c = 1; c <= ccount; c++) {
+                System.out.print(metaData.getColumnName(c) + "\t");
+            }
+            System.out.println();
+
+            // Get the attribute values
+            while (rs.next()) {
+                //  int bookId = rs.getInt("book_id");
+                String ISBN = rs.getString("ISBN");
+                String title = rs.getString("title");
+                /*
+                Author author = new Author();
+                author.setfName(rs.getString("author"));
+                */
+//                int year = rs.getInt("year");
+//                int grade = rs.getInt("grade");
+//                int pages = rs.getInt("pages");
+                // String language = rs.getString("language");
+//                int genreId = rs.getInt("genre id");
+
+                Book book = new Book(/*bookId,*/ ISBN, title);
+                books.add(book);
+            }
+            System.out.println();
+        }
+    }
+
+    public static List<Book> searchBookDB( String query) {
+        List<Book> result = new ArrayList<>();
+
+        Connection con = getConnection.getConnection();
+        try (Statement stmt = con.createStatement()) {
+            // Execute the SQL statement
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                //  int bookId = rs.getInt("book_id");
+                String ISBN = rs.getString("ISBN");
+                String title = rs.getString("title");
+                /*
+                Author author = new Author();
+                author.setfName(rs.getString("author"));
+                */
+//                int year = rs.getInt("year");
+//                int grade = rs.getInt("grade");
+//                int pages = rs.getInt("pages");
+                // String language = rs.getString("language");
+//                int genreId = rs.getInt("genre id");
+                int yearDB = rs.getInt("year");
+
+
+//                titleDB = titleDB.toLowerCase();
+//                if (titleDB.toLowerCase().contains(title)) {
+                Book book = new Book(/*bookId,*/ ISBN, title); result.add(book);
+                System.out.println("Yes");
+                // } else System.out.println("No");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
 
 
     //TODO: kolla om vi ska ha en lista av böcker eller ett bokobjekt i taget
