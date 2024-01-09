@@ -1,7 +1,7 @@
 package dblab1.dblab1_jdbc.model.entityClasses;
 
-import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Representation of a book.
@@ -14,12 +14,13 @@ public class Book {
     private int bookId;
     private String isbn; // should check format
     private String title;
-    private Date published;
+    private java.util.Date published;
     private int year;
     private int grade;
-    private String pages;
-    private String language;
+    private int pages;
+    private String language =" ";
     private Genre genre;
+    private int genre_id;
 
     private String storyLine = "";
     private ArrayList<Author> authors;
@@ -30,19 +31,21 @@ public class Book {
     //TODO: avkommentera arraylist med authors då detta krävs för att representera relationen mellan book och author
     // avkommentera också String author som parameter i konstruktiorn
     // när detta göra behöver man anpassa implementeringen i övriga programmet
-    public Book(String isbn,String title/*, Author author, int year, Date published,*/  ) {
-      //  this.authors = new ArrayList<>();
+    public Book(int bookId, String isbn, String title/*, Author author,*/ , java.util.Date published, int genre_id, int grade   ) {
+        this.bookId = bookId;
+        //  this.authors = new ArrayList<>();
      //   this.authors.add(author)
-     //   this.bookId = bookId;
+
         this.isbn = isbn;
         this.title = title;
        // this.authors = new ArrayList<>();
       //  this.authors.add(author);
-        this.year = year;
-        this.pages = null;
-        this.language = " ";
-        this.grade = 0;
-        this.genre = Genre.UNDEFINED;
+        this.published = published;
+     //   this.pages = pages;
+     //   this.language = language;
+          this.genre_id = genre_id;
+        this.grade = grade;
+
 
 
     }
@@ -69,6 +72,6 @@ public class Book {
     
     @Override
     public String toString() {
-        return title + ", " + isbn + ", " + year/*published.toString()*/;
+        return bookId +", " + title + ", " + isbn + ", " /* year/*published.toString()*/;
     }
 }

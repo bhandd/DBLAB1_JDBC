@@ -102,31 +102,33 @@ public class BooksPaneView extends VBox {
         booksTable.setPlaceholder(new Label("No rows to display"));
 
         // define columns
-      //  TableColumn<Book, String> idCol = new TableColumn<>("Book ID");
+        TableColumn<Book, Integer> idCol = new TableColumn<>("Book ID");
         TableColumn<Book, String> isbnCol = new TableColumn<>("ISBN");
         TableColumn<Book, String> titleCol = new TableColumn<>("Title");
       //  TableColumn<Book, Author> authorCol = new TableColumn<>("Author");
-       // TableColumn<Book, Date> publishedCol = new TableColumn<>("Published");
-     //   TableColumn<Book, String> gradeCol = new TableColumn<>("Grade");
-     //   TableColumn<Book, String> pagesCol = new TableColumn<>("Pages");
-       // TableColumn<Book, String> languageCol = new TableColumn<>("Language");
-       // TableColumn<Book, Genre> genreCol = new TableColumn<>("Genre");
+        TableColumn<Book, Date> publishedCol = new TableColumn<>("Published");
+        TableColumn<Book, Integer> genreCol = new TableColumn<>("Genre");
+       TableColumn<Book, Integer> gradeCol = new TableColumn<>("Grade");
+    //  TableColumn<Book, Integer> pagesCol = new TableColumn<>("Pages");
+      //  TableColumn<Book, String> languageCol = new TableColumn<>("Language");
+
         //TODO: add idCol, authorCol and gradeCol,,publishedCol , languageCol, genreCol(pages col can probably be omitted
-        booksTable.getColumns().addAll(isbnCol, titleCol);
+        booksTable.getColumns().addAll(idCol, isbnCol, titleCol, publishedCol, genreCol, gradeCol );
         // give title column some extra space
         titleCol.prefWidthProperty().bind(booksTable.widthProperty().multiply(0.5));
 
         // define how to fill data for each cell, 
         // get values from Book properties
-       // idCol.setCellValueFactory(new PropertyValueFactory<>("Book ID"));
+        idCol.setCellValueFactory(new PropertyValueFactory<>("bookId"));
         isbnCol.setCellValueFactory(new PropertyValueFactory<>("isbn"));
         titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
-       // authorCol.setCellValueFactory(new PropertyValueFactory<>("author"));
-       // publishedCol.setCellValueFactory(new PropertyValueFactory<>("published"));
-      //  gradeCol.setCellValueFactory(new PropertyValueFactory<>("grade"));
-       // pagesCol.setCellValueFactory(new PropertyValueFactory<>("pages"));
+        //authorCol.setCellValueFactory(new PropertyValueFactory<>("author"));
+        publishedCol.setCellValueFactory(new PropertyValueFactory<>("published"));
+        genreCol.setCellValueFactory(new PropertyValueFactory<>("genre_id"));
+
+     //   pagesCol.setCellValueFactory(new PropertyValueFactory<>("pages"));
        // languageCol.setCellValueFactory(new PropertyValueFactory<>("language"));
-       // genreCol.setCellValueFactory(new PropertyValueFactory<>("genre"));
+      //  gradeCol.setCellValueFactory(new PropertyValueFactory<>("grade"));
         // associate the table view with the data
         booksTable.setItems(booksInTable);
     }
