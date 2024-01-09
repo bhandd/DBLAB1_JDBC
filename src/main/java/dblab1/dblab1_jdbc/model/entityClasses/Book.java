@@ -65,7 +65,15 @@ public class Book {
     public String getTitle() { return title; }
     public Date getPublished() { return published; }
     public String getStoryLine() { return storyLine; }
-    
+
+    public int getGenre_id() {
+        return genre_id;
+    }
+
+    public int getGrade() {
+        return grade;
+    }
+
     public void setStoryLine(String storyLine) {
         this.storyLine = storyLine;
     }

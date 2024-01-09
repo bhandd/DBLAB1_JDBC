@@ -13,8 +13,8 @@ public class getConnection {
     private static Connection con = null;
     public static boolean StartConnection() throws Exception {
 
-        String user = ("app_user");//args[0]; // user name
-        String pwd = ("spion");//args[1]; // password
+        String user = ("root");//args[0]; // user name
+        String pwd = ("1234");//args[1]; // password
         System.out.println(user + ", *********");
         String database = "Library"; // the name of the specific database
         String server

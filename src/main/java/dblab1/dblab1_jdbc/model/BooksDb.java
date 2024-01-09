@@ -94,7 +94,7 @@ public class BooksDb implements BooksDbInterface {
                 author.setfName(rs.getString("author"));
                 */
                 //String author = rs.getString("author");
-                Date published = rs.getDate("year");
+                Date published = rs.getDate("published");
             //   int pages = rs.getInt("pages");
              //  String language = rs.getString("language");
                 int genre_id = rs.getInt("genre_id");
