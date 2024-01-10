@@ -86,20 +86,22 @@ public class BooksDb implements BooksDbInterface {
 
             // Get the attribute values
             while (rs.next()) {
-                  int bookId = rs.getInt("book_id");
+
+                int bookId = rs.getInt("book_id");
                 String ISBN = rs.getString("ISBN");
                 String title = rs.getString("title");
-                /*
+/*
                 Author author = new Author();
                 author.setfName(rs.getString("author"));
-                */
+*/
+                String author = rs.getString("Author");
                 //String author = rs.getString("author");
-                Date published = rs.getDate("published");
-            //   int pages = rs.getInt("pages");
-             //  String language = rs.getString("language");
+                Date published = rs.getDate("year");
+                //   int pages = rs.getInt("pages");
+                //  String language = rs.getString("language");
                 int genre_id = rs.getInt("genre_id");
                 int grade = rs.getInt("grade");
-                Book book = new Book(bookId, ISBN, title, published, genre_id, grade);
+                Book book = new Book(bookId, ISBN, title,author, published, genre_id, grade);
                 System.out.println(book.toString());
                 books.add(book);
 
@@ -116,28 +118,23 @@ public class BooksDb implements BooksDbInterface {
             // Execute the SQL statement
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
+
                 int bookId = rs.getInt("book_id");
                 String ISBN = rs.getString("ISBN");
                 String title = rs.getString("title");
-                /*
+/*
                 Author author = new Author();
                 author.setfName(rs.getString("author"));
-                */
+*/
+                String author = rs.getString("Author");
                 //String author = rs.getString("author");
                 Date published = rs.getDate("year");
+                //   int pages = rs.getInt("pages");
+                //  String language = rs.getString("language");
                 int genre_id = rs.getInt("genre_id");
                 int grade = rs.getInt("grade");
-           //     int pages = rs.getInt("pages");
-             //   String language = rs.getString("language");
-
-
-//                titleDB = titleDB.toLowerCase();
-//                if (titleDB.toLowerCase().contains(title)) {
-
-
-
-
-                Book book = new Book(bookId, ISBN, title, published, genre_id, grade);
+                Book book = new Book(bookId, ISBN, title,author, published, genre_id, grade);
+                System.out.println(book.toString());
                 result.add(book);
                 System.out.println(book.toString());
                 System.out.println("Yes");
