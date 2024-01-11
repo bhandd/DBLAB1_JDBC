@@ -162,7 +162,7 @@ public class BooksPaneView extends VBox {
         connectItem.addEventHandler(ActionEvent.ACTION, controller.connectHandler);
         MenuItem disconnectItem = new MenuItem("Disconnect");
         disconnectItem.addEventHandler(ActionEvent.ACTION, controller.endConnectHandler);
-        MenuItem addBoks = new MenuItem("Add books");
+        MenuItem addBoks = new MenuItem("Get books");
         addBoks.addEventHandler(ActionEvent.ACTION, controller.addBooksDB);
         fileMenu.getItems().addAll(exitItem, connectItem, disconnectItem, addBoks);
 
@@ -176,8 +176,8 @@ public class BooksPaneView extends VBox {
         MenuItem addItem = new MenuItem("Add");
         MenuItem removeItem = new MenuItem("Remove");
         MenuItem updateItem = new MenuItem("Update");
+        updateItem.addEventHandler(ActionEvent.ACTION, controller.updateBookDB);
         manageMenu.getItems().addAll(addItem, removeItem, updateItem);
-
         menuBar = new MenuBar();
         menuBar.getMenus().addAll(fileMenu, searchMenu, manageMenu);
     }

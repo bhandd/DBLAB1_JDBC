@@ -44,6 +44,16 @@ public class BooksDb implements BooksDbInterface {
         }
     }
 
+    public static Connection shareConnection() {
+        try{
+            return getConnection.getConnection();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+
     @Override
     public void disconnect() throws BooksDbException, SQLException {
         getConnection.EndConnection();
@@ -70,8 +80,11 @@ public class BooksDb implements BooksDbInterface {
 //        return result;
 //    }
 
-    public static void executeQuery(java.sql.Connection con, String query, List<Book> books) throws SQLException {
+    //TODO: Connection probably not needed as a parameter. Should be able to implement the search method here.
 
+    public static void executeQuery(/*java.sql.Connection con,*/ String query, List<Book> books) throws SQLException {
+
+        Connection con = getConnection.getConnection();
         try (Statement stmt = con.createStatement()) {
             // Execute the SQL statement
             ResultSet rs = stmt.executeQuery(query);
@@ -146,6 +159,72 @@ public class BooksDb implements BooksDbInterface {
         return result;
     }
 
+    //TODO: antingen skriver man grade istället för column eller så skriver man
+    // om metoden så man kan användan den för att komma åt valfri kolumn
+    public static void setGrade(String gradeValue, String title){
+        //TODO:try to make methods to retrieve the connection and the books
+
+       // Connection con = getConnection.getConnection();
+        List<Book> books = new ArrayList<>();
+
+        try(Connection con = getConnection.getConnection()) {
+            //  getConnection.executeQuery(con, "SELECT * FROM T_book", books);
+          executeStatement("UPDATE T_book SET Grade= "+ gradeValue + "WHERE title = " + "'"+title+"'");
+            // getConnection.searchBookDB("SELECT * FROM T_book"); //TODO: investigate if this is possible in some way
+
+        } catch (SQLException e) {
+            System.out.println("something went wrong");
+            throw new RuntimeException(e);
+        }
+
+    }
+
+
+    public static void executeStatement(String statement) throws SQLException {
+            Connection con = getConnection.getConnection();
+
+
+
+        try (Statement stmt = con.createStatement()) {
+            // Execute the SQL statement
+            int n = stmt.executeUpdate(statement);
+
+         //   ResultSet rs = stmt.executeQuery(statement);
+
+            // Get the attribute names
+//            ResultSetMetaData metaData = rs.getMetaData();
+//            int ccount = metaData.getColumnCount();
+//            for (int c = 1; c <= ccount; c++) {
+//                System.out.print(metaData.getColumnName(c) + "\t");
+//            }
+//            System.out.println();
+////TODO: move the while loop in executeQuery, searchBookDB and this one to it´s own method
+//            // Get the attribute values
+//            while (rs.next()) {
+//
+//                int bookId = rs.getInt("book_id");
+//                String ISBN = rs.getString("ISBN");
+//                String title = rs.getString("title");
+///*
+//                Author author = new Author();
+//                author.setfName(rs.getString("author"));
+//*/
+//                String author = rs.getString("Author");
+//                //String author = rs.getString("author");
+//                Date published = rs.getDate("year");
+//                //   int pages = rs.getInt("pages");
+//                //  String language = rs.getString("language");
+//                int genre_id = rs.getInt("genre_id");
+//                int grade = rs.getInt("grade");
+//                Book book = new Book(bookId, ISBN, title,author, published, genre_id, grade);
+//                System.out.println(book.toString());
+              //  books.add(book);
+
+          //  }
+            System.out.println("");
+        }
+    }
+
 
     //TODO: kolla om vi ska ha en lista av böcker eller ett bokobjekt i taget
     public List<Book> searchBooks(String title, String isbn, String author, int rating, String genre){
@@ -177,4 +256,29 @@ public class BooksDb implements BooksDbInterface {
 //            new Book(8, "345678901", "Shuggie Bain", 2020), //new Date(2020, 1, 1)),
 //            new Book(9, "345678912", "Microserfs", 2000) //new Date(2000, 1, 1)),
 //    };
+
+
+
+    public static void updateGrade(int grade, String title) {
+        var sql = "UPDATE T_book "
+                + "SET grade = ? "
+                + "WHERE title = ?";
+
+        try (var conn = getConnection.getConnection();
+             var stmt = conn.prepareStatement(sql)) {
+
+            // prepare data for update
+//            stmt.setString(1, title);
+//            stmt.setInt(2, grade);
+            stmt.setString(2, title);
+            stmt.setInt(1, grade);
+
+            // execute the update
+            int rowAffected = stmt.executeUpdate();
+            System.out.println("Row affected " + rowAffected);
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+    }
+
 }

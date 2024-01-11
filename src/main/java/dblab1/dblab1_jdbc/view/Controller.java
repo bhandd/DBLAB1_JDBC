@@ -52,7 +52,7 @@ public class Controller {
 
                         break;
                     default:
-                        result= new ArrayList<>();
+                        result = new ArrayList<>();
                 }
                 if (result == null || result.isEmpty()) {
                     booksView.showAlertAndWait(
@@ -65,7 +65,7 @@ public class Controller {
                         "Enter a search string!", WARNING);
             }
         } catch (Exception e) {
-            booksView.showAlertAndWait("Database error.",ERROR);
+            booksView.showAlertAndWait("Database error.", ERROR);
         }
     }
 
@@ -118,13 +118,13 @@ public class Controller {
         public void handle(ActionEvent actionEvent) {
             //TODO:try to make methods to retrieve the connection and the books
 
-            Connection con = getConnection.getConnection();
+           // Connection con = getConnection.getConnection();
             List<Book> books = new ArrayList<>();
 
-            try {
-              //  getConnection.executeQuery(con, "SELECT * FROM T_book", books);
-                BooksDb.executeQuery(con, "SELECT * FROM T_book", books);
-               // getConnection.searchBookDB("SELECT * FROM T_book"); //TODO: investigate if this is possible in some way
+            try(Connection con = BooksDb.shareConnection()) {
+                //  getConnection.executeQuery(con, "SELECT * FROM T_book", books);
+                BooksDb.executeQuery(/*con,*/ "SELECT * FROM T_book", books);
+                // getConnection.searchBookDB("SELECT * FROM T_book"); //TODO: investigate if this is possible in some way
 
                 booksView.displayBooks(books);
 
@@ -134,7 +134,21 @@ public class Controller {
         }
     };
 
-    //TODO. Can be deleted
+    public EventHandler<ActionEvent> updateBookDB = new EventHandler<ActionEvent>() {
+       // String gradeValue = "2";
+        int gradeValue = 2;
+        String title = "mattebok";
+
+        @Override
+        public void handle(ActionEvent actionEvent) {
+        //    BooksDb.setGrade(gradeValue, title);
+            BooksDb.updateGrade(gradeValue, title);
+            //  booksView.displayBooks(books);
+        }
+
+    };
+
+        //TODO. Can be deleted
 //    public EventHandler<ActionEvent> searchDB = new EventHandler<ActionEvent>() {
 //        @Override
 //        public void handle(ActionEvent actionEvent) {
@@ -149,19 +163,20 @@ public class Controller {
 //                throw new RuntimeException(e);
 //            }
 //        }
- //   };
+        //   };
 
-    public EventHandler<ActionEvent> endConnectHandler = new EventHandler<ActionEvent>() {
-        @Override
-        public void handle(ActionEvent actionEvent) {
-            BooksDbInterface booksDbInterface = new BooksDb();
-            try {
-                booksDbInterface.disconnect();
-            } catch (SQLException | BooksDbException e) {
-                throw new RuntimeException(e);
+        public EventHandler<ActionEvent> endConnectHandler = new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                BooksDbInterface booksDbInterface = new BooksDb();
+                try {
+                    booksDbInterface.disconnect();
+                } catch (SQLException | BooksDbException e) {
+                    throw new RuntimeException(e);
+                }
             }
-        }
-    };
-    // TODO:
-    // Add methods for all types of user interaction (e.g. via  menus).
-}
+        };
+        // TODO:
+        // Add methods for all types of user interaction (e.g. via  menus).
+    }
+
