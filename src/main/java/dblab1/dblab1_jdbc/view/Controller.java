@@ -48,15 +48,15 @@ public class Controller {
                     case Title:
 
                         // result = booksDb.searchBooksByTitleDB(searchFor);
-                        result = BooksDb.searchBookDB("SELECT * FROM T_book WHERE title LIKE'%" + searchFor + "%'");
+                        result = BooksDb.searchDBBook("SELECT * FROM T_book WHERE title LIKE'%" + searchFor + "%'");
 
                         break;
                     case ISBN:
-                        result = BooksDb.searchBookDB("SELECT * FROM T_book WHERE isbn LIKE'%" + searchFor + "%'");
+                        result = BooksDb.searchDBBook("SELECT * FROM T_book WHERE isbn LIKE'%" + searchFor + "%'");
 
                         break;
                     case Author:
-                        result = BooksDb.searchBookDB("SELECT * FROM T_book WHERE author LIKE'%" + searchFor + "%'");
+                        result = BooksDb.searchDBBook("SELECT * FROM T_book WHERE author LIKE'%" + searchFor + "%'");
 
                         break;
                     default:
