@@ -109,7 +109,7 @@ public class BooksDb implements BooksDbInterface {
 */
                 String author = rs.getString("Author");
                 //String author = rs.getString("author");
-                Date published = rs.getDate("year");
+                Date published = rs.getDate("published");
                 //   int pages = rs.getInt("pages");
                 //  String language = rs.getString("language");
                 int genre_id = rs.getInt("genre_id");
@@ -141,7 +141,7 @@ public class BooksDb implements BooksDbInterface {
 */
                 String author = rs.getString("Author");
                 //String author = rs.getString("author");
-                Date published = rs.getDate("year");
+                Date published = rs.getDate("published");
                 //   int pages = rs.getInt("pages");
                 //  String language = rs.getString("language");
                 int genre_id = rs.getInt("genre_id");

@@ -9,10 +9,18 @@ import dblab1.dblab1_jdbc.model.entityClasses.Book;
 import dblab1.dblab1_jdbc.model.exceptions.BooksDbException;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
+import javafx.scene.layout.GridPane;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static javafx.scene.control.Alert.AlertType.*;
 
@@ -24,8 +32,8 @@ import static javafx.scene.control.Alert.AlertType.*;
  */
 public class Controller {
 
-    private final BooksPaneView booksView; // view
-    private final BooksDbInterface booksDb; // model
+    private BooksPaneView booksView; // view
+    private BooksDbInterface booksDb; // model
 
     public Controller(BooksDbInterface booksDb, BooksPaneView booksView) {
         this.booksDb = booksDb;
@@ -40,15 +48,15 @@ public class Controller {
                     case Title:
 
                         // result = booksDb.searchBooksByTitleDB(searchFor);
-                        result = BooksDb.searchDBBook("SELECT * FROM T_book WHERE title LIKE'%" + searchFor + "%'");
+                        result = BooksDb.searchBookDB("SELECT * FROM T_book WHERE title LIKE'%" + searchFor + "%'");
 
                         break;
                     case ISBN:
-                        result = BooksDb.searchDBBook("SELECT * FROM T_book WHERE isbn LIKE'%" + searchFor + "%'");
+                        result = BooksDb.searchBookDB("SELECT * FROM T_book WHERE isbn LIKE'%" + searchFor + "%'");
 
                         break;
                     case Author:
-                        result = BooksDb.searchDBBook("SELECT * FROM T_book WHERE author LIKE'%" + searchFor + "%'");
+                        result = BooksDb.searchBookDB("SELECT * FROM T_book WHERE author LIKE'%" + searchFor + "%'");
 
                         break;
                     default:
@@ -155,18 +163,91 @@ public class Controller {
         }
     };
 
-    public EventHandler<ActionEvent> updateBookDB = new EventHandler<ActionEvent>() {
+    //Todo. Can be deleted
+    /*public EventHandler<ActionEvent> updateBookDB1test = new EventHandler<ActionEvent>() {
        // String gradeValue = "2";
-        int gradeValue = 2;
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        String gradeValue = null;
         String title = "mattebok";
 
         @Override
         public void handle(ActionEvent actionEvent) {
         //    BooksDb.setGrade(gradeValue, title);
-            BooksDb.updateGrade(gradeValue, title);
-            //  booksView.displayBooks(books);
+            TextInputDialog dialog = new TextInputDialog();
+            dialog.setTitle("Two Input Alert");
+            dialog.setHeaderText("Enter your details:");
+
+            // Set up the first input field
+            dialog.getDialogPane().setContentText("Title:");
+            dialog.getEditor().setPromptText("Enter the name of book");
+
+            // Add a second input field
+            TextInputDialog anotherDialog = new TextInputDialog();
+            anotherDialog.setTitle("Two Input Alert");
+            anotherDialog.setHeaderText("Enter your details:");
+            anotherDialog.getDialogPane().setContentText("Grade:");
+            anotherDialog.getEditor().setPromptText("Enter new grade");
+            Optional<String> resultName = dialog.showAndWait();
+            if (resultName.isPresent()) {
+                // If the first input is provided, show the second dialog
+                Optional<String> resultAge = anotherDialog.showAndWait();
+
+                // Check if the second input is provided
+                if (resultAge.isPresent()) {
+                    // Process the user's inputs
+                    String title = resultName.get();
+                    gradeValue = resultAge.get();
+                    BooksDb.updateGrade(Integer.parseInt(gradeValue), String.valueOf(title));
+                    // Display the results or perform further actions
+                } else {
+                    // User canceled the second input
+                    System.out.println("Operation canceled by the user.");
+                }
+            } else {
+                // User canceled the first input
+                System.out.println("Operation canceled by the user.");
+            }
+
         }
 
+            //  booksView.displayBooks(books);
+
+    };*/
+
+    public EventHandler<ActionEvent> updateBookDB = new EventHandler<ActionEvent>() {
+        // String gradeValue = "2";
+        Alert alert = new Alert(null);
+        String gradeValue = null;
+        String title = "mattebok";
+
+        private TextField titleField = new TextField();
+        private TextField gradeField = new TextField();
+
+        @Override
+        public void handle(ActionEvent actionEvent) {
+            alert.setTitle("Set new grade");
+            alert.setResizable(false);
+
+            GridPane grid = new GridPane();
+            grid.setAlignment(Pos.CENTER);
+            grid.setHgap(5);
+            grid.setVgap(5);
+            grid.setPadding(new Insets(10, 10, 10, 10));
+            grid.add(new Label("Title for book "), 1, 1);
+            grid.add(titleField, 2, 1);
+            grid.add(new Label("New grade "), 1, 2);
+            grid.add(gradeField, 2, 2);
+
+            alert.getDialogPane().setContent(grid);
+            alert.showAndWait();
+            title = titleField.getText();
+            gradeValue = gradeField.getText();
+
+            BooksDb.updateGrade(Integer.parseInt(gradeValue), String.valueOf(title));
+
+            titleField.setText("");
+            gradeField.setText("");
+        }
     };
 
         //TODO. Can be deleted
