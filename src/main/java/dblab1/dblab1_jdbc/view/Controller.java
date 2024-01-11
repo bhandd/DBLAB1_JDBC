@@ -216,7 +216,7 @@ public class Controller {
 
     public EventHandler<ActionEvent> updateBookDB = new EventHandler<ActionEvent>() {
         // String gradeValue = "2";
-        Alert alert = new Alert(null);
+        Alert alert = new Alert(CONFIRMATION);
         String gradeValue = null;
         String title = "mattebok";
 
