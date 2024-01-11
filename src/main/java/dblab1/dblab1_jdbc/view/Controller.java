@@ -146,9 +146,9 @@ public class Controller {
                 //  getConnection.executeQuery(con, "SELECT * FROM T_book", books);
                 //   BooksDb.executeQuery(/*con,*/ "SELECT * FROM T_book", books);
                 // getConnection.searchBookDB("SELECT * FROM T_book"); //TODO: investigate if this is possible in some way
-                BooksDb.checkIfAuthorExists("Johan Larss");
+          //      BooksDb.checkIfAuthorExists("Johan Larss");
                 //   booksView.displayBooks(books);
-
+                BooksDb.addBookToDb("9471324819234", "killen som hade en liten", "Fem Isex");
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }

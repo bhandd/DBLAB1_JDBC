@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9d7239cd-08d7-4e6b-8966-b7b7055103ea" name="Changes" comment="method updateGrade created. But needs a dialogue-view. Values can be modified in eventhandler Controller.updateBookDB. uses the prepareStatement-method from the java Connection-class">
+    <list default="true" id="9d7239cd-08d7-4e6b-8966-b7b7055103ea" name="Changes" comment="addBookToDB and checkIfAuthorExists added. No Dialog implemented yet. test checkIfAuthorExists with add in the menu">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/BooksDb.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/BooksDb.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/view/BooksPaneView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/view/BooksPaneView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/view/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/view/Controller.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -247,7 +246,15 @@
       <option name="project" value="LOCAL" />
       <updated>1704964755331</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="addBookToDB and checkIfAuthorExists added. No Dialog implemented yet. test checkIfAuthorExists with add in the menu">
+      <option name="closed" value="true" />
+      <created>1704996818125</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1704996818125</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -276,7 +283,8 @@
     <MESSAGE value="moved executeQuery and searchBookDB-methods from getConnection to BooksDb. The methods are commented out in getConnection" />
     <MESSAGE value="Author implemented in view, search for author possible. Author changed to a String -&gt; 1 book - 1 Author" />
     <MESSAGE value="method updateGrade created. But needs a dialogue-view. Values can be modified in eventhandler Controller.updateBookDB. uses the prepareStatement-method from the java Connection-class" />
-    <option name="LAST_COMMIT_MESSAGE" value="method updateGrade created. But needs a dialogue-view. Values can be modified in eventhandler Controller.updateBookDB. uses the prepareStatement-method from the java Connection-class" />
+    <MESSAGE value="addBookToDB and checkIfAuthorExists added. No Dialog implemented yet. test checkIfAuthorExists with add in the menu" />
+    <option name="LAST_COMMIT_MESSAGE" value="addBookToDB and checkIfAuthorExists added. No Dialog implemented yet. test checkIfAuthorExists with add in the menu" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
