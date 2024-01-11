@@ -5,13 +5,12 @@
  */
 package dblab1.dblab1_jdbc.model;
 
+import dblab1.dblab1_jdbc.model.entityClasses.Author;
 import dblab1.dblab1_jdbc.model.entityClasses.Book;
-import dblab1.dblab1_jdbc.model.entityClasses.Genre;
 import dblab1.dblab1_jdbc.model.exceptions.BooksDbException;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -123,7 +122,7 @@ public class BooksDb implements BooksDbInterface {
         }
     }
 
-    public static List<Book> searchBookDB( String query) {
+    public static List<Book> searchDBBook(String query) {
         List<Book> result = new ArrayList<>();
 
         Connection con = getConnection.getConnection();
@@ -258,7 +257,12 @@ public class BooksDb implements BooksDbInterface {
 //    };
 
 
-
+    /**
+     * Updates the grade for a book with the specified title.
+     *
+     * @param grade The new grade for the book.
+     * @param title The title of the book to update.
+     */
     public static void updateGrade(int grade, String title) {
         var sql = "UPDATE T_book "
                 + "SET grade = ? "
@@ -280,5 +284,89 @@ public class BooksDb implements BooksDbInterface {
             System.err.println(ex.getMessage());
         }
     }
+
+    public static void addBookToDb(String isbn, String title, String author) {
+        var sql = "INSERT INTO T_book (isbn, title, author ) VALUES (?, ?, ?)";
+
+        try (var conn = getConnection.getConnection();
+             var stmt = conn.prepareStatement(sql)) {
+
+            // prepare data for update
+//            stmt.setString(1, title);
+//            stmt.setInt(2, grade);
+            stmt.setString(1, isbn);
+            stmt.setString(2, title);
+            stmt.setString(3, author);
+        //    stmt.setInt(1, grade)
+
+            //TODO: lägg till metoder:
+           // checkIfAuthorExists();
+          //  addAuthorInDB();
+         //   updateBookAuthorInDB;
+
+            // execute the update
+            int rowAffected = stmt.executeUpdate();
+            System.out.println("Row affected " + rowAffected);
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+    }
+
+    /**används för att kolla om en author existerar i T_book
+     * används av metoden addBookToDB
+     *
+     *
+     * */
+public static boolean checkIfAuthorExists(String author){
+        //TODO: använd en author här istället för en String?
+    String query = "SELECT COUNT(*) FROM T_book WHERE author ='" + author + "'";
+    Connection con = getConnection.getConnection();
+    try (Statement stmt = con.createStatement()) {
+        // Execute the SQL statement
+        ResultSet rs = stmt.executeQuery(query);
+        rs.next();
+        int count = rs.getInt(1);
+        if (count > 0){
+            System.out.println(author + " exists in DB!");
+            return true;
+        }
+    } catch (SQLException e) {
+        System.err.println(e.getMessage());
+    }
+   System.out.println(author + " does not exist in DB!");
+    return false;
+}
+
+
+//TODO: spara tills vidare, försök att använda ett preparedStatement,
+// vilket ska förhindra SQL-injection
+    public static boolean checkIfAuthorExist(String author) {
+        var sql = "SELECT * FROM T_book WHERE author = ?";
+
+
+            // prepare data for update
+//            stmt.setString(1, title);
+//            stmt.setInt(2, grade);
+
+        try (var con = getConnection.getConnection();
+             var stmt = con.prepareStatement(sql)) {
+            stmt.setString(1, author);
+            // Execute the SQL statement
+            ResultSet rs = stmt.executeQuery(sql);
+            rs.next();
+            int count = rs.getInt(1);
+            if (count > 0){
+                System.out.println(author + " exists in DB!");
+                return true;
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+        System.out.println(author + " does not exist in DB!");
+        return false;
+
+    }
+
+
 
 }

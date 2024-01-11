@@ -3,11 +3,9 @@ package dblab1.dblab1_jdbc.view;
 import java.sql.Date;
 import java.util.List;
 
-import dblab1.dblab1_jdbc.model.entityClasses.Author;
 import dblab1.dblab1_jdbc.model.entityClasses.Book;
 import dblab1.dblab1_jdbc.model.BooksDb;
 import dblab1.dblab1_jdbc.model.SearchMode;
-import dblab1.dblab1_jdbc.model.entityClasses.Genre;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -163,7 +161,7 @@ public class BooksPaneView extends VBox {
         MenuItem disconnectItem = new MenuItem("Disconnect");
         disconnectItem.addEventHandler(ActionEvent.ACTION, controller.endConnectHandler);
         MenuItem addBoks = new MenuItem("Get books");
-        addBoks.addEventHandler(ActionEvent.ACTION, controller.addBooksDB);
+        addBoks.addEventHandler(ActionEvent.ACTION, controller.showBooksInDB);
         fileMenu.getItems().addAll(exitItem, connectItem, disconnectItem, addBoks);
 
         Menu searchMenu = new Menu("Search");
@@ -174,6 +172,7 @@ public class BooksPaneView extends VBox {
 
         Menu manageMenu = new Menu("Manage");
         MenuItem addItem = new MenuItem("Add");
+        addItem.addEventHandler(ActionEvent.ACTION, controller.addBookDB);
         MenuItem removeItem = new MenuItem("Remove");
         MenuItem updateItem = new MenuItem("Update");
         updateItem.addEventHandler(ActionEvent.ACTION, controller.updateBookDB);

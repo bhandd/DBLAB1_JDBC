@@ -40,15 +40,15 @@ public class Controller {
                     case Title:
 
                         // result = booksDb.searchBooksByTitleDB(searchFor);
-                        result = BooksDb.searchBookDB("SELECT * FROM T_book WHERE title LIKE'%" + searchFor + "%'");
+                        result = BooksDb.searchDBBook("SELECT * FROM T_book WHERE title LIKE'%" + searchFor + "%'");
 
                         break;
                     case ISBN:
-                        result = BooksDb.searchBookDB("SELECT * FROM T_book WHERE isbn LIKE'%" + searchFor + "%'");
+                        result = BooksDb.searchDBBook("SELECT * FROM T_book WHERE isbn LIKE'%" + searchFor + "%'");
 
                         break;
                     case Author:
-                        result = BooksDb.searchBookDB("SELECT * FROM T_book WHERE author LIKE'%" + searchFor + "%'");
+                        result = BooksDb.searchDBBook("SELECT * FROM T_book WHERE author LIKE'%" + searchFor + "%'");
 
                         break;
                     default:
@@ -113,7 +113,7 @@ public class Controller {
 //        }
 //    }
 
-    public EventHandler<ActionEvent> addBooksDB = new EventHandler<ActionEvent>() {
+    public EventHandler<ActionEvent> showBooksInDB = new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent actionEvent) {
             //TODO:try to make methods to retrieve the connection and the books
@@ -125,8 +125,29 @@ public class Controller {
                 //  getConnection.executeQuery(con, "SELECT * FROM T_book", books);
                 BooksDb.executeQuery(/*con,*/ "SELECT * FROM T_book", books);
                 // getConnection.searchBookDB("SELECT * FROM T_book"); //TODO: investigate if this is possible in some way
-
+//                BooksDb.checkIfAuthorExists("Johan Larsson");
                 booksView.displayBooks(books);
+
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    };
+
+    public EventHandler<ActionEvent> addBookDB = new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent actionEvent) {
+            //TODO:try to make methods to retrieve the connection and the books
+
+            // Connection con = getConnection.getConnection();
+            List<Book> books = new ArrayList<>();
+
+            try(Connection con = BooksDb.shareConnection()) {
+                //  getConnection.executeQuery(con, "SELECT * FROM T_book", books);
+                //   BooksDb.executeQuery(/*con,*/ "SELECT * FROM T_book", books);
+                // getConnection.searchBookDB("SELECT * FROM T_book"); //TODO: investigate if this is possible in some way
+                BooksDb.checkIfAuthorExists("Johan Larss");
+                //   booksView.displayBooks(books);
 
             } catch (SQLException e) {
                 throw new RuntimeException(e);
