@@ -14,13 +14,11 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.GridPane;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static javafx.scene.control.Alert.AlertType.*;
 
@@ -143,6 +141,26 @@ public class Controller {
     };
 
     public EventHandler<ActionEvent> addBookDB = new EventHandler<ActionEvent>() {
+        Alert alert = new Alert(CONFIRMATION);
+
+        String isbn = null;
+        String title = null;
+
+        String author = null;
+
+        String published = null;
+
+        String grade = null;
+
+        private TextField titleField = new TextField();
+
+        private TextField isbnFiled = new TextField();
+
+        private TextField authorFiled = new TextField();
+
+        private TextField publishedFiled = new TextField();
+
+        private TextField gradeField = new TextField();
         @Override
         public void handle(ActionEvent actionEvent) {
             //TODO:try to make methods to retrieve the connection and the books
@@ -151,12 +169,46 @@ public class Controller {
             List<Book> books = new ArrayList<>();
 
             try(Connection con = BooksDb.shareConnection()) {
+                alert.setTitle("Add book");
+                alert.setResizable(false);
+
+                GridPane grid = new GridPane();
+                grid.setAlignment(Pos.CENTER);
+                grid.setHgap(5);
+                grid.setVgap(5);
+                grid.setPadding(new Insets(10, 10, 10, 10));
+                grid.add(new Label("Isbn for book "), 1, 1);
+                grid.add(isbnFiled, 2, 1);
+                grid.add(new Label("Enter title of book "), 1, 2);
+                grid.add(titleField, 2, 2);
+                grid.add(new Label("Author that wrote book "), 1, 3);
+                grid.add(authorFiled, 2, 3);
+//                grid.add(new Label("New grade "), 1, 4);
+//                grid.add(, 4, 4);
+//                grid.add(new Label("New grade "), 1, 5);
+//                grid.add(, 5, 5); // Todo add when all attributes of book has been added to addBookToDb
                 //  getConnection.executeQuery(con, "SELECT * FROM T_book", books);
                 //   BooksDb.executeQuery(/*con,*/ "SELECT * FROM T_book", books);
                 // getConnection.searchBookDB("SELECT * FROM T_book"); //TODO: investigate if this is possible in some way
           //      BooksDb.checkIfAuthorExists("Johan Larss");
                 //   booksView.displayBooks(books);
-                BooksDb.addBookToDb("9471324819234", "killen som hade en liten", "Fem Isex");
+                alert.getDialogPane().setContent(grid);
+                alert.showAndWait();
+
+                isbn = isbnFiled.getText();
+                title = titleField.getText();
+                author = authorFiled.getText();
+                //published = publishedFiled.getText();
+                //grade = gradeField.getText();
+
+                isbnFiled.setText("");
+                titleField.setText("");
+                authorFiled.setText("");
+                publishedFiled.setText("");
+                gradeField.setText("");
+
+
+                BooksDb.addBookToDb(isbn, title, author);
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
