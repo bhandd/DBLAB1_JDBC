@@ -293,7 +293,6 @@ public class BooksDb implements BooksDbInterface {
    try (var stmt = getConnection.getConnection().prepareStatement(sql)) {
 
             // prepare data for update
-
             stmt.setString(1, isbn);
             stmt.setString(2, title);
               //  stmt.setString(3,genreID);
@@ -312,52 +311,75 @@ public class BooksDb implements BooksDbInterface {
             System.err.println(ex.getMessage());
         }
     }
+
+
     public static void addBook(String isbn, String title, String genre, String fullName) throws SQLException {
+        var sql2 = "INSERT INTO T_book (isbn, title, genre) VALUES (?, ?, ?)";
+        var sql1 = "INSERT INTO T_Author (fullName) VALUES (?)";
+        var sql3 = "INSERT INTO book_author (book_id, author_id) VALUES ((SELECT book_id FROM t_book WHERE title = ' (?) ',(SELECT aut_id FROM t_author WHERE fullname = ' (?) '))";
+        getConnection.getConnection().setAutoCommit(false); //TODO: lite osäker på om det är ok att sätta den här
+        if (!authorExists(fullName)) {
 
-try {
-    // Lägg till boken
-    PreparedStatement preparedStatement = getConnection.getConnection().prepareStatement("INSERT INTO T_book (isbn, title, genre) VALUES (?, ?, ?)");
-    preparedStatement.setString(1, isbn);
-    preparedStatement.setString(2, title);
-    preparedStatement.setString(3, genre);
-    preparedStatement.executeUpdate();
+            try (var stmt = getConnection.getConnection().prepareStatement(sql1)) {
+                // Skapa författaren
+                stmt.setString(1, fullName);
+                stmt.executeUpdate();
+                int rowAffected = stmt.executeUpdate();
+                System.out.println("Row affected " + rowAffected);
+            } catch (SQLException ex) {
+                System.err.println(ex.getMessage());
+            }
+        }
 
-    // Kontrollera om författaren existerar
-    if (authorNotExists(fullName)) {
-        // Skapa författaren
-        preparedStatement = getConnection.getConnection().prepareStatement("INSERT INTO T_Author (fullName) VALUES (?)");
-        preparedStatement.setString(1, fullName);
-        preparedStatement.executeUpdate();
+
+        //gör både lägg till T_book och lägg till book_id, aut_id i book_author
+    try(var stmt2 = getConnection.getConnection().prepareStatement(sql2);) {
+        // Lägg till boken
+        stmt2.setString(1, isbn);
+        stmt2.setString(2, title);
+        stmt2.setString(3, genre);
+        stmt2.executeUpdate();
+
     }
+        try(var stmt3 = getConnection.getConnection().prepareStatement(sql3);) {
+            // Lägg till boken
+            stmt3.setString(1, isbn);
+            stmt3.setString(2, title);
+            stmt3.executeUpdate();
+        }
 
-    // Lägg till författaren till boken
-    preparedStatement = getConnection.getConnection().prepareStatement("INSERT INTO book_author (book_id, author_id) VALUES ((SELECT book_id FROM t_book WHERE title = ' ?',(SELECT aut_id FROM t_author WHERE fullname = '?'))");
-    preparedStatement.setString(1, title);
-    preparedStatement.setString(2, fullName);
-    preparedStatement.executeUpdate();
-    int rowAffected = preparedStatement.executeUpdate();
-    System.out.println("Row affected " + rowAffected);
+
+
+    //lägg till book_id och aut_id i book_author
+//   var stmt3 = getConnection.getConnection().prepareStatement(sql3);
+//    stmt3.setString(1, title);
+//    stmt3.setString(2, fullName);
+//    stmt3.executeUpdate();
+//    int rowAffected = stmt2.executeUpdate();
+//    System.out.println("Row affected " + rowAffected);
 
     // Kontrollera om det finns några fel
     int errorCount = getConnection.getConnection().getTransactionIsolation();
     if (errorCount != 0) {
         // Gör en rollback
         getConnection.getConnection().rollback();
+        getConnection.getConnection().setAutoCommit(true);
     } else {
         // Gör en commit
         getConnection.getConnection().commit();
+        getConnection.getConnection().setAutoCommit(true);
     }
 
-}catch(SQLException e){
-    System.out.println("Ett fel inträffade i addBook: " + e.getMessage());
-}
+//}catch(SQLException e){
+//    System.out.println("Ett fel inträffade i addBook: " + e.getMessage());
+//}
 }
     /**används för att kolla om en author existerar i T_book
      * används av metoden addBookToDB
      *
      *
      * */
-public static boolean authorNotExists(String author){
+public static boolean authorExists(String author){
         //TODO: använd en author här istället för en String?
     String query = "SELECT COUNT(*) FROM T_author WHERE fullName ='" + author + "'";
     Connection con = getConnection.getConnection();
