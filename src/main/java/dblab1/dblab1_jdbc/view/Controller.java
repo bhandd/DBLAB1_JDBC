@@ -39,6 +39,13 @@ public class Controller {
     }
 
     protected void onSearchSelected(String searchFor, SearchMode mode) {
+String searchTitle = ("SELECT b.book_id, b.isbn,  b.title, a.fname, a.lname, b.published, b.genre, b.grade\n" +
+        "FROM T_book b \n" +
+        "INNER JOIN book_author ba \n" +
+        "ON b.book_id = ba.book_id \n" +
+        "INNER JOIN T_author a \n" +
+        "ON ba.author_id = a.aut_id WHERE b.title LIKE '%" + searchFor + "%';");
+
         try {
             if (searchFor != null && searchFor.length() > 1) {
                 List<Book> result = new ArrayList<>();
@@ -46,7 +53,7 @@ public class Controller {
                     case Title:
 
                         // result = booksDb.searchBooksByTitleDB(searchFor);
-                        result = BooksDb.searchDBBook("SELECT * FROM T_book WHERE title LIKE'%" + searchFor + "%'");
+                        result = BooksDb.searchDBBook(searchTitle);
 
                         break;
                     case ISBN:
@@ -123,13 +130,15 @@ public class Controller {
         @Override
         public void handle(ActionEvent actionEvent) {
             //TODO:try to make methods to retrieve the connection and the books
-
+String query = ("SELECT b.book_id, b.isbn, b.title, a.fname, a.lname, b.published, b.genre, b.grade\n" +
+        "FROM T_book b INNER JOIN book_author ba ON b.book_id = ba.book_id INNER JOIN T_author a ON ba.author_id = a.aut_id;");
            // Connection con = getConnection.getConnection();
             List<Book> books = new ArrayList<>();
 
             try(Connection con = BooksDb.shareConnection()) {
                 //  getConnection.executeQuery(con, "SELECT * FROM T_book", books);
-                BooksDb.executeQuery(/*con,*/ "SELECT * FROM T_book", books);
+               // BooksDb.executeQuery(/*con,*/ "SELECT * FROM T_book", books); //original
+                BooksDb.executeQuery(/*con,*/query , books);
                 // getConnection.searchBookDB("SELECT * FROM T_book"); //TODO: investigate if this is possible in some way
 //                BooksDb.checkIfAuthorExists("Johan Larsson");
                 booksView.displayBooks(books);

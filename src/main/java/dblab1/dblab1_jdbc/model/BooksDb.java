@@ -107,12 +107,14 @@ public class BooksDb implements BooksDbInterface {
                 Author author = new Author();
                 author.setfName(rs.getString("author"));
 */
-                String author = rs.getString("Author");
+                String fname = rs.getString("fName");
+                String lName = rs.getString("lName");
+                String author = fname + lName;
                 //String author = rs.getString("author");
                 Date published = rs.getDate("published");
                 //   int pages = rs.getInt("pages");
                 //  String language = rs.getString("language");
-                int genre_id = rs.getInt("genre_id");
+                int genre_id = rs.getInt("genre");
                 int grade = rs.getInt("grade");
                 Book book = new Book(bookId, ISBN, title,author, published, genre_id, grade);
                 System.out.println(book.toString());
@@ -139,12 +141,16 @@ public class BooksDb implements BooksDbInterface {
                 Author author = new Author();
                 author.setfName(rs.getString("author"));
 */
-                String author = rs.getString("Author");
+                String fname = rs.getString("fName");
+                String lName = rs.getString("lName");
+
+                String author = fname + lName;
+
                 //String author = rs.getString("author");
                 Date published = rs.getDate("published");
                 //   int pages = rs.getInt("pages");
                 //  String language = rs.getString("language");
-                int genre_id = rs.getInt("genre_id");
+                int genre_id = rs.getInt("genre");
                 int grade = rs.getInt("grade");
                 Book book = new Book(bookId, ISBN, title,author, published, genre_id, grade);
                 System.out.println(book.toString());
