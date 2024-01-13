@@ -39,7 +39,7 @@ public class Controller {
     }
 
     protected void onSearchSelected(String searchFor, SearchMode mode) {
-String searchTitle = ("SELECT b.book_id, b.isbn,  b.title, a.fname, a.lname, b.published, b.genre, b.grade\n" +
+String searchTitle = ("SELECT b.book_id, b.isbn,  b.title, a.fullName, b.published, b.genre, b.grade\n" +
         "FROM T_book b \n" +
         "INNER JOIN book_author ba \n" +
         "ON b.book_id = ba.book_id \n" +
@@ -130,7 +130,7 @@ String searchTitle = ("SELECT b.book_id, b.isbn,  b.title, a.fname, a.lname, b.p
         @Override
         public void handle(ActionEvent actionEvent) {
             //TODO:try to make methods to retrieve the connection and the books
-String query = ("SELECT b.book_id, b.isbn, b.title, a.fname, a.lname, b.published, b.genre, b.grade\n" +
+String query = ("SELECT b.book_id, b.isbn, b.title, a.fullName, b.published, b.genre, b.grade\n" +
         "FROM T_book b INNER JOIN book_author ba ON b.book_id = ba.book_id INNER JOIN T_author a ON ba.author_id = a.aut_id;");
            // Connection con = getConnection.getConnection();
             List<Book> books = new ArrayList<>();
@@ -206,10 +206,11 @@ String query = ("SELECT b.book_id, b.isbn, b.title, a.fname, a.lname, b.publishe
 
                 isbn = isbnFiled.getText();
                 title = titleField.getText();
+                //genre = titleField.getText();
                 author = authorFiled.getText();
                 //published = publishedFiled.getText();
                 //grade = gradeField.getText();
-
+                String genre = "Funny";
                 isbnFiled.setText("");
                 titleField.setText("");
                 authorFiled.setText("");
@@ -217,7 +218,7 @@ String query = ("SELECT b.book_id, b.isbn, b.title, a.fname, a.lname, b.publishe
                 gradeField.setText("");
 
 
-                BooksDb.addBookToDb(isbn, title, author);
+                BooksDb.addBook(isbn, title,genre, author);
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }

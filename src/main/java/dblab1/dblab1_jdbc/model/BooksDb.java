@@ -5,9 +5,7 @@
  */
 package dblab1.dblab1_jdbc.model;
 
-import dblab1.dblab1_jdbc.model.entityClasses.Author;
 import dblab1.dblab1_jdbc.model.entityClasses.Book;
-import dblab1.dblab1_jdbc.model.entityClasses.Grade;
 import dblab1.dblab1_jdbc.model.exceptions.BooksDbException;
 
 import java.sql.*;
@@ -84,8 +82,8 @@ public class BooksDb implements BooksDbInterface {
 
     public static void executeQuery(/*java.sql.Connection con,*/ String query, List<Book> books) throws SQLException {
 
-        Connection con = getConnection.getConnection();
-        try (Statement stmt = con.createStatement()) {
+      //  Connection con = getConnection.getConnection();
+        try (Statement stmt = getConnection.getConnection().createStatement()) {
             // Execute the SQL statement
             ResultSet rs = stmt.executeQuery(query);
 
@@ -106,10 +104,11 @@ public class BooksDb implements BooksDbInterface {
 /*
                 Author author = new Author();
                 author.setfName(rs.getString("author"));
-*/
-                String fname = rs.getString("fName");
-                String lName = rs.getString("lName");
-                String author = fname + lName;
+*/              //attempt to have 2 columns for name in T_author
+//                String fname = rs.getString("fName");
+//                String lName = rs.getString("lName");
+//                String author = fname + " " + lName;
+                String author = rs.getString("fullName");
                 //String author = rs.getString("author");
                 Date published = rs.getDate("published");
                 //   int pages = rs.getInt("pages");
@@ -128,8 +127,8 @@ public class BooksDb implements BooksDbInterface {
     public static List<Book> searchDBBook(String query) {
         List<Book> result = new ArrayList<>();
 
-        Connection con = getConnection.getConnection();
-        try (Statement stmt = con.createStatement()) {
+       // Connection con = getConnection.getConnection();
+        try (Statement stmt = getConnection.getConnection().createStatement()) {
             // Execute the SQL statement
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
@@ -141,16 +140,16 @@ public class BooksDb implements BooksDbInterface {
                 Author author = new Author();
                 author.setfName(rs.getString("author"));
 */
-                String fname = rs.getString("fName");
-                String lName = rs.getString("lName");
-
-                String author = fname + lName;
-
+                //attempt to have 2 columns for name in T_author
+//                String fname = rs.getString("fName");
+//                String lName = rs.getString("lName");
+//                String author = fname + " " + lName;
+                String author = rs.getString("fullName");
                 //String author = rs.getString("author");
                 Date published = rs.getDate("published");
                 //   int pages = rs.getInt("pages");
                 //  String language = rs.getString("language");
-                int genre_id = rs.getInt("genre");
+                int genre_id = rs.getString("genre");
                 int grade = rs.getInt("grade");
                 Book book = new Book(bookId, ISBN, title,author, published, genre_id, grade);
                 System.out.println(book.toString());
@@ -263,8 +262,8 @@ public class BooksDb implements BooksDbInterface {
                 + "SET grade = ? "
                 + "WHERE title = ?";
 
-        try (var conn = getConnection.getConnection();
-             var stmt = conn.prepareStatement(sql)) {
+    //    Connection conn = getConnection.getConnection();
+        try (var stmt = getConnection.getConnection().prepareStatement(sql)) {
 
             // prepare data for update
 //            stmt.setString(1, title);
@@ -281,22 +280,24 @@ public class BooksDb implements BooksDbInterface {
     }
 
 
+//TODO: for test only, maybe save as a help-method
     /**
      *
      *
      * */
     public static void addBookToDb(String isbn, String title,String author) {
-        var sql = "INSERT INTO T_book (isbn, title, author ) VALUES (?, ?, ?)"; //no author
+        var sql = "INSERT INTO T_book (isbn, title, author ) VALUES (?, ?)"; //no author
+       // var sql = "INSERT INTO T_book (isbn, title, author ) VALUES (?, ?, ?)"; //WITH author
+        //var conn = getConnection.getConnection();
 
-   try (var conn = getConnection.getConnection();
-             var stmt = conn.prepareStatement(sql)) {
+   try (var stmt = getConnection.getConnection().prepareStatement(sql)) {
 
             // prepare data for update
 
             stmt.setString(1, isbn);
             stmt.setString(2, title);
               //  stmt.setString(3,genreID);
-            stmt.setString(3, author); // with author as string
+            //stmt.setString(3, author); // with author as string
 
 
             //TODO: lägg till metoder :
@@ -311,13 +312,52 @@ public class BooksDb implements BooksDbInterface {
             System.err.println(ex.getMessage());
         }
     }
+    public static void addBook(String isbn, String title, String genre, String fullName) throws SQLException {
 
+try {
+    // Lägg till boken
+    PreparedStatement preparedStatement = getConnection.getConnection().prepareStatement("INSERT INTO T_book (isbn, title, genre) VALUES (?, ?, ?)");
+    preparedStatement.setString(1, isbn);
+    preparedStatement.setString(2, title);
+    preparedStatement.setString(3, genre);
+    preparedStatement.executeUpdate();
+
+    // Kontrollera om författaren existerar
+    if (authorNotExists(fullName)) {
+        // Skapa författaren
+        preparedStatement = getConnection.getConnection().prepareStatement("INSERT INTO T_Author (fullName) VALUES (?)");
+        preparedStatement.setString(1, fullName);
+        preparedStatement.executeUpdate();
+    }
+
+    // Lägg till författaren till boken
+    preparedStatement = getConnection.getConnection().prepareStatement("INSERT INTO book_author (book_id, author_id) VALUES ((SELECT book_id FROM t_book WHERE title = ' ?',(SELECT aut_id FROM t_author WHERE fullname = '?'))");
+    preparedStatement.setString(1, title);
+    preparedStatement.setString(2, fullName);
+    preparedStatement.executeUpdate();
+    int rowAffected = preparedStatement.executeUpdate();
+    System.out.println("Row affected " + rowAffected);
+
+    // Kontrollera om det finns några fel
+    int errorCount = getConnection.getConnection().getTransactionIsolation();
+    if (errorCount != 0) {
+        // Gör en rollback
+        getConnection.getConnection().rollback();
+    } else {
+        // Gör en commit
+        getConnection.getConnection().commit();
+    }
+
+}catch(SQLException e){
+    System.out.println("Ett fel inträffade: " + e.getMessage());
+}
+}
     /**används för att kolla om en author existerar i T_book
      * används av metoden addBookToDB
      *
      *
      * */
-public static boolean checkIfAuthorExists(String author){
+public static boolean authorNotExists(String author){
         //TODO: använd en author här istället för en String?
     String query = "SELECT COUNT(*) FROM T_book WHERE author ='" + author + "'";
     Connection con = getConnection.getConnection();
@@ -336,6 +376,7 @@ public static boolean checkIfAuthorExists(String author){
    System.out.println(author + " does not exist in DB!");
     return false;
 }
+
 
 
 //TODO: spara tills vidare, försök att använda ett preparedStatement,
