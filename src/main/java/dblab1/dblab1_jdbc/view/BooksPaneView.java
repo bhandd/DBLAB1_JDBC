@@ -106,7 +106,7 @@ public class BooksPaneView extends VBox {
         //   TableColumn<Book, List<Author>> authorCol = new TableColumn<>("Author"); //more than 1 author
         TableColumn<Book, String> authorCol = new TableColumn<>("Author"); //one author
         TableColumn<Book, Date> publishedCol = new TableColumn<>("Published");
-        TableColumn<Book, Integer> genreCol = new TableColumn<>("Genre");
+        TableColumn<Book, String> genreCol = new TableColumn<>("Genre");
         TableColumn<Book, Integer> gradeCol = new TableColumn<>("Grade");
         //  TableColumn<Book, Integer> pagesCol = new TableColumn<>("Pages");
         //  TableColumn<Book, String> languageCol = new TableColumn<>("Language");
@@ -124,7 +124,7 @@ public class BooksPaneView extends VBox {
         //  authorCol.setCellValueFactory(new PropertyValueFactory<>("authors")); //more than 1 author
         authorCol.setCellValueFactory(new PropertyValueFactory<>("author")); //one author
         publishedCol.setCellValueFactory(new PropertyValueFactory<>("published"));
-        genreCol.setCellValueFactory(new PropertyValueFactory<>("genre_id"));
+        genreCol.setCellValueFactory(new PropertyValueFactory<>("genre"));
 
         //   pagesCol.setCellValueFactory(new PropertyValueFactory<>("pages"));
         // languageCol.setCellValueFactory(new PropertyValueFactory<>("language"));

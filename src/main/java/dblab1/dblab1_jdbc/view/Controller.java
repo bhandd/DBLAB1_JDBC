@@ -219,8 +219,10 @@ String query = ("SELECT b.book_id, b.isbn, b.title, a.fullName, b.published, b.g
 
 
                 BooksDb.addBook(isbn, title,genre, author);
+
             } catch (SQLException e) {
-                throw new RuntimeException(e);
+
+                System.out.println("Ett fel inträffade i handle addBookDB: " + e.getMessage());
             }
         }
     };

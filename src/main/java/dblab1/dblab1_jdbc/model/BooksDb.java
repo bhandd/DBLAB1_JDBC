@@ -113,9 +113,9 @@ public class BooksDb implements BooksDbInterface {
                 Date published = rs.getDate("published");
                 //   int pages = rs.getInt("pages");
                 //  String language = rs.getString("language");
-                int genre_id = rs.getInt("genre");
+                String genre = rs.getString("genre");
                 int grade = rs.getInt("grade");
-                Book book = new Book(bookId, ISBN, title,author, published, genre_id, grade);
+                Book book = new Book(bookId, ISBN, title,author, published, genre, grade);
                 System.out.println(book.toString());
                 books.add(book);
 
@@ -149,9 +149,9 @@ public class BooksDb implements BooksDbInterface {
                 Date published = rs.getDate("published");
                 //   int pages = rs.getInt("pages");
                 //  String language = rs.getString("language");
-                int genre_id = rs.getString("genre");
+                String genre = rs.getString("genre");
                 int grade = rs.getInt("grade");
-                Book book = new Book(bookId, ISBN, title,author, published, genre_id, grade);
+                Book book = new Book(bookId, ISBN, title,author, published, genre, grade);
                 System.out.println(book.toString());
                 result.add(book);
                 System.out.println(book.toString());
@@ -349,7 +349,7 @@ try {
     }
 
 }catch(SQLException e){
-    System.out.println("Ett fel inträffade: " + e.getMessage());
+    System.out.println("Ett fel inträffade i addBook: " + e.getMessage());
 }
 }
     /**används för att kolla om en author existerar i T_book
@@ -359,7 +359,7 @@ try {
      * */
 public static boolean authorNotExists(String author){
         //TODO: använd en author här istället för en String?
-    String query = "SELECT COUNT(*) FROM T_book WHERE author ='" + author + "'";
+    String query = "SELECT COUNT(*) FROM T_author WHERE fullName ='" + author + "'";
     Connection con = getConnection.getConnection();
     try (Statement stmt = con.createStatement()) {
         // Execute the SQL statement
