@@ -232,20 +232,8 @@ public class BooksDb implements BooksDbInterface {
     }
 
 
-    //TODO: kolla om vi ska ha en lista av böcker eller ett bokobjekt i taget
-    public List<Book> searchBooks(String title, String isbn, String author, int rating, String genre){
-        //TODO: make SQL-queries depending on different search criteria
-        return null;
 
-    }
-    public void rateBook(int bookId, int rating) throws Exception{
-        //TODO: rate a book in the database
-    }
 
-    public void addBook(String title, String isbn, List<String> authors, String genre) throws Exception{
-        //TODO:  add a book to the database forst without author
-        // add a book to the database WITH authro(Do this one last(but before addAuthor) as it accesses about 4 tables in the database and therefore is more complicated)
-    }
 
     public void addAuthor(String name) throws Exception{
         //TODO: add an author to the database and at the same time update the book_author table to connect the author to the books and vice versa

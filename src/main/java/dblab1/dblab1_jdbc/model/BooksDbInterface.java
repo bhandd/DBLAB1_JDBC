@@ -49,7 +49,7 @@ public interface BooksDbInterface {
      * @param genre The genre of the book.
      * @return A list of books that match the search criteria.
      */
-    public List<Book> searchBooks(String title, String isbn, String author, int rating, String genre);
+   // public List<Book> searchBooks(String title, String isbn, String author, int rating, String genre);
 
     /**
      * Rates a book.
@@ -58,7 +58,7 @@ public interface BooksDbInterface {
      * @param rating The rating for the book (1-5).
      * @throws Exception If an error occurs during the update.
      */
-    public abstract void rateBook(int bookId, int rating) throws Exception;
+   // public abstract void rateBook(int bookId, int rating) throws Exception;
 
 
 
@@ -71,7 +71,7 @@ public interface BooksDbInterface {
      * @throws Exception If an error occurs during the insertion.
      */
 
-    public void addBook(String title, String isbn, List<String> authors, String genre) throws Exception;
+  //  public void addBook(String title, String isbn, List<String> authors, String genre) throws Exception;
 
 
 
@@ -81,6 +81,6 @@ public interface BooksDbInterface {
      * @param name The name of the author.
      * @throws Exception If an error occurs during the insertion.
      */
-    public void addAuthor(String name) throws Exception;
+  //  public void addAuthor(String name) throws Exception;
 
 }
