@@ -51,13 +51,14 @@ String searchISBN = ("SELECT b.book_id, b.isbn,  b.title, a.fullName, b.publishe
                 "INNER JOIN book_author ba \n" +
                 "ON b.book_id = ba.book_id \n" +
                 "INNER JOIN T_author a \n" +
-                "ON ba.author_id = a.aut_id WHERE b.title LIKE '%" + searchFor + "%';");
+                "ON ba.author_id = a.aut_id WHERE b.isbn LIKE '%" + searchFor + "%';");
+
 String searchAuthor = ("SELECT b.book_id, b.isbn,  b.title, a.fullName, b.published, b.genre, b.grade\n" +
                 "FROM T_book b \n" +
                 "INNER JOIN book_author ba \n" +
                 "ON b.book_id = ba.book_id \n" +
                 "INNER JOIN T_author a \n" +
-                "ON ba.author_id = a.aut_id WHERE b.title LIKE '%" + searchFor + "%';");
+                "ON ba.author_id = a.aut_id WHERE a.fullName LIKE '%" + searchFor + "%';");
         try {
             if (searchFor != null && searchFor.length() > 1) {
                 List<Book> result = new ArrayList<>();
@@ -69,11 +70,11 @@ String searchAuthor = ("SELECT b.book_id, b.isbn,  b.title, a.fullName, b.publis
 
                         break;
                     case ISBN:
-                        result = BooksDb.searchDBBook("SELECT * FROM T_book WHERE isbn LIKE'%" + searchFor + "%'");
+                        result = BooksDb.searchDBBook(searchISBN);
 
                         break;
                     case Author:
-                        result = BooksDb.searchDBBook("SELECT * FROM T_book WHERE author LIKE'%" + searchFor + "%'");
+                        result = BooksDb.searchDBBook(searchAuthor);
 
                         break;
                     default:
@@ -239,56 +240,7 @@ String query = ("SELECT b.book_id, b.isbn, b.title, a.fullName, b.published, b.g
         }
     };
 
-    //Todo. Can be deleted
-    /*public EventHandler<ActionEvent> updateBookDB1test = new EventHandler<ActionEvent>() {
-       // String gradeValue = "2";
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        String gradeValue = null;
-        String title = "mattebok";
 
-        @Override
-        public void handle(ActionEvent actionEvent) {
-        //    BooksDb.setGrade(gradeValue, title);
-            TextInputDialog dialog = new TextInputDialog();
-            dialog.setTitle("Two Input Alert");
-            dialog.setHeaderText("Enter your details:");
-
-            // Set up the first input field
-            dialog.getDialogPane().setContentText("Title:");
-            dialog.getEditor().setPromptText("Enter the name of book");
-
-            // Add a second input field
-            TextInputDialog anotherDialog = new TextInputDialog();
-            anotherDialog.setTitle("Two Input Alert");
-            anotherDialog.setHeaderText("Enter your details:");
-            anotherDialog.getDialogPane().setContentText("Grade:");
-            anotherDialog.getEditor().setPromptText("Enter new grade");
-            Optional<String> resultName = dialog.showAndWait();
-            if (resultName.isPresent()) {
-                // If the first input is provided, show the second dialog
-                Optional<String> resultAge = anotherDialog.showAndWait();
-
-                // Check if the second input is provided
-                if (resultAge.isPresent()) {
-                    // Process the user's inputs
-                    String title = resultName.get();
-                    gradeValue = resultAge.get();
-                    BooksDb.updateGrade(Integer.parseInt(gradeValue), String.valueOf(title));
-                    // Display the results or perform further actions
-                } else {
-                    // User canceled the second input
-                    System.out.println("Operation canceled by the user.");
-                }
-            } else {
-                // User canceled the first input
-                System.out.println("Operation canceled by the user.");
-            }
-
-        }
-
-            //  booksView.displayBooks(books);
-
-    };*/
 
     public EventHandler<ActionEvent> updateBookDB = new EventHandler<ActionEvent>() {
         // String gradeValue = "2";
@@ -326,22 +278,7 @@ String query = ("SELECT b.book_id, b.isbn, b.title, a.fullName, b.published, b.g
         }
     };
 
-        //TODO. Can be deleted
-//    public EventHandler<ActionEvent> searchDB = new EventHandler<ActionEvent>() {
-//        @Override
-//        public void handle(ActionEvent actionEvent) {
-//            Connection con = getConnection.getConnection();
-//            List<Book> books = new ArrayList<>();
-//            try {
-//                getConnection.executeQuery(con, "SELECT * FROM T_book", books);
-//                getConnection.executeQuery(con, "SELECT * FROM T_book", books);
-//                booksView.displayBooks(books);
-//
-//            } catch (SQLException e) {
-//                throw new RuntimeException(e);
-//            }
-//        }
-        //   };
+
 
         public EventHandler<ActionEvent> endConnectHandler = new EventHandler<ActionEvent>() {
             @Override

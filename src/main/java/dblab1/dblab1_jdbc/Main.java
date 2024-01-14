@@ -9,8 +9,6 @@ import javafx.stage.Stage;
 
 //import dbgui.lab1examplegui.model.BooksDbMockImpl;
 //import dbgui.lab1examplegui.view.BooksPane;
-
-
 //import se.kth.anderslm.booksdb.model.BooksDbMockImpl;
 //import se.kth.anderslm.booksdb.view.BooksPane;
 
@@ -41,7 +39,6 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-
     public static void main(String[] args) {
         launch(args);
 
