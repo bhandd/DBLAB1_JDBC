@@ -166,8 +166,11 @@ public class BooksPaneView extends VBox {
 
         Menu searchMenu = new Menu("Search");
         MenuItem titleItem = new MenuItem("Title");
+        titleItem.addEventHandler(ActionEvent.ACTION, controller.TitleSearch);
         MenuItem isbnItem = new MenuItem("ISBN");
+        isbnItem.addEventHandler(ActionEvent.ACTION, controller.ISBNSearch);
         MenuItem authorItem = new MenuItem("Author");
+        authorItem.addEventHandler(ActionEvent.ACTION, controller.AuthorSearch);
         searchMenu.getItems().addAll(titleItem, isbnItem, authorItem);
 
         Menu manageMenu = new Menu("Manage");

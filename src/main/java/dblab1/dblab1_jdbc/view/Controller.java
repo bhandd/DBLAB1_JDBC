@@ -6,6 +6,7 @@ package dblab1.dblab1_jdbc.view;
 
 import dblab1.dblab1_jdbc.model.*;
 import dblab1.dblab1_jdbc.model.entityClasses.Book;
+import dblab1.dblab1_jdbc.model.entityClasses.Genre;
 import dblab1.dblab1_jdbc.model.exceptions.BooksDbException;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -13,6 +14,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -172,6 +174,8 @@ String searchAuthor = ("SELECT b.book_id, b.isbn,  b.title, a.fullName, b.publis
 
             String published = null;
 
+            String genre = null;
+
             String grade = null;
 
             private TextField titleField = new TextField();
@@ -183,6 +187,8 @@ String searchAuthor = ("SELECT b.book_id, b.isbn,  b.title, a.fullName, b.publis
             private TextField publishedFiled = new TextField();
 
             private TextField gradeField = new TextField();
+
+            private ComboBox<Genre> gradeComboBox = new ComboBox<>();
 
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -205,15 +211,18 @@ String searchAuthor = ("SELECT b.book_id, b.isbn,  b.title, a.fullName, b.publis
                     grid.add(titleField, 2, 2);
                     grid.add(new Label("Author that wrote book "), 1, 3);
                     grid.add(authorFiled, 2, 3);
-//                grid.add(new Label("New grade "), 1, 4);
-//                grid.add(, 4, 4);
-//                grid.add(new Label("New grade "), 1, 5);
-//                grid.add(, 5, 5); // Todo add when all attributes of book has been added to addBookToDb
+                    grid.add(new Label("Add publish date "), 1, 4);
+                    grid.add(publishedFiled, 2, 4);
+                    grid.add(new Label("Chose genre to book "), 1, 5);
+                    grid.add(gradeComboBox, 2, 5); // Todo add when all attributes of book has been added to addBookToDb
+                    grid.add(new Label("Set grad to book"), 1, 6);
+                    grid.add(gradeField, 2, 6);
                     //  getConnection.executeQuery(con, "SELECT * FROM T_book", books);
                     //   BooksDb.executeQuery(/*con,*/ "SELECT * FROM T_book", books);
                     // getConnection.searchBookDB("SELECT * FROM T_book"); //TODO: investigate if this is possible in some way
                     //      BooksDb.checkIfAuthorExists("Johan Larss");
                     //   booksView.displayBooks(books);
+                    gradeComboBox.getItems().addAll(Genre.values());
                     alert.getDialogPane().setContent(grid);
                     alert.showAndWait();
 
@@ -221,13 +230,13 @@ String searchAuthor = ("SELECT b.book_id, b.isbn,  b.title, a.fullName, b.publis
                     title = titleField.getText();
                     //genre = titleField.getText();
                     author = authorFiled.getText();
-                    String genre = "Funny";
-                    //published = publishedFiled.getText();
-                    //grade = gradeField.getText();
+                    genre = String.valueOf(gradeComboBox.getValue());
+                    published = publishedFiled.getText();
+                    grade = gradeField.getText();
                     Task<Void> task = new Task<Void>() {
                         @Override
                         protected Void call() throws Exception {
-                            BooksDb.addBook(isbn, title, genre, author);
+                            BooksDb.addBook(isbn, title, genre, author, Date.valueOf(published), grade);
                             return null;
                         }
                     };
@@ -285,9 +294,96 @@ String searchAuthor = ("SELECT b.book_id, b.isbn,  b.title, a.fullName, b.publis
             }
         };
 
+        public EventHandler<ActionEvent> TitleSearch = new EventHandler<ActionEvent>() {
+            private TextField titleField = new TextField();
 
+            private Alert alert = new Alert(CONFIRMATION);
+
+            private String title = null;
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                alert.setTitle("Search");
+                alert.setResizable(false);
+
+                GridPane grid = new GridPane();
+                grid.setAlignment(Pos.CENTER);
+                grid.setHgap(5);
+                grid.setVgap(5);
+                grid.setPadding(new Insets(10, 10, 10, 10));
+                grid.add(new Label("Title for book "), 1, 1);
+                grid.add(titleField, 2, 1);
+
+                alert.getDialogPane().setContent(grid);
+                alert.showAndWait();
+                title = titleField.getText();
+
+                onSearchSelected(title, SearchMode.Title);
+
+                titleField.setText("");
+            }
+        };
+
+    public EventHandler<ActionEvent> ISBNSearch = new EventHandler<ActionEvent>() {
+        private TextField ISBNField = new TextField();
+
+        private Alert alert = new Alert(CONFIRMATION);
+
+        private String ISBN = null;
+        @Override
+        public void handle(ActionEvent actionEvent) {
+            alert.setTitle("Search");
+            alert.setResizable(false);
+
+            GridPane grid = new GridPane();
+            grid.setAlignment(Pos.CENTER);
+            grid.setHgap(5);
+            grid.setVgap(5);
+            grid.setPadding(new Insets(10, 10, 10, 10));
+            grid.add(new Label("Title for book "), 1, 1);
+            grid.add(ISBNField, 2, 1);
+
+            alert.getDialogPane().setContent(grid);
+            alert.showAndWait();
+            ISBN = ISBNField.getText();
+
+            onSearchSelected(ISBN, SearchMode.ISBN);
+
+            ISBNField.setText("");
+        }
+    };
+
+    public EventHandler<ActionEvent> AuthorSearch = new EventHandler<ActionEvent>() {
+        private TextField AuthorField = new TextField();
+
+        private Alert alert = new Alert(CONFIRMATION);
+
+        private String Author = null;
+        @Override
+        public void handle(ActionEvent actionEvent) {
+            alert.setTitle("Search");
+            alert.setResizable(false);
+
+            GridPane grid = new GridPane();
+            grid.setAlignment(Pos.CENTER);
+            grid.setHgap(5);
+            grid.setVgap(5);
+            grid.setPadding(new Insets(10, 10, 10, 10));
+            grid.add(new Label("Title for book "), 1, 1);
+            grid.add(AuthorField, 2, 1);
+
+            alert.getDialogPane().setContent(grid);
+            alert.showAndWait();
+            Author = AuthorField.getText();
+
+            onSearchSelected(Author, SearchMode.Author);
+
+            AuthorField.setText("");
+        }
+    };
 
         public EventHandler<ActionEvent> endConnectHandler = new EventHandler<ActionEvent>() {
+
+
             @Override
             public void handle(ActionEvent actionEvent) {
                 try {

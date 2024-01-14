@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9d7239cd-08d7-4e6b-8966-b7b7055103ea" name="Changes" comment="onSearchSelected search for ISBN and Author">
+    <list default="true" id="9d7239cd-08d7-4e6b-8966-b7b7055103ea" name="Changes" comment="Added Thread in controller">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/BooksDb.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/BooksDb.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/view/BooksPaneView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/view/BooksPaneView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/view/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/view/Controller.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -333,7 +336,15 @@
       <option name="project" value="LOCAL" />
       <updated>1705243582804</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="Added Thread in controller">
+      <option name="closed" value="true" />
+      <created>1705246273890</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1705246273890</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -371,7 +382,8 @@
     <MESSAGE value="addBook, trying to get currentBookID och currentAuthorID" />
     <MESSAGE value="addbook still not working. something wrong when trying to commit" />
     <MESSAGE value="onSearchSelected search for ISBN and Author" />
-    <option name="LAST_COMMIT_MESSAGE" value="onSearchSelected search for ISBN and Author" />
+    <MESSAGE value="Added Thread in controller" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Thread in controller" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
