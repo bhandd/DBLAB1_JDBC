@@ -8,6 +8,8 @@ import dblab1.dblab1_jdbc.model.*;
 import dblab1.dblab1_jdbc.model.entityClasses.Book;
 import dblab1.dblab1_jdbc.model.entityClasses.Genre;
 import dblab1.dblab1_jdbc.model.exceptions.BooksDbException;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -99,43 +101,12 @@ public class Controller {
         @Override
         public void handle(ActionEvent actionEvent) {
             try {
-                BooksDbInterface.connect();
+                booksDb.connect();
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         }
     };
-
-//TODO: commented out for now. Already in getConnection. Should probably be moved to BooksDb
-
-//    public static void executeQuery(java.sql.Connection con, String query, List<Book> books) throws SQLException {
-//
-//        try (Statement stmt = con.createStatement()) {
-//            // Execute the SQL statement
-//            ResultSet rs = stmt.executeQuery(query);
-//
-//            // Get the attribute names
-//            ResultSetMetaData metaData = rs.getMetaData();
-//            int ccount = metaData.getColumnCount();
-//            for (int c = 1; c <= ccount; c++) {
-//                System.out.print(metaData.getColumnName(c) + "\t");
-//            }
-//            System.out.println();
-//
-//            // Get the attribute values
-//            while (rs.next()) {
-//                int bookId = rs.getInt("book_id");
-//                String title = rs.getString("title");
-//                String author = rs.getString("author");
-//                String ISBN = rs.getString("ISBN");
-//                int year = rs.getInt("year");
-//
-//                Book book = new Book(bookId, ISBN, title, year);
-//                books.add(book);
-//            }
-//            System.out.println();
-//        }
-//    }
 
     public EventHandler<ActionEvent> showBooksInDB = new EventHandler<ActionEvent>() {
         @Override
@@ -229,28 +200,35 @@ public class Controller {
                 genre = String.valueOf(gradeComboBox.getValue());
                 published = publishedFiled.getText();
                 grade = gradeField.getText();
-                Task<Void> task = new Task<Void>() {
-                    @Override
-                    protected Void call() throws Exception {
+
+                new Thread(() -> {
+                    try {
+                        // Database code to add a book
                         BooksDb.addBook(isbn, title, genre, author, Date.valueOf(published), grade);
-                        return null;
+
+                        // Update UI components with data using Platform.runLater()
+                        Platform.runLater(() -> {
+                            isbnFiled.setText("");
+                            titleField.setText("");
+                            authorFiled.setText("");
+                            publishedFiled.setText("");
+                            gradeField.setText("");
+                            gradeComboBox.setItems(FXCollections.observableArrayList());
+                        });
+
+                    } catch (Exception e) {
+                        System.out.println("An error occurred in handle addBookDB: " + e.getMessage());
                     }
-                };
-
-                task.setOnSucceeded(event -> {
-                    isbnFiled.setText("");
-                    titleField.setText("");
-                    authorFiled.setText("");
-                    publishedFiled.setText("");
-                    gradeField.setText("");
-                });
-
-                new Thread(task).start();
+                }).start();
             } catch (Exception e) {
                 System.out.println("Ett fel inträffade i handle addBookDB: " + e.getMessage());
             }
         }
     };
+
+    public void addbok(String isbn, String title, String genre, String author, String published, String grade) throws SQLException {
+        BooksDb.addBook(isbn, title, genre, author, Date.valueOf(published), grade);
+    }
 
 
     public EventHandler<ActionEvent> updateBookDB = new EventHandler<ActionEvent>() {
@@ -281,12 +259,22 @@ public class Controller {
             alert.showAndWait();
             title = titleField.getText();
             gradeValue = gradeField.getText();
+            new Thread(() -> {
+                try {
 
-            BooksDb.updateGrade(Integer.parseInt(gradeValue), String.valueOf(title));
+                    // Database code to update grade
+                    BooksDb.updateGrade(Integer.parseInt(gradeValue), title);
 
-            titleField.setText("");
-            gradeField.setText("");
-        }
+                    // Update UI components with data
+                    Platform.runLater(() -> {
+                        titleField.setText("");
+                        gradeField.setText("");
+                    });
+                } catch (Exception e) {
+                    System.out.println("An error occurred in handle updateGrade: " + e.getMessage());
+                }
+            }).start();
+            }
     };
 
     public EventHandler<ActionEvent> deleteBookDB = new EventHandler<ActionEvent>() {
@@ -312,15 +300,17 @@ public class Controller {
             alert.getDialogPane().setContent(grid);
             alert.showAndWait();
             title = titleField.getText();
-
+            new Thread(() ->{
             try {
                 BooksDb.deleteBook(title);
             } catch (SQLException e) {
                 throw new RuntimeException(e);
                 //TODO. hantera på nåt bra vis
             }
-
-            titleField.setText("");
+            Platform.runLater(() -> {
+                titleField.setText("");
+            });
+        }).start();
         }
     };
 

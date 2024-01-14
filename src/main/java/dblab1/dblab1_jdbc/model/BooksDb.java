@@ -29,8 +29,8 @@ public class BooksDb implements BooksDbInterface {
         books = List.of();
     }
 
-
-    public static boolean connect() throws Exception {
+    @Override
+    public  boolean connect() throws Exception {
         if (getConnection.StartConnection() != null) {
             System.out.println("Yes");
             return true;

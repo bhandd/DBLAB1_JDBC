@@ -26,15 +26,7 @@ public interface BooksDbInterface {
      *
      * @return true on successful connection.
      */
-    public static boolean connect() throws Exception {
-        if (getConnection.StartConnection() != null) {
-            System.out.println("Yes");
-            return true;
-        } else {
-            System.out.println("No");
-            return false;
-        }
-    }
+    public boolean connect() throws Exception;
 
 
     public static void disconnect() throws BooksDbException, SQLException {

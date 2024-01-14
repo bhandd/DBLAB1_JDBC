@@ -4,14 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9d7239cd-08d7-4e6b-8966-b7b7055103ea" name="Changes" comment="Added Thread in controller">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024-01-11_22_18__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024-01-11_22_18__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024-01-11_22_20__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024-01-11_22_20__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024-01-12_08_08__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024-01-12_08_08__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024-01-14_16_12__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024-01-14_16_12__Changes_.xml" afterDir="false" />
+    <list default="true" id="9d7239cd-08d7-4e6b-8966-b7b7055103ea" name="Changes" comment="Added grade, date and genre chose to addbook and search funktion to search drop down">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/getConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/getConnection.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/view/BooksPaneView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/view/BooksPaneView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/view/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/view/Controller.java" afterDir="false" />
     </list>
@@ -349,7 +344,15 @@
       <option name="project" value="LOCAL" />
       <updated>1705246273890</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Added grade, date and genre chose to addbook and search funktion to search drop down">
+      <option name="closed" value="true" />
+      <created>1705262294384</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1705262294384</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -388,7 +391,8 @@
     <MESSAGE value="addbook still not working. something wrong when trying to commit" />
     <MESSAGE value="onSearchSelected search for ISBN and Author" />
     <MESSAGE value="Added Thread in controller" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added Thread in controller" />
+    <MESSAGE value="Added grade, date and genre chose to addbook and search funktion to search drop down" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added grade, date and genre chose to addbook and search funktion to search drop down" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
