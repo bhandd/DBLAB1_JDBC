@@ -186,16 +186,63 @@ public class BooksDb implements BooksDbInterface {
     }
 
 
-    public static void executeStatement(String statement) throws SQLException {
-            Connection con = getConnection.getConnection();
 
+    //TODO: skapa ett objekt för alla variabler och returnera
+    public static int executeQuery(String query) throws SQLException {
 
-
-        try (Statement stmt = con.createStatement()) {
+        try (Statement stmt = getConnection.getConnection().createStatement()) {
+            System.out.println("current query to execute: " + query);
             // Execute the SQL statement
-            int n = stmt.executeUpdate(statement);
 
-         //   ResultSet rs = stmt.executeQuery(statement);
+           // int n = stmt.executeQuery(query);
+
+            ResultSet rs = stmt.executeQuery(query);
+
+            //  Get the attribute names
+            ResultSetMetaData metaData = rs.getMetaData();
+            int ccount = metaData.getColumnCount();
+            for (int c = 1; c <= ccount; c++) {
+                System.out.print(metaData.getColumnName(c) + "\t");
+            }
+            System.out.println();
+//TODO: move the while loop in executeQuery, searchBookDB and this one to it´s own method
+            // Get the attribute values
+            while (rs.next()) {
+                //  int bookId = rs.getInt("book_id");
+//                String ISBN = rs.getString("ISBN");
+//                String title = rs.getString("title");
+///*
+//                Author author = new Author();
+//                author.setfName(rs.getString("author"));
+//*/
+//                String author = rs.getString("Author");
+//                //String author = rs.getString("author");
+//                Date published = rs.getDate("year");
+//                //   int pages = rs.getInt("pages");
+//                //  String language = rs.getString("language");
+//                int genre_id = rs.getInt("genre_id");
+//                int grade = rs.getInt("grade");
+
+                return rs.getInt("@@error_count");
+            }
+
+            System.out.println("executed a query-");
+
+        }catch (SQLException e){
+            System.err.println("FUCK! Something failed again! "+ e.getMessage());
+
+        }
+return 666;
+    }
+
+    public static void executeStatement(String statement) throws SQLException {
+        System.out.println("current statement to execute: " +statement);
+
+        try (Statement stmt = getConnection.getConnection().createStatement()) {
+            // Execute the SQL statement
+            stmt.executeUpdate(statement);
+
+            //   ResultSet rs = stmt.executeQuery(statement);
 
             // Get the attribute names
 //            ResultSetMetaData metaData = rs.getMetaData();
@@ -224,10 +271,13 @@ public class BooksDb implements BooksDbInterface {
 //                int grade = rs.getInt("grade");
 //                Book book = new Book(bookId, ISBN, title,author, published, genre_id, grade);
 //                System.out.println(book.toString());
-              //  books.add(book);
+            //  books.add(book);
 
-          //  }
-            System.out.println("");
+            //  }
+
+            System.out.println("executed a statement");
+        }catch (SQLException e){
+            System.err.println("FUCK! Something failed again! "+ e.getMessage());
         }
     }
 
@@ -380,7 +430,7 @@ public class BooksDb implements BooksDbInterface {
         System.out.println("added" + isbn +","+ title+ ","+ genre + "To book");
             //gör både lägg till T_book och lägg till book_id, aut_id i book_autho
             executeStatement("INSERT INTO book_author (book_id, author_id) VALUES (" + currentBook_id  + ","  + currentAut_id + " );");
-        System.out.println("wtf!");
+        System.out.println("wtf! This is incredible!");
             //lägg till book_id och aut_id i book_author
 //   var stmt3 = getConnection.getConnection().prepareStatement(sql3);
 //    stmt3.setString(1, title);
@@ -391,7 +441,11 @@ public class BooksDb implements BooksDbInterface {
 
             // Kontrollera om det finns några fel
             int errorCount = getConnection.getConnection().getTransactionIsolation();
-            if (errorCount != 0) {
+       int realErrorCount = executeQuery(" SELECT @@error_count;");
+        System.out.println("Real error count: " + realErrorCount);
+        System.out.println("error count: " + errorCount);
+
+            if (realErrorCount != 0) {
                 // Gör en rollback
                 getConnection.getConnection().rollback();
                   getConnection.getConnection().setAutoCommit(true);
@@ -399,6 +453,7 @@ public class BooksDb implements BooksDbInterface {
                 // Gör en commit
                 getConnection.getConnection().commit();
                   getConnection.getConnection().setAutoCommit(true);
+                System.out.println("Changes commited to database");
             }
 //}catch(SQLException e){
 //    System.out.println("Ett fel inträffade i addBook: " + e.getMessage());

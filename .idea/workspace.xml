@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9d7239cd-08d7-4e6b-8966-b7b7055103ea" name="Changes" comment="addBook, trying to get currentBookID och currentAuthorID">
+    <list default="true" id="9d7239cd-08d7-4e6b-8966-b7b7055103ea" name="Changes" comment="addbook still not working. something wrong when trying to commit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/BooksDb.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/BooksDb.java" afterDir="false" />
     </list>
@@ -317,7 +317,15 @@
       <option name="project" value="LOCAL" />
       <updated>1705189589741</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="addbook still not working. something wrong when trying to commit">
+      <option name="closed" value="true" />
+      <created>1705194312388</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1705194312388</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -353,7 +361,8 @@
     <MESSAGE value="addBook fungerar nästan, bara problem med prepared statements" />
     <MESSAGE value="addBook ändringar gjorda men fortfarande fel" />
     <MESSAGE value="addBook, trying to get currentBookID och currentAuthorID" />
-    <option name="LAST_COMMIT_MESSAGE" value="addBook, trying to get currentBookID och currentAuthorID" />
+    <MESSAGE value="addbook still not working. something wrong when trying to commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="addbook still not working. something wrong when trying to commit" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
