@@ -28,7 +28,7 @@ import static javafx.scene.control.Alert.AlertType.*;
  *
  * @author anderslm@kth.se
  */
-public class Controller {
+public class Controller  {
     private BooksPaneView booksView; // view
     private BooksDbInterface booksDb; // model
 
@@ -36,6 +36,8 @@ public class Controller {
         this.booksDb = booksDb;
         this.booksView = booksView;
     }
+
+
 
     protected void onSearchSelected(String searchFor, SearchMode mode) {
         String searchTitle = ("SELECT b.book_id, b.isbn,  b.title, a.fullName, b.published, b.genre, b.grade\n" +
@@ -232,7 +234,8 @@ public class Controller {
                 Task<Void> task = new Task<Void>() {
                     @Override
                     protected Void call() throws Exception {
-                        BooksDb.addBook(isbn, title, genre, author, Date.valueOf(published), grade);
+                      BooksDb.addBook(isbn, title, genre, author, Date.valueOf(published), grade);
+                      //  BooksDbInterface.addBook(isbn, title, genre, author, Date.valueOf(published), grade);
                         return null;
                     }
                 };

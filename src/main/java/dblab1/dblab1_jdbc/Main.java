@@ -30,10 +30,10 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         BooksDb booksDb = new BooksDb(); // model
         // Don't forget to connect to the db, somewhere...
+
         try {
             BooksDb.connect();
             BooksPaneView root = new BooksPaneView(booksDb);
-
             Scene scene = new Scene(root, 800, 600);
 
             primaryStage.setTitle("Books Database Client");

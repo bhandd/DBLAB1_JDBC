@@ -22,12 +22,12 @@ import java.util.List;
  */
 public class BooksDb implements BooksDbInterface {
 
-    private final List<Book> books;
+   // private final List<Book> books;
 
     public BooksDb() {
 
-        books = List.of();
     }
+
 
 
     public static boolean connect() throws Exception {
@@ -52,26 +52,6 @@ public class BooksDb implements BooksDbInterface {
     public void disconnect() throws BooksDbException, SQLException {
         getConnection.EndConnection();
     }
-//TODO: sparas ifall den behövs sen.
-
-    //Added by Anders
-//    @Override
-//    public List<Book> searchBooksByTitle(String searchTitle)
-//            throws BooksDbException {
-//        // mock implementation
-//        // NB! Your implementation should select the books matching
-//        // the search string via a query to a database (not load all books from db)
-//        List<Book> result = new ArrayList<>();
-//        searchTitle = searchTitle.toLowerCase();
-//        for (Book book : books) {
-//            if (book.getTitle().toLowerCase().contains(searchTitle)) {
-//                result.add(book);
-//            }
-//        }
-//        //spara i books<-SQL-fråga till databas
-//      //  result.add(books);
-//        return result;
-//    }
 
 
     public static void executeQuery(/*java.sql.Connection con,*/ String query, List<Book> books) throws SQLException {
@@ -270,7 +250,7 @@ return  errorCount;
     }
 
     public static void addBook(String isbn, String title, String genre, String fullName, Date publish, String grade) throws SQLException {
-        try(Statement stmt = getConnection.getConnection().createStatement()){
+        try (Statement stmt = getConnection.getConnection().createStatement()) {
             // Execute the SQL statement
             ResultSet rs = stmt.executeQuery("SELECT MAX(book_id) AS currentBookID, MAX(aut_id) AS currentAuthorID\n" +
                     "FROM T_book\n" +
@@ -286,7 +266,7 @@ return  errorCount;
             rs.next();
             int currentBook_id = rs.getInt("currentBookID") + 1;
             int currentAut_id = rs.getInt("currentAuthorID") + 1;
-            System.out.println("bokID: "+ currentBook_id +"AutID: " + currentAut_id);
+            System.out.println("bokID: " + currentBook_id + "AutID: " + currentAut_id);
 //            executeStatement("START TRANSACTION;");
             getConnection.getConnection().setAutoCommit(false);
 
@@ -294,10 +274,10 @@ return  errorCount;
                 executeStatement("INSERT INTO T_Author (fullName) VALUES ( '" + fullName + "');");
                 System.out.println("Author" + fullName + "added!");
             }
-            executeStatement("INSERT INTO T_book (isbn, title, genre, published, grade) VALUES ('" + isbn + "' ,'" + title + "' ,'" + genre + "' ,'" + publish +  "' ,'" + grade + "' );");
-        System.out.println("added" + isbn +","+ title+ ","+ genre + "To book");
+            executeStatement("INSERT INTO T_book (isbn, title, genre, published, grade) VALUES ('" + isbn + "' ,'" + title + "' ,'" + genre + "' ,'" + publish + "' ,'" + grade + "' );");
+            System.out.println("added" + isbn + "," + title + "," + genre + "To book");
             //gör både lägg till T_book och lägg till book_id, aut_id i book_autho
-            executeStatement("INSERT INTO book_author (book_id, author_id) VALUES (" + currentBook_id  + ","  + currentAut_id + " );");
+            executeStatement("INSERT INTO book_author (book_id, author_id) VALUES (" + currentBook_id + "," + currentAut_id + " );");
             System.out.println("wtf! This is incredible!");
 
             // Kontrollera om det finns några fel
@@ -306,6 +286,21 @@ return  errorCount;
             System.out.println("Real error count: " + realErrorCount);
             System.out.println("Dont know what error count this is?: " + errorCount);
 
+//            if (realErrorCount != 0) {
+//                // Gör en rollback
+//                getConnection.getConnection().rollback();
+//                getConnection.getConnection().setAutoCommit(true);
+//            } else {
+//                // Gör en commit
+//                //getConnection.getConnection().commit();
+//                executeStatement("commit;");
+//                getConnection.getConnection().setAutoCommit(true);
+//                System.out.println("Changes commited to database");
+//            }
+        } catch (SQLException e) {
+            System.out.println("Ett fel inträffade i addBook: " + e.getMessage());
+        } finally {
+            int realErrorCount = getErrorCount(" SELECT @@error_count;");
             if (realErrorCount != 0) {
                 // Gör en rollback
                 getConnection.getConnection().rollback();
@@ -316,11 +311,12 @@ return  errorCount;
                 executeStatement("commit;");
                 getConnection.getConnection().setAutoCommit(true);
                 System.out.println("Changes commited to database");
+
             }
-        }catch(SQLException e){
-            System.out.println("Ett fel inträffade i addBook: " + e.getMessage());
+
         }
     }
+
 
 //TODO: lägg till kontroll att bok finns i DB
     public static void deleteBook(String title) throws SQLException {

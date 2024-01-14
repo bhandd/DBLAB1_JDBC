@@ -3,6 +3,7 @@ package dblab1.dblab1_jdbc.model;
 import dblab1.dblab1_jdbc.model.entityClasses.Book;
 import dblab1.dblab1_jdbc.model.exceptions.BooksDbException;
 
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -71,26 +72,21 @@ public interface BooksDbInterface {
    // public abstract void rateBook(int bookId, int rating) throws Exception;
 
 
-
     /**
      * Adds a new book to the database. (Rating is not done here?)
      *
      * @param title The title of the book.
-     * @param isbn The ISBN of the book.
+     * @param isbn  The ISBN of the book.
      * @param genre The genre of the book.
      * @throws Exception If an error occurs during the insertion.
      */
+//TODO: ska inte vara static
+    public static void addBook(String isbn, String title, String genre, String fullName, Date publish, String grade) throws SQLException {
 
-  //  public void addBook(String title, String isbn, List<String> authors, String genre) throws Exception;
+    }
 
+    public static void executeQuery(/*java.sql.Connection con,*/ String query, List<Book> books) throws SQLException {
 
-
-    /**
-     * Adds a new author to the database.
-     *
-     * @param name The name of the author.
-     * @throws Exception If an error occurs during the insertion.
-     */
-  //  public void addAuthor(String name) throws Exception;
+    }
 
 }
