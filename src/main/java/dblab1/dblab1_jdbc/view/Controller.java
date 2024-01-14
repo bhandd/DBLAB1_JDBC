@@ -7,6 +7,7 @@ package dblab1.dblab1_jdbc.view;
 import dblab1.dblab1_jdbc.model.*;
 import dblab1.dblab1_jdbc.model.entityClasses.Book;
 import dblab1.dblab1_jdbc.model.exceptions.BooksDbException;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -189,7 +190,6 @@ String searchAuthor = ("SELECT b.book_id, b.isbn,  b.title, a.fullName, b.publis
 
                 // Connection con = getConnection.getConnection();
                 List<Book> books = new ArrayList<>();
-
                 try {
                     alert.setTitle("Add book");
                     alert.setResizable(false);
@@ -221,20 +221,27 @@ String searchAuthor = ("SELECT b.book_id, b.isbn,  b.title, a.fullName, b.publis
                     title = titleField.getText();
                     //genre = titleField.getText();
                     author = authorFiled.getText();
+                    String genre = "Funny";
                     //published = publishedFiled.getText();
                     //grade = gradeField.getText();
-                    String genre = "Funny";
-                    isbnFiled.setText("");
-                    titleField.setText("");
-                    authorFiled.setText("");
-                    publishedFiled.setText("");
-                    gradeField.setText("");
+                    Task<Void> task = new Task<Void>() {
+                        @Override
+                        protected Void call() throws Exception {
+                            BooksDb.addBook(isbn, title, genre, author);
+                            return null;
+                        }
+                    };
 
+                    task.setOnSucceeded(event -> {
+                        isbnFiled.setText("");
+                        titleField.setText("");
+                        authorFiled.setText("");
+                        publishedFiled.setText("");
+                        gradeField.setText("");
+                    });
 
-                    BooksDb.addBook(isbn, title, genre, author);
-
-                } catch (SQLException e) {
-
+                    new Thread(task).start();
+                } catch (Exception e) {
                     System.out.println("Ett fel inträffade i handle addBookDB: " + e.getMessage());
                 }
             }
