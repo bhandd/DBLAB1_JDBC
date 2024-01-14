@@ -342,7 +342,7 @@ public class BooksDb implements BooksDbInterface {
 //        + "INSERT INTO T_Author (fullName) VALUES (?)\n"
 //        + "INSERT INTO book_author (book_id, author_id) VALUES ((SELECT book_id FROM t_book WHERE title = ' (?) ',(SELECT aut_id FROM t_author WHERE fullname = ' (?) '))";
 
-        try (Statement stmt = getConnection.getConnection().createStatement()) {
+        Statement stmt = getConnection.getConnection().createStatement();
             // Execute the SQL statement
             ResultSet rs = stmt.executeQuery("SELECT MAX(book_id) AS currentBookID, MAX(aut_id) AS currentAuthorID\n" +
                     "FROM T_book\n" +
@@ -355,14 +355,17 @@ public class BooksDb implements BooksDbInterface {
                 System.out.print(metaData.getColumnName(c) + "\t");
             }
             System.out.println();
+            rs.next();
             int currentBook_id = rs.getInt("currentBookID") + 1;
+
             int currentAut_id = rs.getInt("currentAuthorID") + 1;
+        System.out.println("bokID: "+ currentBook_id +"AutID: " + currentAut_id);
 //            rs.close();
-        }
 
 
-            executeStatement("START TRANSACTION;");
-            // getConnection.getConnection().setAutoCommit(false); //TODO: lite osäker på om det är ok att sätta den här
+
+//            executeStatement("START TRANSACTION;");
+            getConnection.getConnection().setAutoCommit(false); //TODO: lite osäker på om det är ok att sätta den här
 
             if (!authorExists(fullName)) {
                 executeStatement("INSERT INTO T_Author (fullName) VALUES ( '" + fullName + "');");
@@ -374,9 +377,10 @@ public class BooksDb implements BooksDbInterface {
                 System.out.println("Author" + fullName + "added!");
             }
             executeStatement("INSERT INTO T_book (isbn, title, genre) VALUES ('" + isbn + "' ,'" + title + "' ,'" + genre + " ' );");
+        System.out.println("added" + isbn +","+ title+ ","+ genre + "To book");
             //gör både lägg till T_book och lägg till book_id, aut_id i book_autho
-            executeStatement("INSERT INTO book_author (book_id, author_id) VALUES (" + currentBook_id + ") , (" + currentAut_id + " ));");
-
+            executeStatement("INSERT INTO book_author (book_id, author_id) VALUES (" + currentBook_id  + ","  + currentAut_id + " );");
+        System.out.println("wtf!");
             //lägg till book_id och aut_id i book_author
 //   var stmt3 = getConnection.getConnection().prepareStatement(sql3);
 //    stmt3.setString(1, title);
@@ -390,11 +394,11 @@ public class BooksDb implements BooksDbInterface {
             if (errorCount != 0) {
                 // Gör en rollback
                 getConnection.getConnection().rollback();
-                //  getConnection.getConnection().setAutoCommit(true);
+                  getConnection.getConnection().setAutoCommit(true);
             } else {
                 // Gör en commit
                 getConnection.getConnection().commit();
-                //  getConnection.getConnection().setAutoCommit(true);
+                  getConnection.getConnection().setAutoCommit(true);
             }
 //}catch(SQLException e){
 //    System.out.println("Ett fel inträffade i addBook: " + e.getMessage());
@@ -402,6 +406,16 @@ public class BooksDb implements BooksDbInterface {
 
     }
 
+
+
+
+    //TODO: borde gå att köra denna med prepared statements om man redigerar den
+    // se SQL-statements i metoden ovan
+
+    /**
+     *
+     *
+     * */
     public static void addBook1(String isbn, String title, String genre, String fullName) throws SQLException {
         var sql2 = "INSERT INTO T_book (isbn, title, genre) VALUES (?, ?, ?)";
         var sql1 = "INSERT INTO T_Author (fullName) VALUES (?)";
