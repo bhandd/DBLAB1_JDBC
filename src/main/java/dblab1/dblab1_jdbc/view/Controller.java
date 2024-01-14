@@ -294,6 +294,40 @@ String searchAuthor = ("SELECT b.book_id, b.isbn,  b.title, a.fullName, b.publis
             }
         };
 
+    public EventHandler<ActionEvent> deleteBookDB = new EventHandler<ActionEvent>() {
+        private TextField titleField = new TextField();
+
+        private Alert alert = new Alert(CONFIRMATION);
+
+        private String title = null;
+        @Override
+        public void handle(ActionEvent actionEvent) {
+            alert.setTitle("Delete");
+            alert.setResizable(false);
+
+            GridPane grid = new GridPane();
+            grid.setAlignment(Pos.CENTER);
+            grid.setHgap(5);
+            grid.setVgap(5);
+            grid.setPadding(new Insets(10, 10, 10, 10));
+            grid.add(new Label("Title for book "), 1, 1);
+            grid.add(titleField, 2, 1);
+
+            alert.getDialogPane().setContent(grid);
+            alert.showAndWait();
+            title = titleField.getText();
+
+            try {
+                BooksDb.deleteBook(title);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+                //TODO. hantera på nåt bra vis
+            }
+
+            titleField.setText("");
+        }
+    };
+
         public EventHandler<ActionEvent> TitleSearch = new EventHandler<ActionEvent>() {
             private TextField titleField = new TextField();
 

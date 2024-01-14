@@ -177,6 +177,7 @@ public class BooksPaneView extends VBox {
         MenuItem addItem = new MenuItem("Add");
         addItem.addEventHandler(ActionEvent.ACTION, controller.addBookDB);
         MenuItem removeItem = new MenuItem("Remove");
+        removeItem.addEventHandler(ActionEvent.ACTION, controller.deleteBookDB);
         MenuItem updateItem = new MenuItem("Update");
         updateItem.addEventHandler(ActionEvent.ACTION, controller.updateBookDB);
         manageMenu.getItems().addAll(addItem, removeItem, updateItem);

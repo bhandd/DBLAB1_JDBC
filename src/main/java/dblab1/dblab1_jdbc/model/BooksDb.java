@@ -322,6 +322,41 @@ return  errorCount;
         }
     }
 
+//TODO: lägg till kontroll att bok finns i DB
+    public static void deleteBook(String title) throws SQLException {
+
+try{
+    getConnection.getConnection().setAutoCommit(false);
+
+        executeStatement("DELETE FROM book_author WHERE book_id IN (SELECT book_id FROM T_book WHERE title = '" + title + "');");
+        System.out.println("Deleted in book_author");
+        //gör både lägg till T_book och lägg till book_id, aut_id i book_autho
+        executeStatement("DELETE FROM T_book WHERE title = '"+ title + "' and book_id <> 0;");
+        System.out.println("wtf! This is incredible!");
+
+        // Kontrollera om det finns några fel
+        int errorCount = getConnection.getConnection().getTransactionIsolation();
+        int realErrorCount = getErrorCount(" SELECT @@error_count;");
+        System.out.println("Real error count: " + realErrorCount);
+        System.out.println("Dont know what error count this is?: " + errorCount);
+
+        if (realErrorCount != 0) {
+            // Gör en rollback
+            getConnection.getConnection().rollback();
+            getConnection.getConnection().setAutoCommit(true);
+            System.out.println("Rollback");
+        } else {
+            // Gör en commit
+            //getConnection.getConnection().commit();
+            executeStatement("commit;");
+            getConnection.getConnection().setAutoCommit(true);
+            System.out.println("Changes commited to database");
+        }
+    }catch(SQLException e){
+    System.out.println("Ett fel inträffade i deleteBook: " + e.getMessage());
+    }
+
+    }
 
     //TODO: borde gå att köra denna med prepared statements om man redigerar den
     // se SQL-statements i metoden ovan
