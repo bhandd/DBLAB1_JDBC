@@ -8,6 +8,8 @@ import dblab1.dblab1_jdbc.model.*;
 import dblab1.dblab1_jdbc.model.entityClasses.Book;
 import dblab1.dblab1_jdbc.model.entityClasses.Genre;
 import dblab1.dblab1_jdbc.model.exceptions.BooksDbException;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -67,15 +69,15 @@ public class Controller  {
                     case Title:
 
                         // result = booksDb.searchBooksByTitleDB(searchFor);
-                        result = BooksDb.searchDBBook(searchTitle);
+                        result = booksDb.searchDBBook(searchTitle);
 
                         break;
                     case ISBN:
-                        result = BooksDb.searchDBBook(searchISBN);
+                        result = booksDb.searchDBBook(searchISBN);
 
                         break;
                     case Author:
-                        result = BooksDb.searchDBBook(searchAuthor);
+                        result = booksDb.searchDBBook(searchAuthor);
 
                         break;
                     default:
@@ -151,7 +153,7 @@ public class Controller  {
             try {
                 //  getConnection.executeQuery(con, "SELECT * FROM T_book", books);
                 // BooksDb.executeQuery(/*con,*/ "SELECT * FROM T_book", books); //original
-                BooksDb.executeQuery(/*con,*/query, books);
+                booksDb.executeQuery(/*con,*/query, books);
                 // getConnection.searchBookDB("SELECT * FROM T_book"); //TODO: investigate if this is possible in some way
 //                BooksDb.checkIfAuthorExists("Johan Larsson");
                 booksView.displayBooks(books);
@@ -231,24 +233,25 @@ public class Controller  {
                 genre = String.valueOf(gradeComboBox.getValue());
                 published = publishedFiled.getText();
                 grade = gradeField.getText();
-                Task<Void> task = new Task<Void>() {
-                    @Override
-                    protected Void call() throws Exception {
-                     // BooksDb.addBook(isbn, title, genre, author, Date.valueOf(published), grade);
-                       booksDb.addBook(isbn, title, genre, author, Date.valueOf(published), grade);
-                        return null;
+                new Thread(() -> {
+                    try {
+                        // Database code to add a book
+                        BooksDb.addBook(isbn, title, genre, author, Date.valueOf(published), grade);
+
+                        // Update UI components with data using Platform.runLater()
+                        Platform.runLater(() -> {
+                            isbnFiled.setText("");
+                            titleField.setText("");
+                            authorFiled.setText("");
+                            publishedFiled.setText("");
+                            gradeField.setText("");
+                            gradeComboBox.setItems(FXCollections.observableArrayList());
+                        });
+
+                    } catch (Exception e) {
+                        System.out.println("An error occurred in handle addBookDB: " + e.getMessage());
                     }
-                };
-
-                task.setOnSucceeded(event -> {
-                    isbnFiled.setText("");
-                    titleField.setText("");
-                    authorFiled.setText("");
-                    publishedFiled.setText("");
-                    gradeField.setText("");
-                });
-
-                new Thread(task).start();
+                }).start();
             } catch (Exception e) {
                 System.out.println("Ett fel inträffade i handle addBookDB: " + e.getMessage());
             }
@@ -285,10 +288,14 @@ public class Controller  {
             title = titleField.getText();
             gradeValue = gradeField.getText();
 
-            BooksDb.updateGrade(Integer.parseInt(gradeValue), String.valueOf(title));
+            new Thread(() -> {
+                BooksDb.updateGrade(Integer.parseInt(gradeValue), String.valueOf(title));
+                Platform.runLater(() -> {
+                    titleField.setText("");
+                    gradeField.setText("");
+                });
+            }).start();
 
-            titleField.setText("");
-            gradeField.setText("");
         }
     };
 
@@ -315,15 +322,15 @@ public class Controller  {
             alert.getDialogPane().setContent(grid);
             alert.showAndWait();
             title = titleField.getText();
-
-            try {
-                BooksDb.deleteBook(title);
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-                //TODO. hantera på nåt bra vis
-            }
-
-            titleField.setText("");
+            new Thread(() -> {
+                try {
+                    booksDb.deleteBook(title);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                    //TODO. hantera på nåt bra vis
+                }
+                titleField.setText("");
+            }).start();
         }
     };
 
@@ -423,7 +430,7 @@ public class Controller  {
         @Override
         public void handle(ActionEvent actionEvent) {
             try {
-                BooksDbInterface.disconnect();
+                booksDb.disconnect();
             } catch (SQLException | BooksDbException e) {
                 throw new RuntimeException(e);
             }

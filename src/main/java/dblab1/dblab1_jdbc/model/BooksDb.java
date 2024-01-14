@@ -49,12 +49,14 @@ public class BooksDb implements BooksDbInterface {
 
     }
 
+    @Override
     public void disconnect() throws BooksDbException, SQLException {
         getConnection.EndConnection();
     }
 
 
-    public static void executeQuery(/*java.sql.Connection con,*/ String query, List<Book> books) throws SQLException {
+    @Override
+    public void executeQuery(/*java.sql.Connection con,*/ String query, List<Book> books) throws SQLException {
 
       //  Connection con = getConnection.getConnection();
         try (Statement stmt = getConnection.getConnection().createStatement()) {
@@ -95,7 +97,8 @@ public class BooksDb implements BooksDbInterface {
         }
     }
 
-    public static List<Book> searchDBBook(String query) {
+    @Override
+    public List<Book> searchDBBook(String query) {
         List<Book> result = new ArrayList<>();
 
        // Connection con = getConnection.getConnection();
@@ -135,7 +138,7 @@ public class BooksDb implements BooksDbInterface {
 
 
     //TODO: kan användas för att skapa ett objekt för alla variabler och returnera?
-    public static int getErrorCount(String query) throws SQLException {
+    public int getErrorCount(String query) throws SQLException {
 int errorCount = 0;
         try (Statement stmt = getConnection.getConnection().createStatement()) {
             System.out.println("current query to execute: " + query);
@@ -257,7 +260,7 @@ return  errorCount;
 
 
 //TODO: lägg till kontroll att bok finns i DB
-    public static void deleteBook(String title) throws SQLException {
+    public void deleteBook(String title) throws SQLException {
 
 try{
     getConnection.getConnection().setAutoCommit(false);

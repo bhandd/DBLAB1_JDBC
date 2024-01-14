@@ -30,10 +30,7 @@ public interface BooksDbInterface {
     public boolean connect() throws Exception;
 
 
-    public static void disconnect() throws BooksDbException, SQLException {
-        getConnection.EndConnection();
-    }
-
+    public void disconnect() throws BooksDbException, SQLException;
     // public List<Book> searchBooksByTitle(String title) throws BooksDbException;
     
     // TODO: Add abstract methods for all inserts, deletes and queries
@@ -75,8 +72,12 @@ public interface BooksDbInterface {
 //TODO: ska inte vara static
     public void addBook(String isbn, String title, String genre, String fullName, Date publish, String grade) throws SQLException;
 
-    public static void executeQuery(/*java.sql.Connection con,*/ String query, List<Book> books) throws SQLException {
+    public void executeQuery(/*java.sql.Connection con,*/ String query, List<Book> books) throws SQLException;
 
-    }
+    public List<Book> searchDBBook(String query);
+
+    public int getErrorCount(String query) throws SQLException;
+
+    public void deleteBook(String title) throws SQLException;
 
 }
