@@ -11,10 +11,9 @@ import java.util.List;
 public class getConnection {
 
     private static Connection con = null;
-    public static boolean StartConnection() throws Exception {
-
-        String user = ("app_user");//args[0]; // user name
-        String pwd = ("spion");//args[1]; // password
+    public static Connection StartConnection() throws Exception {
+        String user = ("root");//args[0]; // user name
+        String pwd = ("1234");//args[1]; // password
         System.out.println(user + ", *********");
         String database = "Library"; // the name of the specific database
         String server
@@ -24,12 +23,12 @@ public class getConnection {
             con = DriverManager.getConnection(server, user, pwd);
             //Class.forName("com.mysql.cj.jdbc.Driver");
             System.out.println("Connected!");
-            return true;
+            return con;
             //executeQuery(con, "SELECT * FROM T_book");
         }  catch (SQLException e) {
             System.err.println("Connection failed. Error message: " + e.getMessage());
             e.printStackTrace();
-            return false;
+            return null;
         }
     }
 

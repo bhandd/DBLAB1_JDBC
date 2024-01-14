@@ -33,7 +33,7 @@ public class BooksDb implements BooksDbInterface {
 
     @Override
     public boolean connect() throws Exception {
-        if (getConnection.StartConnection()) {
+        if (getConnection.StartConnection() != null) {
             System.out.println("Yes");
             return true;
         } else {

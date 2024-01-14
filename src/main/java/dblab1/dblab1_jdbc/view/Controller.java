@@ -147,7 +147,7 @@ String query = ("SELECT b.book_id, b.isbn, b.title, a.fullName, b.published, b.g
            // Connection con = getConnection.getConnection();
             List<Book> books = new ArrayList<>();
 
-            try(Connection con = BooksDb.shareConnection()) {
+            try {
                 //  getConnection.executeQuery(con, "SELECT * FROM T_book", books);
                // BooksDb.executeQuery(/*con,*/ "SELECT * FROM T_book", books); //original
                 BooksDb.executeQuery(/*con,*/query , books);
@@ -189,7 +189,7 @@ String query = ("SELECT b.book_id, b.isbn, b.title, a.fullName, b.published, b.g
             // Connection con = getConnection.getConnection();
             List<Book> books = new ArrayList<>();
 
-            try(Connection con = BooksDb.shareConnection()) {
+            try {
                 alert.setTitle("Add book");
                 alert.setResizable(false);
 
