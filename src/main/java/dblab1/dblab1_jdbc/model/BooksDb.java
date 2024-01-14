@@ -269,35 +269,34 @@ return  errorCount;
         }
     }
 
-    public static void addBook(String isbn, String title, String genre, String fullName) throws SQLException {
-        try(Statement stmt = getConnection.getConnection().createStatement()){
-            // Execute the SQL statement
-            ResultSet rs = stmt.executeQuery("SELECT MAX(book_id) AS currentBookID, MAX(aut_id) AS currentAuthorID\n" +
-                    "FROM T_book\n" +
-                    "LEFT JOIN T_author\n" +
-                    "ON book_id = aut_id;;");
+    public static void deleteBook(String title) throws SQLException {
+//        try(Statement stmt = getConnection.getConnection().createStatement()){
+//            // Execute the SQL statement
+//            ResultSet rs = stmt.executeQuery("SELECT MAX(book_id) AS currentBookID, MAX(aut_id) AS currentAuthorID\n" +
+//                    "FROM T_book\n" +
+//                    "LEFT JOIN T_author\n" +
+//                    "ON book_id = aut_id;;");
+//            ResultSetMetaData metaData = rs.getMetaData();
+//            int ccount = metaData.getColumnCount();
+//            for (int c = 1; c <= ccount; c++) {
+//                System.out.print(metaData.getColumnName(c) + "\t");
+//            }
+//            System.out.println();
+//            rs.next();
+//            int currentBook_id = rs.getInt("currentBookID") + 1;
+//            int currentAut_id = rs.getInt("currentAuthorID") + 1;
+//        System.out.println("bokID: "+ currentBook_id +"AutID: " + currentAut_id);
 
-            ResultSetMetaData metaData = rs.getMetaData();
-            int ccount = metaData.getColumnCount();
-            for (int c = 1; c <= ccount; c++) {
-                System.out.print(metaData.getColumnName(c) + "\t");
-            }
-            System.out.println();
-            rs.next();
-            int currentBook_id = rs.getInt("currentBookID") + 1;
-            int currentAut_id = rs.getInt("currentAuthorID") + 1;
-        System.out.println("bokID: "+ currentBook_id +"AutID: " + currentAut_id);
-//            executeStatement("START TRANSACTION;");
             getConnection.getConnection().setAutoCommit(false);
-
-            if (!authorExists(fullName)) {
-                executeStatement("INSERT INTO T_Author (fullName) VALUES ( '" + fullName + "');");
-                System.out.println("Author" + fullName + "added!");
-            }
-            executeStatement("INSERT INTO T_book (isbn, title, genre) VALUES ('" + isbn + "' ,'" + title + "' ,'" + genre + " ' );");
-        System.out.println("added" + isbn +","+ title+ ","+ genre + "To book");
+//
+//            if (!authorExists(fullName)) {
+//                executeStatement("INSERT INTO T_Author (fullName) VALUES ( '" + fullName + "');");
+//                System.out.println("Author" + fullName + "added!");
+//            }
+            executeStatement("DELETE FROM book_author WHERE book_id IN (SELECT book_id FROM T_book WHERE title = '" + title + "');");
+        System.out.println("Deleted in book_author");
             //gör både lägg till T_book och lägg till book_id, aut_id i book_autho
-            executeStatement("INSERT INTO book_author (book_id, author_id) VALUES (" + currentBook_id  + ","  + currentAut_id + " );");
+            executeStatement("DELETE FROM T_book WHERE title = '"+ title + "' and book_id <> 0;");
         System.out.println("wtf! This is incredible!");
 
             // Kontrollera om det finns några fel
@@ -317,10 +316,64 @@ return  errorCount;
                   getConnection.getConnection().setAutoCommit(true);
                 System.out.println("Changes commited to database");
             }
-}catch(SQLException e){
-    System.out.println("Ett fel inträffade i addBook: " + e.getMessage());
+//    }catch(SQLException e){
+//    System.out.println("Ett fel inträffade i addBook: " + e.getMessage());
+//    }
 }
 
+
+//
+    public static void addBook(String isbn, String title, String genre, String fullName) throws SQLException {
+        try(Statement stmt = getConnection.getConnection().createStatement()){
+            // Execute the SQL statement
+            ResultSet rs = stmt.executeQuery("SELECT MAX(book_id) AS currentBookID, MAX(aut_id) AS currentAuthorID\n" +
+                    "FROM T_book\n" +
+                    "LEFT JOIN T_author\n" +
+                    "ON book_id = aut_id;;");
+
+            ResultSetMetaData metaData = rs.getMetaData();
+            int ccount = metaData.getColumnCount();
+            for (int c = 1; c <= ccount; c++) {
+                System.out.print(metaData.getColumnName(c) + "\t");
+            }
+            System.out.println();
+            rs.next();
+            int currentBook_id = rs.getInt("currentBookID") + 1;
+            int currentAut_id = rs.getInt("currentAuthorID") + 1;
+            System.out.println("bokID: "+ currentBook_id +"AutID: " + currentAut_id);
+//            executeStatement("START TRANSACTION;");
+            getConnection.getConnection().setAutoCommit(false);
+
+            if (!authorExists(fullName)) {
+                executeStatement("INSERT INTO T_Author (fullName) VALUES ( '" + fullName + "');");
+                System.out.println("Author" + fullName + "added!");
+            }
+            executeStatement("INSERT INTO T_book (isbn, title, genre) VALUES ('" + isbn + "' ,'" + title + "' ,'" + genre + " ' );");
+            System.out.println("added" + isbn +","+ title+ ","+ genre + "To book");
+            //gör både lägg till T_book och lägg till book_id, aut_id i book_autho
+            executeStatement("INSERT INTO book_author (book_id, author_id) VALUES (" + currentBook_id  + ","  + currentAut_id + " );");
+            System.out.println("wtf! This is incredible!");
+
+            // Kontrollera om det finns några fel
+            int errorCount = getConnection.getConnection().getTransactionIsolation();
+            int realErrorCount = getErrorCount(" SELECT @@error_count;");
+            System.out.println("Real error count: " + realErrorCount);
+            System.out.println("Dont know what error count this is?: " + errorCount);
+
+            if (realErrorCount != 0) {
+                // Gör en rollback
+                getConnection.getConnection().rollback();
+                getConnection.getConnection().setAutoCommit(true);
+            } else {
+                // Gör en commit
+                //getConnection.getConnection().commit();
+                executeStatement("commit;");
+                getConnection.getConnection().setAutoCommit(true);
+                System.out.println("Changes commited to database");
+            }
+        }catch(SQLException e){
+            System.out.println("Ett fel inträffade i addBook: " + e.getMessage());
+        }
     }
 
 

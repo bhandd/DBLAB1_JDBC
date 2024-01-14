@@ -73,6 +73,7 @@ public class Main extends Application {
                         } catch (Exception e) {
                         }
                     });
+
                     primaryStage.setScene(scene);
                     primaryStage.show();
                 } catch (Exception e) {
