@@ -1,5 +1,6 @@
 package dblab1.dblab1_jdbc.model.entityClasses;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -23,8 +24,8 @@ public class Book {
 
     private String storyLine = "";
     private String author;
-    // private Author author;
-    //   private ArrayList<Author> authors;
+
+       private ArrayList<Author> authors;
     // TODO:
     // Add authors, as a separate class(!), and corresponding methods, to your implementation
     // as well, i.e. "private ArrayList<Author> authors;"
@@ -119,7 +120,7 @@ public class Book {
         this.genre = genre;
     }
 
-    public void setAuthor(String author) {
+    public void addAuthor(String author) {
         this.author = author;
     }
 
