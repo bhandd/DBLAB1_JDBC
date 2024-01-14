@@ -28,60 +28,27 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        ExecutorService executorService = Executors.newFixedThreadPool(2);
-        executorService.execute(() -> {
-            BooksDb booksDb = new BooksDb(); // model
-            // Don't forget to connect to the db, somewhere...
-            Platform.runLater(() -> {
+        BooksDb booksDb = new BooksDb(); // model
+        // Don't forget to connect to the db, somewhere...
+        try {
+            BooksDb.connect();
+            BooksPaneView root = new BooksPaneView(booksDb);
+
+            Scene scene = new Scene(root, 800, 600);
+
+            primaryStage.setTitle("Books Database Client");
+            // add an exit handler to the stage (X) ?
+            primaryStage.setOnCloseRequest(event -> {
                 try {
-                    BooksDb.connect();
-                    BooksPaneView root = new BooksPaneView(booksDb);
-
-                    Scene scene = new Scene(root, 800, 600);
-
-                    primaryStage.setTitle("Books Database Client");
-                    // add an exit handler to the stage (X) ?
-                    primaryStage.setOnCloseRequest(event -> {
-                        try {
-                            booksDb.disconnect();
-                        } catch (Exception e) {
-                        }
-                    });
-                    primaryStage.setScene(scene);
-                    primaryStage.show();
+                    booksDb.disconnect();
                 } catch (Exception e) {
-                    throw new RuntimeException(e);
                 }
             });
-        });
-
-        executorService.execute(() -> {
-            BooksDb booksDb = new BooksDb(); // model
-            // Don't forget to connect to the db, somewhere...
-            Platform.runLater(() -> {
-                try {
-                    BooksDb.connect();
-                    BooksPaneView root = new BooksPaneView(booksDb);
-
-                    Scene scene = new Scene(root, 800, 600);
-
-                    primaryStage.setTitle("Books Database Client");
-                    // add an exit handler to the stage (X) ?
-                    primaryStage.setOnCloseRequest(event -> {
-                        try {
-                            booksDb.disconnect();
-                        } catch (Exception e) {
-                        }
-                    });
-
-                    primaryStage.setScene(scene);
-                    primaryStage.show();
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-            });
-        });
-        executorService.shutdown();
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
