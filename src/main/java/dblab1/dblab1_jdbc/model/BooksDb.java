@@ -188,7 +188,7 @@ public class BooksDb implements BooksDbInterface {
 
 
     //TODO: skapa ett objekt för alla variabler och returnera
-    public static int executeQuery(String query) throws SQLException {
+    public static int getErrorCount(String query) throws SQLException {
 
         try (Statement stmt = getConnection.getConnection().createStatement()) {
             System.out.println("current query to execute: " + query);
@@ -241,7 +241,6 @@ return 666;
         try (Statement stmt = getConnection.getConnection().createStatement()) {
             // Execute the SQL statement
             stmt.executeUpdate(statement);
-
             //   ResultSet rs = stmt.executeQuery(statement);
 
             // Get the attribute names
@@ -281,27 +280,6 @@ return 666;
         }
     }
 
-
-
-
-
-    public void addAuthor(String name) throws Exception{
-        //TODO: add an author to the database and at the same time update the book_author table to connect the author to the books and vice versa
-    }
-
-//    private static final Book[] DATA = {
-//            new Book(1, "123456789", "Databases Illuminated", 2018),//new Date(2018, 1, 1)),
-//            new Book(2, "234567891", "Dark Databases", 1990), //new Date(1990, 1, 1)),
-//            new Book(3, "456789012", "The buried giant", 2000), //new Date(2000, 1, 1)),
-//            new Book(4, "567890123", "Never let me go", 2000), //new Date(2000, 1, 1)),
-//            new Book(5, "678901234", "The remains of the day", 2000), //new Date(2000, 1, 1)),
-//            new Book(6, "234567890", "Alias Grace", 2000), //new Date(2000, 1, 1)),
-//            new Book(7, "345678911", "The handmaids tale", 2010), //new Date(2010, 1, 1)),
-//            new Book(8, "345678901", "Shuggie Bain", 2020), //new Date(2020, 1, 1)),
-//            new Book(9, "345678912", "Microserfs", 2000) //new Date(2000, 1, 1)),
-//    };
-
-
     /**
      * Updates the grade for a book with the specified title.
      *
@@ -312,7 +290,6 @@ return 666;
         var sql = "UPDATE T_book "
                 + "SET grade = ? "
                 + "WHERE title = ?";
-
     //    Connection conn = getConnection.getConnection();
         try (var stmt = getConnection.getConnection().prepareStatement(sql)) {
 
@@ -330,69 +307,8 @@ return 666;
         }
     }
 
-
-//TODO: for test only, maybe save as a help-method
-    /**
-     *
-     *
-     * */
-    public static void addBookToDb(String isbn, String title,String author) {
-        var sql = "INSERT INTO T_book (isbn, title, author ) VALUES (?, ?)"; //no author
-       // var sql = "INSERT INTO T_book (isbn, title, author ) VALUES (?, ?, ?)"; //WITH author
-        //var conn = getConnection.getConnection();
-
-   try (var stmt = getConnection.getConnection().prepareStatement(sql)) {
-
-            // prepare data for update
-            stmt.setString(1, isbn);
-            stmt.setString(2, title);
-              //  stmt.setString(3,genreID);
-            //stmt.setString(3, author); // with author as string
-
-
-            //TODO: lägg till metoder :
-            //checkIfAuthorExists();
-          //  addAuthorInDB();
-         //   updateBookAuthorInDB;
-
-            // execute the update
-            int rowAffected = stmt.executeUpdate();
-            System.out.println("Row affected " + rowAffected);
-        } catch (SQLException ex) {
-            System.err.println(ex.getMessage());
-        }
-    }
-
-
-    //Todo; delete, just a test
-//public static int executeStuff(String tableName, String colName) throws SQLException {
-//    try (Statement stmt = getConnection.getConnection().createStatement()) {
-//        // Execute the SQL statement
-//
-//        ResultSet rs = stmt.executeQuery("SELECT MAX(book_id) AS currentMaxVal" +
-//                "FROM'" +tableName +"'");
-//
-//        ResultSetMetaData metaData = rs.getMetaData();
-//        int ccount = metaData.getColumnCount();
-//        for (int c = 1; c <= ccount; c++) {
-//            System.out.print(metaData.getColumnName(c) + "\t");
-//        }
-//        System.out.println();
-//        return rs.getInt("currentMaxVal") + 1;
-//       // rs.close();
-//    }catch (SQLException e){
-//        throw new SQLException();
-//    }
-//}
-
-
-
     public static void addBook(String isbn, String title, String genre, String fullName) throws SQLException {
-//        var sql2 = "INSERT INTO T_book (isbn, title, genre) VALUES (?, ?, ?)\n"
-//        + "INSERT INTO T_Author (fullName) VALUES (?)\n"
-//        + "INSERT INTO book_author (book_id, author_id) VALUES ((SELECT book_id FROM t_book WHERE title = ' (?) ',(SELECT aut_id FROM t_author WHERE fullname = ' (?) '))";
-
-        Statement stmt = getConnection.getConnection().createStatement();
+        try(Statement stmt = getConnection.getConnection().createStatement()){
             // Execute the SQL statement
             ResultSet rs = stmt.executeQuery("SELECT MAX(book_id) AS currentBookID, MAX(aut_id) AS currentAuthorID\n" +
                     "FROM T_book\n" +
@@ -407,23 +323,13 @@ return 666;
             System.out.println();
             rs.next();
             int currentBook_id = rs.getInt("currentBookID") + 1;
-
             int currentAut_id = rs.getInt("currentAuthorID") + 1;
         System.out.println("bokID: "+ currentBook_id +"AutID: " + currentAut_id);
-//            rs.close();
-
-
-
 //            executeStatement("START TRANSACTION;");
-            getConnection.getConnection().setAutoCommit(false); //TODO: lite osäker på om det är ok att sätta den här
+            getConnection.getConnection().setAutoCommit(false);
 
             if (!authorExists(fullName)) {
                 executeStatement("INSERT INTO T_Author (fullName) VALUES ( '" + fullName + "');");
-//                int rowAffected = stmt.executeUpdate();
-//                System.out.println("Row affected " + rowAffected);
-//            } catch (SQLException ex) {
-//                System.err.println(ex.getMessage());
-//            }
                 System.out.println("Author" + fullName + "added!");
             }
             executeStatement("INSERT INTO T_book (isbn, title, genre) VALUES ('" + isbn + "' ,'" + title + "' ,'" + genre + " ' );");
@@ -431,19 +337,12 @@ return 666;
             //gör både lägg till T_book och lägg till book_id, aut_id i book_autho
             executeStatement("INSERT INTO book_author (book_id, author_id) VALUES (" + currentBook_id  + ","  + currentAut_id + " );");
         System.out.println("wtf! This is incredible!");
-            //lägg till book_id och aut_id i book_author
-//   var stmt3 = getConnection.getConnection().prepareStatement(sql3);
-//    stmt3.setString(1, title);
-//    stmt3.setString(2, fullName);
-//    stmt3.executeUpdate();
-//    int rowAffected = stmt2.executeUpdate();
-//    System.out.println("Row affected " + rowAffected);
 
             // Kontrollera om det finns några fel
             int errorCount = getConnection.getConnection().getTransactionIsolation();
-       int realErrorCount = executeQuery(" SELECT @@error_count;");
+       int realErrorCount = getErrorCount(" SELECT @@error_count;");
         System.out.println("Real error count: " + realErrorCount);
-        System.out.println("error count: " + errorCount);
+        System.out.println("Dont know what error count this is?: " + errorCount);
 
             if (realErrorCount != 0) {
                 // Gör en rollback
@@ -451,17 +350,16 @@ return 666;
                   getConnection.getConnection().setAutoCommit(true);
             } else {
                 // Gör en commit
-                getConnection.getConnection().commit();
+                //getConnection.getConnection().commit();
+                executeStatement("commit;");
                   getConnection.getConnection().setAutoCommit(true);
                 System.out.println("Changes commited to database");
             }
-//}catch(SQLException e){
-//    System.out.println("Ett fel inträffade i addBook: " + e.getMessage());
-//}
+}catch(SQLException e){
+    System.out.println("Ett fel inträffade i addBook: " + e.getMessage());
+}
 
     }
-
-
 
 
     //TODO: borde gå att köra denna med prepared statements om man redigerar den

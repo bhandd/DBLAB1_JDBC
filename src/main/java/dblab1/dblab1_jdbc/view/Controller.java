@@ -46,6 +46,18 @@ String searchTitle = ("SELECT b.book_id, b.isbn,  b.title, a.fullName, b.publish
         "INNER JOIN T_author a \n" +
         "ON ba.author_id = a.aut_id WHERE b.title LIKE '%" + searchFor + "%';");
 
+String searchISBN = ("SELECT b.book_id, b.isbn,  b.title, a.fullName, b.published, b.genre, b.grade\n" +
+                "FROM T_book b \n" +
+                "INNER JOIN book_author ba \n" +
+                "ON b.book_id = ba.book_id \n" +
+                "INNER JOIN T_author a \n" +
+                "ON ba.author_id = a.aut_id WHERE b.title LIKE '%" + searchFor + "%';");
+String searchAuthor = ("SELECT b.book_id, b.isbn,  b.title, a.fullName, b.published, b.genre, b.grade\n" +
+                "FROM T_book b \n" +
+                "INNER JOIN book_author ba \n" +
+                "ON b.book_id = ba.book_id \n" +
+                "INNER JOIN T_author a \n" +
+                "ON ba.author_id = a.aut_id WHERE b.title LIKE '%" + searchFor + "%';");
         try {
             if (searchFor != null && searchFor.length() > 1) {
                 List<Book> result = new ArrayList<>();
