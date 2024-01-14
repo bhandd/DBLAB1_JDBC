@@ -3,6 +3,7 @@ package dblab1.dblab1_jdbc;
 import dblab1.dblab1_jdbc.model.BooksDb;
 import dblab1.dblab1_jdbc.model.BooksDbInterface;
 import dblab1.dblab1_jdbc.model.exceptions.BooksDbException;
+import dblab1.dblab1_jdbc.model.getConnection;
 import dblab1.dblab1_jdbc.view.BooksPaneView;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -32,7 +33,7 @@ public class Main extends Application {
         // Don't forget to connect to the db, somewhere...
 
         try {
-            BooksDb.connect();
+            getConnection.StartConnection();
             BooksPaneView root = new BooksPaneView(booksDb);
             Scene scene = new Scene(root, 800, 600);
 
@@ -53,7 +54,7 @@ public class Main extends Application {
 
     @Override
     public void stop() throws Exception {
-        BooksDbInterface.disconnect();
+        getConnection.EndConnection();
         super.stop();
     }
     public static void main(String[] args) {
