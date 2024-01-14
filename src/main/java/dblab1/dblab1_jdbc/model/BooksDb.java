@@ -139,21 +139,10 @@ public class BooksDb implements BooksDbInterface {
 int errorCount = 0;
         try (Statement stmt = getConnection.getConnection().createStatement()) {
             System.out.println("current query to execute: " + query);
-            // Execute the SQL statement
-
             ResultSet rs = stmt.executeQuery(query);
-
-            //  Get the attribute names
-//            ResultSetMetaData metaData = rs.getMetaData();
-//            int ccount = metaData.getColumnCount();
-//            for (int c = 1; c <= ccount; c++) {
-//                System.out.print(metaData.getColumnName(c) + "\t");
-//            }
             System.out.println();
-
                 rs.next();
                 errorCount = rs.getInt("@@error_count");
-        //    }
             System.out.println("executed a query");
         }catch (SQLException e){
             System.err.println("FUCK! Something went to shit again! "+ e.getMessage());

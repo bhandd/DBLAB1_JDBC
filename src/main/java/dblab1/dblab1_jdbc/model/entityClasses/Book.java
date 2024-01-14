@@ -1,6 +1,8 @@
 package dblab1.dblab1_jdbc.model.entityClasses;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Representation of a book.
@@ -22,9 +24,9 @@ public class Book {
     private String genre;
 
     private String storyLine = "";
-    private String author;
-    // private Author author;
-    //   private ArrayList<Author> authors;
+  //  private String author;
+
+       private ArrayList<Author> authors;
     // TODO:
     // Add authors, as a separate class(!), and corresponding methods, to your implementation
     // as well, i.e. "private ArrayList<Author> authors;"
@@ -32,21 +34,18 @@ public class Book {
     //TODO: avkommentera arraylist med authors då detta krävs för att representera relationen mellan book och author
     // avkommentera också String author som parameter i konstruktiorn
     // när detta göra behöver man anpassa implementeringen i övriga programmet
-    public Book(int bookId, String isbn, String title, String author , java.sql.Date published, String genre, int grade   ) {
+    public Book(int bookId, String isbn, String title Author author*/ , java.sql.Date published, String genre, int grade   ) {
         this.bookId = bookId;
 
         this.isbn = isbn;
         this.title = title;
-//        this.authors = new ArrayList<>();
+        this.authors = new ArrayList<>();
 //        this.authors.add(new Author(author));
         //    this.author.setfName(author);
-        this.author = author;
-        this.published = published;
 
+        this.published = published;
         this.genre = genre;
         this.grade = grade;
-
-
 
     }
 
@@ -66,9 +65,16 @@ public class Book {
     public Date getPublished() { return published; }
     public String getStoryLine() { return storyLine; }
 
-    public String getAuthor() {
-        return author;
+    public List<Author> getAuthor() {
+        ArrayList<Author> copy = new ArrayList<>();
+      for (int i = 0; i <authors.size(); i++){
+          copy.add(new Author(authors.get(i).getId(), authors.get(i).getFullName()));
+
+      }
+      return copy;
     }
+
+
 
     public String getGenre() {
         return genre;
@@ -119,16 +125,18 @@ public class Book {
         this.genre = genre;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void addAuthor(Author author) {
+        this.authors.add(author);
     }
 
     public void setStoryLine(String storyLine) {
         this.storyLine = storyLine;
     }
 
+
+
     @Override
     public String toString() {
-        return bookId +", "+ isbn + ", " + title + ", " + author + /*+ authors +*/ ", " +  published + ", " + genre + ", " + grade;
+        return bookId +", "+ isbn + ", " + title + ", " + + /*+ authors +*/ ", " +  published + ", " + genre + ", " + grade;
     }
 }
