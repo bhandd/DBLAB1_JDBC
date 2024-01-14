@@ -24,10 +24,8 @@ public class BooksDb implements BooksDbInterface {
 
     private final List<Book> books;
 
-
-//
     public BooksDb() {
-      //  books = Arrays.asList(DATA); //TODO: ska troligtvis ta bort DATA
+
         books = List.of();
     }
 
@@ -58,7 +56,6 @@ public class BooksDb implements BooksDbInterface {
     }
 //TODO: sparas ifall den behövs sen.
 
-
     //Added by Anders
 //    @Override
 //    public List<Book> searchBooksByTitle(String searchTitle)
@@ -78,7 +75,6 @@ public class BooksDb implements BooksDbInterface {
 //        return result;
 //    }
 
-    //TODO: Connection probably not needed as a parameter. Should be able to implement the search method here.
 
     public static void executeQuery(/*java.sql.Connection con,*/ String query, List<Book> books) throws SQLException {
 
@@ -104,10 +100,7 @@ public class BooksDb implements BooksDbInterface {
 /*
                 Author author = new Author();
                 author.setfName(rs.getString("author"));
-*/              //attempt to have 2 columns for name in T_author
-//                String fname = rs.getString("fName");
-//                String lName = rs.getString("lName");
-//                String author = fname + " " + lName;
+*/
                 String author = rs.getString("fullName");
                 //String author = rs.getString("author");
                 Date published = rs.getDate("published");
@@ -132,7 +125,6 @@ public class BooksDb implements BooksDbInterface {
             // Execute the SQL statement
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
-
                 int bookId = rs.getInt("book_id");
                 String ISBN = rs.getString("ISBN");
                 String title = rs.getString("title");
@@ -140,10 +132,6 @@ public class BooksDb implements BooksDbInterface {
                 Author author = new Author();
                 author.setfName(rs.getString("author"));
 */
-                //attempt to have 2 columns for name in T_author
-//                String fname = rs.getString("fName");
-//                String lName = rs.getString("lName");
-//                String author = fname + " " + lName;
                 String author = rs.getString("fullName");
                 //String author = rs.getString("author");
                 Date published = rs.getDate("published");
@@ -165,36 +153,15 @@ public class BooksDb implements BooksDbInterface {
         return result;
     }
 
-    //TODO: antingen skriver man grade istället för column eller så skriver man
-    // om metoden så man kan användan den för att komma åt valfri kolumn
-    public static void setGrade(String gradeValue, String title){
-        //TODO:try to make methods to retrieve the connection and the books
-
-       // Connection con = getConnection.getConnection();
-        List<Book> books = new ArrayList<>();
-
-        try(Connection con = getConnection.getConnection()) {
-            //  getConnection.executeQuery(con, "SELECT * FROM T_book", books);
-          executeStatement("UPDATE T_book SET Grade= "+ gradeValue + "WHERE title = " + "'"+title+"'");
-            // getConnection.searchBookDB("SELECT * FROM T_book"); //TODO: investigate if this is possible in some way
-
-        } catch (SQLException e) {
-            System.out.println("something went wrong");
-            throw new RuntimeException(e);
-        }
-
-    }
 
 
 
-    //TODO: skapa ett objekt för alla variabler och returnera
+    //TODO: kan användas för att skapa ett objekt för alla variabler och returnera?
     public static int getErrorCount(String query) throws SQLException {
-
+int errorCount = 0;
         try (Statement stmt = getConnection.getConnection().createStatement()) {
             System.out.println("current query to execute: " + query);
             // Execute the SQL statement
-
-           // int n = stmt.executeQuery(query);
 
             ResultSet rs = stmt.executeQuery(query);
 
@@ -205,9 +172,9 @@ public class BooksDb implements BooksDbInterface {
                 System.out.print(metaData.getColumnName(c) + "\t");
             }
             System.out.println();
-//TODO: move the while loop in executeQuery, searchBookDB and this one to it´s own method
+//TODO: move the while loop in executeQuery, searchBookDB and this one to it´s own method?
             // Get the attribute values
-            while (rs.next()) {
+          //  while (rs.next()) {
                 //  int bookId = rs.getInt("book_id");
 //                String ISBN = rs.getString("ISBN");
 //                String title = rs.getString("title");
@@ -222,17 +189,14 @@ public class BooksDb implements BooksDbInterface {
 //                //  String language = rs.getString("language");
 //                int genre_id = rs.getInt("genre_id");
 //                int grade = rs.getInt("grade");
-
-                return rs.getInt("@@error_count");
-            }
-
-            System.out.println("executed a query-");
-
+                rs.next();
+                errorCount = rs.getInt("@@error_count");
+        //    }
+            System.out.println("executed a query");
         }catch (SQLException e){
-            System.err.println("FUCK! Something failed again! "+ e.getMessage());
-
+            System.err.println("FUCK! Something went to shit again! "+ e.getMessage());
         }
-return 666;
+return  errorCount;
     }
 
     public static void executeStatement(String statement) throws SQLException {
