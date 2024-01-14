@@ -101,7 +101,7 @@ public class Controller  {
         @Override
         public void handle(ActionEvent actionEvent) {
             try {
-                BooksDbInterface.connect();
+                booksDb.connect();
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
@@ -234,8 +234,8 @@ public class Controller  {
                 Task<Void> task = new Task<Void>() {
                     @Override
                     protected Void call() throws Exception {
-                      BooksDb.addBook(isbn, title, genre, author, Date.valueOf(published), grade);
-                      //  BooksDbInterface.addBook(isbn, title, genre, author, Date.valueOf(published), grade);
+                     // BooksDb.addBook(isbn, title, genre, author, Date.valueOf(published), grade);
+                       booksDb.addBook(isbn, title, genre, author, Date.valueOf(published), grade);
                         return null;
                     }
                 };

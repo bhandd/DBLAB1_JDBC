@@ -73,9 +73,7 @@ public interface BooksDbInterface {
      * @throws Exception If an error occurs during the insertion.
      */
 //TODO: ska inte vara static
-    public static void addBook(String isbn, String title, String genre, String fullName, Date publish, String grade) throws SQLException {
-
-    }
+    public void addBook(String isbn, String title, String genre, String fullName, Date publish, String grade) throws SQLException;
 
     public static void executeQuery(/*java.sql.Connection con,*/ String query, List<Book> books) throws SQLException {
 
