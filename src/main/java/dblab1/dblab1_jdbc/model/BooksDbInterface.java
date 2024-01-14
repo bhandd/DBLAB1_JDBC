@@ -20,18 +20,28 @@ import java.util.List;
  * @author anderslm@kth.se
  */
 public interface BooksDbInterface {
-    
+
     /**
      * Connect to the database.
      *
      * @return true on successful connection.
      */
-    public boolean connect() throws Exception;
+    public static boolean connect() throws Exception {
+        if (getConnection.StartConnection() != null) {
+            System.out.println("Yes");
+            return true;
+        } else {
+            System.out.println("No");
+            return false;
+        }
+    }
 
-    
-    public void disconnect() throws BooksDbException, SQLException;
-    
-   // public List<Book> searchBooksByTitle(String title) throws BooksDbException;
+
+    public static void disconnect() throws BooksDbException, SQLException {
+        getConnection.EndConnection();
+    }
+
+    // public List<Book> searchBooksByTitle(String title) throws BooksDbException;
     
     // TODO: Add abstract methods for all inserts, deletes and queries
     // mentioned in the instructions for the assignement.

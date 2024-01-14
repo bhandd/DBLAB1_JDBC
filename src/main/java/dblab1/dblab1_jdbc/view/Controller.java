@@ -39,12 +39,12 @@ public class Controller {
     }
 
     protected void onSearchSelected(String searchFor, SearchMode mode) {
-String searchTitle = ("SELECT b.book_id, b.isbn,  b.title, a.fullName, b.published, b.genre, b.grade\n" +
-        "FROM T_book b \n" +
-        "INNER JOIN book_author ba \n" +
-        "ON b.book_id = ba.book_id \n" +
-        "INNER JOIN T_author a \n" +
-        "ON ba.author_id = a.aut_id WHERE b.title LIKE '%" + searchFor + "%';");
+        String searchTitle = ("SELECT b.book_id, b.isbn,  b.title, a.fullName, b.published, b.genre, b.grade\n" +
+                "FROM T_book b \n" +
+                "INNER JOIN book_author ba \n" +
+                "ON b.book_id = ba.book_id \n" +
+                "INNER JOIN T_author a \n" +
+                "ON ba.author_id = a.aut_id WHERE b.title LIKE '%" + searchFor + "%';");
 
 String searchISBN = ("SELECT b.book_id, b.isbn,  b.title, a.fullName, b.published, b.genre, b.grade\n" +
                 "FROM T_book b \n" +
@@ -99,9 +99,8 @@ String searchAuthor = ("SELECT b.book_id, b.isbn,  b.title, a.fullName, b.publis
     public EventHandler<ActionEvent> connectHandler = new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent actionEvent) {
-            BooksDbInterface booksDbInterface = new BooksDb();
             try {
-                booksDbInterface.connect();
+                BooksDbInterface.connect();
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
@@ -139,59 +138,122 @@ String searchAuthor = ("SELECT b.book_id, b.isbn,  b.title, a.fullName, b.publis
 //        }
 //    }
 
-    public EventHandler<ActionEvent> showBooksInDB = new EventHandler<ActionEvent>() {
-        @Override
-        public void handle(ActionEvent actionEvent) {
-            //TODO:try to make methods to retrieve the connection and the books
-String query = ("SELECT b.book_id, b.isbn, b.title, a.fullName, b.published, b.genre, b.grade\n" +
-        "FROM T_book b INNER JOIN book_author ba ON b.book_id = ba.book_id INNER JOIN T_author a ON ba.author_id = a.aut_id;");
-           // Connection con = getConnection.getConnection();
-            List<Book> books = new ArrayList<>();
+        public EventHandler<ActionEvent> showBooksInDB = new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                //TODO:try to make methods to retrieve the connection and the books
+                String query = ("SELECT b.book_id, b.isbn, b.title, a.fullName, b.published, b.genre, b.grade\n" +
+                        "FROM T_book b INNER JOIN book_author ba ON b.book_id = ba.book_id INNER JOIN T_author a ON ba.author_id = a.aut_id;");
+                // Connection con = getConnection.getConnection();
+                List<Book> books = new ArrayList<>();
 
-            try {
-                //  getConnection.executeQuery(con, "SELECT * FROM T_book", books);
-               // BooksDb.executeQuery(/*con,*/ "SELECT * FROM T_book", books); //original
-                BooksDb.executeQuery(/*con,*/query , books);
-                // getConnection.searchBookDB("SELECT * FROM T_book"); //TODO: investigate if this is possible in some way
+                try {
+                    //  getConnection.executeQuery(con, "SELECT * FROM T_book", books);
+                    // BooksDb.executeQuery(/*con,*/ "SELECT * FROM T_book", books); //original
+                    BooksDb.executeQuery(/*con,*/query, books);
+                    // getConnection.searchBookDB("SELECT * FROM T_book"); //TODO: investigate if this is possible in some way
 //                BooksDb.checkIfAuthorExists("Johan Larsson");
-                booksView.displayBooks(books);
+                    booksView.displayBooks(books);
 
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
             }
-        }
-    };
+        };
 
-    public EventHandler<ActionEvent> addBookDB = new EventHandler<ActionEvent>() {
-        Alert alert = new Alert(CONFIRMATION);
+        public EventHandler<ActionEvent> addBookDB = new EventHandler<ActionEvent>() {
+            Alert alert = new Alert(CONFIRMATION);
 
-        String isbn = null;
-        String title = null;
+            String isbn = null;
+            String title = null;
 
-        String author = null;
+            String author = null;
 
-        String published = null;
+            String published = null;
 
-        String grade = null;
+            String grade = null;
 
-        private TextField titleField = new TextField();
+            private TextField titleField = new TextField();
 
-        private TextField isbnFiled = new TextField();
+            private TextField isbnFiled = new TextField();
 
-        private TextField authorFiled = new TextField();
+            private TextField authorFiled = new TextField();
 
-        private TextField publishedFiled = new TextField();
+            private TextField publishedFiled = new TextField();
 
-        private TextField gradeField = new TextField();
-        @Override
-        public void handle(ActionEvent actionEvent) {
-            //TODO:try to make methods to retrieve the connection and the books
+            private TextField gradeField = new TextField();
 
-            // Connection con = getConnection.getConnection();
-            List<Book> books = new ArrayList<>();
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                //TODO:try to make methods to retrieve the connection and the books
 
-            try {
-                alert.setTitle("Add book");
+                // Connection con = getConnection.getConnection();
+                List<Book> books = new ArrayList<>();
+
+                try {
+                    alert.setTitle("Add book");
+                    alert.setResizable(false);
+
+                    GridPane grid = new GridPane();
+                    grid.setAlignment(Pos.CENTER);
+                    grid.setHgap(5);
+                    grid.setVgap(5);
+                    grid.setPadding(new Insets(10, 10, 10, 10));
+                    grid.add(new Label("Isbn for book "), 1, 1);
+                    grid.add(isbnFiled, 2, 1);
+                    grid.add(new Label("Enter title of book "), 1, 2);
+                    grid.add(titleField, 2, 2);
+                    grid.add(new Label("Author that wrote book "), 1, 3);
+                    grid.add(authorFiled, 2, 3);
+//                grid.add(new Label("New grade "), 1, 4);
+//                grid.add(, 4, 4);
+//                grid.add(new Label("New grade "), 1, 5);
+//                grid.add(, 5, 5); // Todo add when all attributes of book has been added to addBookToDb
+                    //  getConnection.executeQuery(con, "SELECT * FROM T_book", books);
+                    //   BooksDb.executeQuery(/*con,*/ "SELECT * FROM T_book", books);
+                    // getConnection.searchBookDB("SELECT * FROM T_book"); //TODO: investigate if this is possible in some way
+                    //      BooksDb.checkIfAuthorExists("Johan Larss");
+                    //   booksView.displayBooks(books);
+                    alert.getDialogPane().setContent(grid);
+                    alert.showAndWait();
+
+                    isbn = isbnFiled.getText();
+                    title = titleField.getText();
+                    //genre = titleField.getText();
+                    author = authorFiled.getText();
+                    //published = publishedFiled.getText();
+                    //grade = gradeField.getText();
+                    String genre = "Funny";
+                    isbnFiled.setText("");
+                    titleField.setText("");
+                    authorFiled.setText("");
+                    publishedFiled.setText("");
+                    gradeField.setText("");
+
+
+                    BooksDb.addBook(isbn, title, genre, author);
+
+                } catch (SQLException e) {
+
+                    System.out.println("Ett fel inträffade i handle addBookDB: " + e.getMessage());
+                }
+            }
+        };
+
+
+
+        public EventHandler<ActionEvent> updateBookDB = new EventHandler<ActionEvent>() {
+            // String gradeValue = "2";
+            Alert alert = new Alert(CONFIRMATION);
+            String gradeValue = null;
+            String title = "mattebok";
+
+            private TextField titleField = new TextField();
+            private TextField gradeField = new TextField();
+
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                alert.setTitle("Set new grade");
                 alert.setResizable(false);
 
                 GridPane grid = new GridPane();
@@ -199,93 +261,30 @@ String query = ("SELECT b.book_id, b.isbn, b.title, a.fullName, b.published, b.g
                 grid.setHgap(5);
                 grid.setVgap(5);
                 grid.setPadding(new Insets(10, 10, 10, 10));
-                grid.add(new Label("Isbn for book "), 1, 1);
-                grid.add(isbnFiled, 2, 1);
-                grid.add(new Label("Enter title of book "), 1, 2);
-                grid.add(titleField, 2, 2);
-                grid.add(new Label("Author that wrote book "), 1, 3);
-                grid.add(authorFiled, 2, 3);
-//                grid.add(new Label("New grade "), 1, 4);
-//                grid.add(, 4, 4);
-//                grid.add(new Label("New grade "), 1, 5);
-//                grid.add(, 5, 5); // Todo add when all attributes of book has been added to addBookToDb
-                //  getConnection.executeQuery(con, "SELECT * FROM T_book", books);
-                //   BooksDb.executeQuery(/*con,*/ "SELECT * FROM T_book", books);
-                // getConnection.searchBookDB("SELECT * FROM T_book"); //TODO: investigate if this is possible in some way
-          //      BooksDb.checkIfAuthorExists("Johan Larss");
-                //   booksView.displayBooks(books);
+                grid.add(new Label("Title for book "), 1, 1);
+                grid.add(titleField, 2, 1);
+                grid.add(new Label("New grade "), 1, 2);
+                grid.add(gradeField, 2, 2);
+
                 alert.getDialogPane().setContent(grid);
                 alert.showAndWait();
-
-                isbn = isbnFiled.getText();
                 title = titleField.getText();
-                //genre = titleField.getText();
-                author = authorFiled.getText();
-                //published = publishedFiled.getText();
-                //grade = gradeField.getText();
-                String genre = "Funny";
-                isbnFiled.setText("");
+                gradeValue = gradeField.getText();
+
+                BooksDb.updateGrade(Integer.parseInt(gradeValue), String.valueOf(title));
+
                 titleField.setText("");
-                authorFiled.setText("");
-                publishedFiled.setText("");
                 gradeField.setText("");
-
-
-                BooksDb.addBook(isbn, title,genre, author);
-
-            } catch (SQLException e) {
-
-                System.out.println("Ett fel inträffade i handle addBookDB: " + e.getMessage());
             }
-        }
-    };
-
-
-
-    public EventHandler<ActionEvent> updateBookDB = new EventHandler<ActionEvent>() {
-        // String gradeValue = "2";
-        Alert alert = new Alert(CONFIRMATION);
-        String gradeValue = null;
-        String title = "mattebok";
-
-        private TextField titleField = new TextField();
-        private TextField gradeField = new TextField();
-
-        @Override
-        public void handle(ActionEvent actionEvent) {
-            alert.setTitle("Set new grade");
-            alert.setResizable(false);
-
-            GridPane grid = new GridPane();
-            grid.setAlignment(Pos.CENTER);
-            grid.setHgap(5);
-            grid.setVgap(5);
-            grid.setPadding(new Insets(10, 10, 10, 10));
-            grid.add(new Label("Title for book "), 1, 1);
-            grid.add(titleField, 2, 1);
-            grid.add(new Label("New grade "), 1, 2);
-            grid.add(gradeField, 2, 2);
-
-            alert.getDialogPane().setContent(grid);
-            alert.showAndWait();
-            title = titleField.getText();
-            gradeValue = gradeField.getText();
-
-            BooksDb.updateGrade(Integer.parseInt(gradeValue), String.valueOf(title));
-
-            titleField.setText("");
-            gradeField.setText("");
-        }
-    };
+        };
 
 
 
         public EventHandler<ActionEvent> endConnectHandler = new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                BooksDbInterface booksDbInterface = new BooksDb();
                 try {
-                    booksDbInterface.disconnect();
+                    BooksDbInterface.disconnect();
                 } catch (SQLException | BooksDbException e) {
                     throw new RuntimeException(e);
                 }
@@ -293,5 +292,5 @@ String query = ("SELECT b.book_id, b.isbn, b.title, a.fullName, b.published, b.g
         };
         // TODO:
         // Add methods for all types of user interaction (e.g. via  menus).
-    }
+}
 
