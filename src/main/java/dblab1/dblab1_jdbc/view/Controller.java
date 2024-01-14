@@ -99,7 +99,7 @@ public class Controller {
         @Override
         public void handle(ActionEvent actionEvent) {
             try {
-                BooksDbInterface.connect();
+                booksDb.connect();
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
