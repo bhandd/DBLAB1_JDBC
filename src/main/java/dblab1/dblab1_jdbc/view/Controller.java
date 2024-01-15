@@ -71,18 +71,13 @@ public class Controller {
                 List<Book> result = new ArrayList<>();
                 switch (mode) {
                     case Title:
-
-                        // result = booksDb.searchBooksByTitleDB(searchFor);
                         result = BooksDb.searchDBBook(searchTitle);
-
                         break;
                     case ISBN:
                         result = BooksDb.searchDBBook(searchISBN);
-
                         break;
                     case Author:
                         result = BooksDb.searchDBBook(searchAuthor);
-
                         break;
                     default:
                         result = new ArrayList<>();
@@ -134,20 +129,12 @@ public class Controller {
     public EventHandler<ActionEvent> showBooksInDB = new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent actionEvent) {
-            //TODO:try to make methods to retrieve the connection and the books
             String query = ("SELECT b.book_id, b.isbn, b.title, a.fullName, b.published, b.genre, b.grade\n" +
                     "FROM T_book b INNER JOIN book_author ba ON b.book_id = ba.book_id INNER JOIN T_author a ON ba.author_id = a.aut_id;");
-            // Connection con = getConnection.getConnection();
             List<Book> books = new ArrayList<>();
-
             try {
-                //  getConnection.executeQuery(con, "SELECT * FROM T_book", books);
-                // BooksDb.executeQuery(/*con,*/ "SELECT * FROM T_book", books); //original
-                BooksDb.executeQuery(/*con,*/query, books);
-                // getConnection.searchBookDB("SELECT * FROM T_book"); //TODO: investigate if this is possible in some way
-//                BooksDb.checkIfAuthorExists("Johan Larsson");
+               BooksDb.executeQuery(/*con,*/query, books);
                 booksView.displayBooks(books);
-
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
@@ -174,7 +161,6 @@ public class Controller {
         String published = null;
 
         String genre = null;
-
         String grade = null;
 
         private TextField titleField = new TextField();
@@ -191,7 +177,6 @@ public class Controller {
 
         @Override
         public void handle(ActionEvent actionEvent) {
-            //TODO:try to make methods to retrieve the connection and the books
 
             // Connection con = getConnection.getConnection();
             List<Book> books = new ArrayList<>();
@@ -212,14 +197,10 @@ public class Controller {
             grid.add(new Label("Add publish date "), 1, 4);
             grid.add(publishedFiled, 2, 4);
             grid.add(new Label("Chose genre to book "), 1, 5);
-            grid.add(gradeComboBox, 2, 5); // Todo add when all attributes of book has been added to addBookToDb
+            grid.add(gradeComboBox, 2, 5);
             grid.add(new Label("Set grad to book"), 1, 6);
             grid.add(gradeField, 2, 6);
-            //  getConnection.executeQuery(con, "SELECT * FROM T_book", books);
-            //   BooksDb.executeQuery(/*con,*/ "SELECT * FROM T_book", books);
-            // getConnection.searchBookDB("SELECT * FROM T_book"); //TODO: investigate if this is possible in some way
-            //      BooksDb.checkIfAuthorExists("Johan Larss");
-            //   booksView.displayBooks(books);
+
             gradeComboBox.getItems().addAll(Genre.values());
             alert.getDialogPane().setContent(grid);
             alert.showAndWait();
@@ -235,7 +216,6 @@ public class Controller {
                 try {
                     // Database code to add a book
                     booksDb.addBook(isbn, title, genre, author, Date.valueOf(published), grade);
-
                     // Update UI components with data using Platform.runLater()
                     Platform.runLater(() -> {
                         isbnFiled.setText("");
@@ -245,7 +225,6 @@ public class Controller {
                         gradeField.setText("");
                         gradeComboBox.setItems(FXCollections.observableArrayList());
                     });
-
                 } catch (Exception e) {
                     System.out.println("An error occurred in handle addBookDB: " + e.getMessage());
                 }
@@ -300,7 +279,6 @@ public class Controller {
                 } catch (NumberFormatException e) {
                     throw new RuntimeException(e);
                 }
-
             }).start();
         }
     };
