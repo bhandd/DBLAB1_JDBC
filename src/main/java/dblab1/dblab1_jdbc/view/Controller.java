@@ -8,6 +8,8 @@ import dblab1.dblab1_jdbc.model.*;
 import dblab1.dblab1_jdbc.model.entityClasses.Book;
 import dblab1.dblab1_jdbc.model.entityClasses.Genre;
 import dblab1.dblab1_jdbc.model.exceptions.BooksDbException;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -106,36 +108,6 @@ public class Controller {
         }
     };
 
-//TODO: commented out for now. Already in getConnection. Should probably be moved to BooksDb
-
-//    public static void executeQuery(java.sql.Connection con, String query, List<Book> books) throws SQLException {
-//
-//        try (Statement stmt = con.createStatement()) {
-//            // Execute the SQL statement
-//            ResultSet rs = stmt.executeQuery(query);
-//
-//            // Get the attribute names
-//            ResultSetMetaData metaData = rs.getMetaData();
-//            int ccount = metaData.getColumnCount();
-//            for (int c = 1; c <= ccount; c++) {
-//                System.out.print(metaData.getColumnName(c) + "\t");
-//            }
-//            System.out.println();
-//
-//            // Get the attribute values
-//            while (rs.next()) {
-//                int bookId = rs.getInt("book_id");
-//                String title = rs.getString("title");
-//                String author = rs.getString("author");
-//                String ISBN = rs.getString("ISBN");
-//                int year = rs.getInt("year");
-//
-//                Book book = new Book(bookId, ISBN, title, year);
-//                books.add(book);
-//            }
-//            System.out.println();
-//        }
-//    }
 
     public EventHandler<ActionEvent> showBooksInDB = new EventHandler<ActionEvent>() {
         @Override
@@ -192,63 +164,61 @@ public class Controller {
 
             // Connection con = getConnection.getConnection();
             List<Book> books = new ArrayList<>();
-            try {
-                alert.setTitle("Add book");
-                alert.setResizable(false);
+            alert.setTitle("Add book");
+            alert.setResizable(false);
 
-                GridPane grid = new GridPane();
-                grid.setAlignment(Pos.CENTER);
-                grid.setHgap(5);
-                grid.setVgap(5);
-                grid.setPadding(new Insets(10, 10, 10, 10));
-                grid.add(new Label("Isbn for book "), 1, 1);
-                grid.add(isbnFiled, 2, 1);
-                grid.add(new Label("Enter title of book "), 1, 2);
-                grid.add(titleField, 2, 2);
-                grid.add(new Label("Author that wrote book "), 1, 3);
-                grid.add(authorFiled, 2, 3);
-                grid.add(new Label("Add publish date "), 1, 4);
-                grid.add(publishedFiled, 2, 4);
-                grid.add(new Label("Chose genre to book "), 1, 5);
-                grid.add(gradeComboBox, 2, 5); // Todo add when all attributes of book has been added to addBookToDb
-                grid.add(new Label("Set grad to book"), 1, 6);
-                grid.add(gradeField, 2, 6);
-                //  getConnection.executeQuery(con, "SELECT * FROM T_book", books);
-                //   BooksDb.executeQuery(/*con,*/ "SELECT * FROM T_book", books);
-                // getConnection.searchBookDB("SELECT * FROM T_book"); //TODO: investigate if this is possible in some way
-                //      BooksDb.checkIfAuthorExists("Johan Larss");
-                //   booksView.displayBooks(books);
-                gradeComboBox.getItems().addAll(Genre.values());
-                alert.getDialogPane().setContent(grid);
-                alert.showAndWait();
+            GridPane grid = new GridPane();
+            grid.setAlignment(Pos.CENTER);
+            grid.setHgap(5);
+            grid.setVgap(5);
+            grid.setPadding(new Insets(10, 10, 10, 10));
+            grid.add(new Label("Isbn for book "), 1, 1);
+            grid.add(isbnFiled, 2, 1);
+            grid.add(new Label("Enter title of book "), 1, 2);
+            grid.add(titleField, 2, 2);
+            grid.add(new Label("Author that wrote book "), 1, 3);
+            grid.add(authorFiled, 2, 3);
+            grid.add(new Label("Add publish date "), 1, 4);
+            grid.add(publishedFiled, 2, 4);
+            grid.add(new Label("Chose genre to book "), 1, 5);
+            grid.add(gradeComboBox, 2, 5); // Todo add when all attributes of book has been added to addBookToDb
+            grid.add(new Label("Set grad to book"), 1, 6);
+            grid.add(gradeField, 2, 6);
+            //  getConnection.executeQuery(con, "SELECT * FROM T_book", books);
+            //   BooksDb.executeQuery(/*con,*/ "SELECT * FROM T_book", books);
+            // getConnection.searchBookDB("SELECT * FROM T_book"); //TODO: investigate if this is possible in some way
+            //      BooksDb.checkIfAuthorExists("Johan Larss");
+            //   booksView.displayBooks(books);
+            gradeComboBox.getItems().addAll(Genre.values());
+            alert.getDialogPane().setContent(grid);
+            alert.showAndWait();
 
-                isbn = isbnFiled.getText();
-                title = titleField.getText();
-                //genre = titleField.getText();
-                author = authorFiled.getText();
-                genre = String.valueOf(gradeComboBox.getValue());
-                published = publishedFiled.getText();
-                grade = gradeField.getText();
-                Task<Void> task = new Task<Void>() {
-                    @Override
-                    protected Void call() throws Exception {
-                        booksDb.addBook(isbn, title, genre, author, Date.valueOf(published), grade);
-                        return null;
-                    }
-                };
+            isbn = isbnFiled.getText();
+            title = titleField.getText();
+            //genre = titleField.getText();
+            author = authorFiled.getText();
+            genre = String.valueOf(gradeComboBox.getValue());
+            published = publishedFiled.getText();
+            grade = gradeField.getText();
+            new Thread(() -> {
+                try {
+                    // Database code to add a book
+                    booksDb.addBook(isbn, title, genre, author, Date.valueOf(published), grade);
 
-                task.setOnSucceeded(event -> {
-                    isbnFiled.setText("");
-                    titleField.setText("");
-                    authorFiled.setText("");
-                    publishedFiled.setText("");
-                    gradeField.setText("");
-                });
+                    // Update UI components with data using Platform.runLater()
+                    Platform.runLater(() -> {
+                        isbnFiled.setText("");
+                        titleField.setText("");
+                        authorFiled.setText("");
+                        publishedFiled.setText("");
+                        gradeField.setText("");
+                        gradeComboBox.setItems(FXCollections.observableArrayList());
+                    });
 
-                new Thread(task).start();
-            } catch (Exception e) {
-                System.out.println("Ett fel inträffade i handle addBookDB: " + e.getMessage());
-            }
+                } catch (Exception e) {
+                    System.out.println("An error occurred in handle addBookDB: " + e.getMessage());
+                }
+            }).start();
         }
     };
 
@@ -281,11 +251,18 @@ public class Controller {
             alert.showAndWait();
             title = titleField.getText();
             gradeValue = gradeField.getText();
+            new Thread(() -> {
+                try {
+                    BooksDb.updateGrade(Integer.parseInt(gradeValue), String.valueOf(title));
+                    Platform.runLater(() -> {
+                        titleField.setText("");
+                        gradeField.setText("");
+                    });
+                } catch (NumberFormatException e) {
+                    throw new RuntimeException(e);
+                }
 
-            BooksDb.updateGrade(Integer.parseInt(gradeValue), String.valueOf(title));
-
-            titleField.setText("");
-            gradeField.setText("");
+            }).start();
         }
     };
 
@@ -312,15 +289,17 @@ public class Controller {
             alert.getDialogPane().setContent(grid);
             alert.showAndWait();
             title = titleField.getText();
-
-            try {
-                BooksDb.deleteBook(title);
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-                //TODO. hantera på nåt bra vis
-            }
-
-            titleField.setText("");
+            new Thread(() -> {
+                try {
+                    BooksDb.deleteBook(title);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                    //TODO. hantera på nåt bra vis
+                }
+                Platform.runLater(() -> {
+                    titleField.setText("");
+                });
+            }).start();
         }
     };
 
@@ -428,7 +407,6 @@ public class Controller {
     };
 
     public void initSearchView (TextField searchField, ComboBox<SearchMode> searchModeBox) {
-
             String searchFor = searchField.getText();
             SearchMode mode = SearchMode.valueOf(String.valueOf(searchModeBox.getValue()));
             onSearchSelected(searchFor, mode);
