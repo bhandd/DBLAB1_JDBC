@@ -30,23 +30,40 @@ public class BooksDb implements BooksDbInterface {
         books = List.of();
     }
 
+    /**
+     * A class that represents a connection to a database.
+     *
+     *
+     */
 @Override
     public boolean connect() throws Exception {
         if (getConnection.StartConnection() != null) {
-            System.out.println("Yes");
+           // System.out.println("Yes");
             return true;
         } else {
-            System.out.println("No");
+          //  System.out.println("No");
             return false;
         }
     }
 
+    /**
+     * Closes an existing connection to the database.
+     *
+     * @throws BooksDbException if an error occurs during connection closure.
+     * @throws SQLException if an error occurs during database interaction.
+     */
     public void disconnect() throws BooksDbException, SQLException {
         getConnection.EndConnection();
     }
 
 
-
+    /**
+     * Executes a specified SQL query and populates a list of `Book` objects with the retrieved data.
+     *
+     * @param query The SQL query to execute.
+     * @param books The list of `Book` objects to populate.
+     * @throws SQLException If an error occurs during database interaction.
+     */
     public static void executeQuery(/*java.sql.Connection con,*/ String query, List<Book> books) throws SQLException {
         ArrayList authors = new ArrayList<>();
 
@@ -72,7 +89,6 @@ public class BooksDb implements BooksDbInterface {
                 for(int i = 0; i < authorIds.size(); i++){
                     authors.add(getAuthorById(authorIds.get(i)));
                 }
-
                 String author = rs.getString("fullName");
                 //String author = rs.getString("author");
                 Date published = rs.getDate("published");
@@ -84,12 +100,18 @@ public class BooksDb implements BooksDbInterface {
                 book.addAuthor(authors);
                 // System.out.println(book.toString());
               //  books.add(book);
-
             }
             System.out.println();
         }
     }
 
+    /**
+     * Retrieves a list of author IDs for a specified book ID from the database.
+     *
+     * @param bookId The ID of the book for which to retrieve author IDs.
+     * @return A list of author IDs for the specified book.
+     * @throws RuntimeException If an error occurs during database interaction.
+     */
     public static List<Integer> getAuthorIdForBook(int bookId) throws RuntimeException{
         List<Integer> authorIds = new ArrayList<>();
         String query= "SELECT author_id\n" +
@@ -109,6 +131,13 @@ public class BooksDb implements BooksDbInterface {
         return authorIds;
     }
 
+    /**
+     * Retrieves a list of authors for a specified author ID from the database.
+     *
+     * @param authorId The ID of the author for which to retrieve author information.
+     * @return A list of `Author` objects for the specified author.
+     * @throws RuntimeException If an error occurs during database interaction.
+     */
     public static ArrayList<Author> getAuthorById(int authorId) throws RuntimeException{
         ArrayList<Author> authors =new ArrayList<>();
         String query= "SELECT * FROM T_author WHERE aut_id =" + authorId + ";";
@@ -128,7 +157,14 @@ public class BooksDb implements BooksDbInterface {
     }
 
 
-    public static List<Book> searchDBBook(String query) {
+    /**
+     * Searches the database for books matching a specified search query and returns a list of matching `Book` objects.
+     *
+     * @param query The search query to use to filter the books.
+     * @return A list of matching `Book` objects.
+     * @throws RuntimeException If an error occurs during database interaction.
+     */
+    public static List<Book> searchDBBook(String query) throws BooksDbException {
         List<Book> result = new ArrayList<>();
         ArrayList authors = new ArrayList<>();
 
@@ -156,12 +192,19 @@ public class BooksDb implements BooksDbInterface {
             }
             rs.close();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new BooksDbException(e.getMessage());
         }
         return result;
     }
 
 
+    /**
+     * Retrieves the error count from the database for the specified query.
+     *
+     * @param query The SQL query for which to retrieve the error count.
+     * @return The error count for the specified query.
+     * @throws SQLException If an error occurs during database interaction.
+     */
     public static int getErrorCount(String query) throws SQLException {
 int errorCount = 0;
         try (Statement stmt = getConnection.getConnection().createStatement()) {
@@ -187,6 +230,12 @@ int errorCount = 0;
     }
 
 
+    /**
+     * Executes the specified SQL statement against the database.
+     *
+     * @param statement The SQL statement to execute.
+     * @throws SQLException If an error occurs during database interaction.
+     */
     public static void executeStatement(String statement) throws SQLException {
       //  System.out.println("current statement to execute: " +statement);
         try (Statement stmt = getConnection.getConnection().createStatement()) {
@@ -221,6 +270,17 @@ int errorCount = 0;
         }
     }
 
+    /**
+     * Adds a new book to the database with the specified ISBN, title, genre, author's full name, publication date, and grade.
+     *
+     * @param isbn The ISBN of the book to be added.
+     * @param title The title of the book to be added.
+     * @param genre The genre of the book to be added.
+     * @param fullName The full name of the author of the book to be added.
+     * @param publish The date of publication of the book to be added.
+     * @param grade The grade level of the book to be added.
+     * @throws SQLException If an error occurs during database interaction.
+     */
     @Override
     public void addBook(String isbn, String title, String genre, String fullName, Date publish, String grade) throws SQLException {
         try(Statement stmt = getConnection.getConnection().createStatement()){
@@ -279,6 +339,12 @@ int errorCount = 0;
     }
 
 
+    /**
+     * Deletes a book from the database with the specified title.
+     *
+     * @param title The title of the book to be deleted.
+     * @throws SQLException If an error occurs during database interaction.
+     */
     public static void deleteBook(String title) throws SQLException {
 
 try{
