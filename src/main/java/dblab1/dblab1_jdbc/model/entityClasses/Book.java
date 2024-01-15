@@ -6,43 +6,26 @@ import java.util.List;
 
 /**
  * Representation of a book.
- * 
+ *
  * @author anderslm@kth.se
  */
 public class Book {
-    //TODO: check if all ints has to be converted to strings when displayed in
-    // the booksPaneView
     private int bookId;
     private String isbn; // should check format
     private String title;
     private java.sql.Date published;
-    private int year;
+
     private int grade;
-    private int pages;
-    private String language =" ";
-    // private Genre genre;
+
     private String genre;
+    private ArrayList<Author> authors;
 
-    private String storyLine = "";
-  //  private String author;
-
-       private ArrayList<Author> authors;
-    // TODO:
-    // Add authors, as a separate class(!), and corresponding methods, to your implementation
-    // as well, i.e. "private ArrayList<Author> authors;"
-
-    //TODO: avkommentera arraylist med authors då detta krävs för att representera relationen mellan book och author
-    // avkommentera också String author som parameter i konstruktiorn
-    // när detta göra behöver man anpassa implementeringen i övriga programmet
     public Book(int bookId, String isbn, String title, /*Author author ,*/ java.sql.Date published, String genre, int grade   ) {
         this.bookId = bookId;
 
         this.isbn = isbn;
         this.title = title;
         this.authors = new ArrayList<>();
-//        this.authors.add(new Author(author));
-        //    this.author.setfName(author);
-
         this.published = published;
         this.genre = genre;
         this.grade = grade;
@@ -54,19 +37,29 @@ public class Book {
     public String getIsbn() { return isbn; }
     public String getTitle() { return title; }
     public Date getPublished() { return published; }
-    public String getStoryLine() { return storyLine; }
 
+    /**
+     * Returns a copy of the internal `authors` list as a `List<Author>` object.
+     *
+     * @return A `List<Author>` object containing a copy of the internal `authors` list.
+     */
     public List<Author> getAuthors() {
         ArrayList<Author> copy = new ArrayList<>();
-      for (int i = 0; i <authors.size(); i++){
-          copy.add(new Author(authors.get(i).getId(), authors.get(i).getFullName()));
-      }
-      return copy;
+        for (int i = 0; i <authors.size(); i++){
+            copy.add(new Author(authors.get(i).getId(), authors.get(i).getFullName()));
+        }
+        return copy;
     }
 
-public String getAuthorAtIndex(int index){
-return authors.get(index).toString();
-}
+    /**
+     * Gets the author at the specified index from the internal `authors` list.
+     *
+     * @param index The index of the author to retrieve.
+     * @return A string representation of the author at the specified index.
+     */
+    public String getAuthorAtIndex(int index){
+        return authors.get(index).toString();
+    }
 
     public String getGenre() {
         return genre;
@@ -75,11 +68,6 @@ return authors.get(index).toString();
     public int getGrade() {
         return grade;
     }
-
-    //TODO: use with Authors list
-//    public ArrayList<Author> getAuthors() {
-//        return authors;
-//    }
 
     public void setBookId(int bookId) {
         this.bookId = bookId;
@@ -97,35 +85,38 @@ return authors.get(index).toString();
         this.published = published;
     }
 
-    public void setYear(int year) {
-        this.year = year;
-    }
-
     public void setGrade(int grade) {
         this.grade = grade;
     }
 
-    public void setPages(int pages) {
-        this.pages = pages;
-    }
 
-    public void setLanguage(String language) {
-        this.language = language;
-    }
 
+    /**
+     * Sets the genre of the book to the specified value.
+     *
+     * @param genre The new genre of the book.
+     */
     public void setGenre(String genre) {
         this.genre = genre;
     }
 
+    /**
+     * Adds the specified list of `Author` objects to the internal `authors` list.
+     *
+     * @param authors The list of `Author` objects to add.
+     */
     public void addAuthor(ArrayList<Author> authors) {
         this.authors = authors;
     }
 
-    public void setStoryLine(String storyLine) {
-        this.storyLine = storyLine;
-    }
 
-public void printAuthors(){
+
+    /**Help method
+     * Prints the full names and IDs of all authors in the specified list of `Author` objects.
+     *
+     * authors is The list of `Author` objects to iterate over and print.
+     */
+    public void printAuthors(){
 
         for (int i=0; i < authors.size(); i++){
             System.out.println("Name:" + authors.get(i).getFullName());
@@ -133,16 +124,23 @@ public void printAuthors(){
 
         }
 
-}
+    }
 
-public ArrayList<String> getAuthorsNames(ArrayList<Author> authors){
-  ArrayList<String> nameList = new ArrayList<>();
+
+    /**
+     * Creates an ArrayList of authors' full names from the specified list of `Author` objects.
+     *
+     * @param authors The list of `Author` objects from which to extract full names.
+     * @return An ArrayList containing the full names of the specified authors.
+     */
+    public ArrayList<String> getAuthorsNames(ArrayList<Author> authors){
+        ArrayList<String> nameList = new ArrayList<>();
 
         for (int i=0; i < authors.size(); i++){
             nameList.add(authors.get(i).getFullName()) ;
         }
         return nameList;
-}
+    }
 
     @Override
     public String toString() {

@@ -2,22 +2,10 @@ package dblab1.dblab1_jdbc;
 
 import dblab1.dblab1_jdbc.model.BooksDb;
 import dblab1.dblab1_jdbc.model.BooksDbInterface;
-import dblab1.dblab1_jdbc.model.entityClasses.Author;
-import dblab1.dblab1_jdbc.model.entityClasses.Book;
-import dblab1.dblab1_jdbc.model.entityClasses.testBook;
-import dblab1.dblab1_jdbc.model.exceptions.BooksDbException;
 import dblab1.dblab1_jdbc.view.BooksPaneView;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
-import java.sql.Date;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 
 //import dbgui.lab1examplegui.model.BooksDbMockImpl;
