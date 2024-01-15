@@ -2,6 +2,9 @@ package dblab1.dblab1_jdbc;
 
 import dblab1.dblab1_jdbc.model.BooksDb;
 import dblab1.dblab1_jdbc.model.BooksDbInterface;
+import dblab1.dblab1_jdbc.model.entityClasses.Author;
+import dblab1.dblab1_jdbc.model.entityClasses.Book;
+import dblab1.dblab1_jdbc.model.entityClasses.testBook;
 import dblab1.dblab1_jdbc.model.exceptions.BooksDbException;
 import dblab1.dblab1_jdbc.view.BooksPaneView;
 import javafx.application.Application;
@@ -10,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -31,7 +35,7 @@ public class Main extends Application {
         BooksDb booksDb = new BooksDb(); // model
         // Don't forget to connect to the db, somewhere...
         try {
-            BooksDb.connect();
+            booksDb.connect();
             BooksPaneView root = new BooksPaneView(booksDb);
 
             Scene scene = new Scene(root, 800, 600);
@@ -57,7 +61,18 @@ public class Main extends Application {
         super.stop();
     }
     public static void main(String[] args) {
-        launch(args);
+       // launch(args);
+        Author author1 = new Author(1, "kalle balle");
+        Author author2 = new Author(2, "gurra murra");
+
+       // System.out.println(author.getFullName());
+       // System.out.println(author.toString());
+       // testBook testbook = new testBook(2,"255555","Drabant", author1, "ASDF", 3);
+      //  author.getFullName();
+        Book testbook = new Book(2,"123123", "asdf", "sdfg", 5);
+        testbook.addAuthor(author2);
+        testbook.printAuthors();
+        System.out.println("färdig");
 
     }
 }

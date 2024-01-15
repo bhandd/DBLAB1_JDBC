@@ -232,7 +232,7 @@ public class Controller {
                 Task<Void> task = new Task<Void>() {
                     @Override
                     protected Void call() throws Exception {
-                        BooksDb.addBook(isbn, title, genre, author, Date.valueOf(published), grade);
+                        booksDb.addBook(isbn, title, genre, author, Date.valueOf(published), grade);
                         return null;
                     }
                 };

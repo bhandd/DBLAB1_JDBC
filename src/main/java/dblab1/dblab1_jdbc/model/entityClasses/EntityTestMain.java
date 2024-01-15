@@ -4,8 +4,10 @@ public class EntityTestMain {
     public static void main(String[] args) {
 
         Author author = new Author(1, "kalle balle");
-        Book book = new Book(2,2,"Drabant", 2000-12-12, )
+        System.out.println(author.getFullName());
+        testBook testbook = new testBook(2,"255555","Drabant", author, "ASDF", 3);
         author.getFullName();
+        System.out.println(testbook.getAuthor());
     }
 
 }

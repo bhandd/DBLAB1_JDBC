@@ -4,12 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Representation of a book.
- * 
- * @author anderslm@kth.se
- */
-public class Book {
+public class testBook {
     //TODO: check if all ints has to be converted to strings when displayed in
     // the booksPaneView
     private int bookId;
@@ -24,9 +19,9 @@ public class Book {
     private String genre;
 
     private String storyLine = "";
-  //  private String author;
+    //  private String author;
 
-       private ArrayList<Author> authors;
+    private ArrayList<Author> authors;
     // TODO:
     // Add authors, as a separate class(!), and corresponding methods, to your implementation
     // as well, i.e. "private ArrayList<Author> authors;"
@@ -34,13 +29,13 @@ public class Book {
     //TODO: avkommentera arraylist med authors då detta krävs för att representera relationen mellan book och author
     // avkommentera också String author som parameter i konstruktiorn
     // när detta göra behöver man anpassa implementeringen i övriga programmet
-    public Book(int bookId, String isbn, String title /*Author author*/ , java.sql.Date published, String genre, int grade   ) {
+    public testBook(int bookId, String isbn, String title, Author author , /*java.sql.Date published,*/ String genre, int grade   ) {
         this.bookId = bookId;
 
         this.isbn = isbn;
         this.title = title;
         this.authors = new ArrayList<>();
-//        this.authors.add(new Author(author));
+        this.authors.add(author);
         //    this.author.setfName(author);
 
         this.published = published;
@@ -49,6 +44,15 @@ public class Book {
 
     }
 
+    //todo: Check if needed
+//    public Book(String isbn, String title, int year/*Date published*/) {
+//
+//        this(isbn, title, year);
+//    }
+
+//    public void addAuthor(Author author) {
+//        this.authors.add(author);
+//    }
 
     public int getBookId() { return bookId; }
     public String getIsbn() { return isbn; }
@@ -56,17 +60,24 @@ public class Book {
     public Date getPublished() { return published; }
     public String getStoryLine() { return storyLine; }
 
-    public List<Author> getAuthors() {
+    public List<Author> getAuthor() {
         ArrayList<Author> copy = new ArrayList<>();
-      for (int i = 0; i <authors.size(); i++){
-          copy.add(new Author(authors.get(i).getId(), authors.get(i).getFullName()));
-      }
-      return copy;
+        for (int i = 0; i <authors.size(); i++){
+            copy.add(new Author(authors.get(i).getId(), authors.get(i).getFullName()));
+
+        }
+        return copy;
     }
 
-public String getAuthorAtIndex(int index){
-return authors.get(index).toString();
-}
+    public void printAuthors(){
+      //  System.out.println("printAuthors");
+        for (int i=0; i < authors.size(); i++){
+            System.out.println("Name:" + authors.get(i).getFullName());
+            System.out.println("ID: "+ authors.get(i).getId());
+
+        }
+       // System.out.println("Printauthors done");
+    }
 
     public String getGenre() {
         return genre;
@@ -117,26 +128,18 @@ return authors.get(index).toString();
         this.genre = genre;
     }
 
-    public void addAuthor(ArrayList<Author> authors) {
-        this.authors = authors;
+    public void addAuthor(Author author) {
+        this.authors.add(author);
     }
 
     public void setStoryLine(String storyLine) {
         this.storyLine = storyLine;
     }
 
-public void printAuthors(){
 
-        for (int i=0; i < authors.size(); i++){
-            System.out.println("Name:" + authors.get(i).getFullName());
-            System.out.println("ID: "+ authors.get(i).getId());
-
-        }
-
-}
 
     @Override
     public String toString() {
-        return bookId +", "+ isbn + ", " + title + ", " + getAuthors() + ", " +  published + ", " + genre + ", " + grade;
+        return bookId +", "+ isbn + ", " + title + ", "  +  published + ", " + genre + ", " + grade;
     }
 }
