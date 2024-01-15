@@ -34,7 +34,7 @@ public class Book {
     //TODO: avkommentera arraylist med authors då detta krävs för att representera relationen mellan book och author
     // avkommentera också String author som parameter i konstruktiorn
     // när detta göra behöver man anpassa implementeringen i övriga programmet
-    public Book(int bookId, String isbn, String title /*Author author*/ , java.sql.Date published, String genre, int grade   ) {
+    public Book(int bookId, String isbn, String title, /*Author author ,*/ java.sql.Date published, String genre, int grade   ) {
         this.bookId = bookId;
 
         this.isbn = isbn;
@@ -133,6 +133,15 @@ public void printAuthors(){
 
         }
 
+}
+
+public ArrayList<String> getAuthorsNames(ArrayList<Author> authors){
+  ArrayList<String> nameList = new ArrayList<>();
+
+        for (int i=0; i < authors.size(); i++){
+            nameList.add(authors.get(i).getFullName()) ;
+        }
+        return nameList;
 }
 
     @Override
