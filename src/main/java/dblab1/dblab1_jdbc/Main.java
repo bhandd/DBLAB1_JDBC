@@ -63,24 +63,25 @@ public class Main extends Application {
         super.stop();
     }
     public static void main(String[] args) {
-       // launch(args);
-        Author author1 = new Author(1, "kalle balle");
-        Author author2 = new Author(2, "gurra murra");
-        Author author3 = new Author(2, "gert Stjhärt");
-        ArrayList<Author> authors = new ArrayList<>();
-        authors.add(author1);
-        authors.add(author2);
-        authors.add(author3);
-       // System.out.println(author.getFullName());
-       // System.out.println(author.toString());
-       // testBook testbook = new testBook(2,"255555","Drabant", author1, "ASDF", 3);
-      //  author.getFullName();
-        Date date = new Date(2000,01,01);
-        Book testbook = new Book(2,"123123", "asdf",date ,"SCHOOL",5);
-        testbook.addAuthor(authors);
-       // testbook.printAuthors();
-        System.out.println(testbook.getAuthorsNames(authors));
-        System.out.println("färdig");
+       launch(args);
+//        Author author1 = new Author(1, "kalle balle");
+//        Author author2 = new Author(2, "gurra murra");
+//        Author author3 = new Author(2, "gert Stjhärt");
+//        ArrayList<Author> authors = new ArrayList<>();
+//        authors.add(author1);
+//        authors.add(author2);
+//        authors.add(author3);
+//       // System.out.println(author.getFullName());
+//       // System.out.println(author.toString());
+//       // testBook testbook = new testBook(2,"255555","Drabant", author1, "ASDF", 3);
+//      //  author.getFullName();
+//        Date date = new Date(2000,01,01);
+//        Book testbook = new Book(2,"123123", "asdf",date ,"SCHOOL",5);
+//        testbook.addAuthor(authors);
+//       // testbook.printAuthors();
+//        //System.out.println(testbook.getAuthorsNames(authors));
+//        System.out.println(testbook.toString());
+//        System.out.println("färdig");
 
     }
 }

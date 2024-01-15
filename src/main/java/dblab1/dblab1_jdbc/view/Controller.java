@@ -119,11 +119,7 @@ public class Controller {
             List<Book> books = new ArrayList<>();
 
             try {
-                //  getConnection.executeQuery(con, "SELECT * FROM T_book", books);
-                // BooksDb.executeQuery(/*con,*/ "SELECT * FROM T_book", books); //original
-                BooksDb.executeQuery(/*con,*/query, books);
-                // getConnection.searchBookDB("SELECT * FROM T_book"); //TODO: investigate if this is possible in some way
-//                BooksDb.checkIfAuthorExists("Johan Larsson");
+               BooksDb.executeQuery(/*con,*/query, books);
                 booksView.displayBooks(books);
 
             } catch (SQLException e) {

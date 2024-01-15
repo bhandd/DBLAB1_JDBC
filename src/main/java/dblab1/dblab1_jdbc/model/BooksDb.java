@@ -76,7 +76,7 @@ public class BooksDb implements BooksDbInterface {
 
 
     public static void executeQuery(/*java.sql.Connection con,*/ String query, List<Book> books) throws SQLException {
-
+        ArrayList authors = new ArrayList<>();
       //  Connection con = getConnection.getConnection();
         try (Statement stmt = getConnection.getConnection().createStatement()) {
             // Execute the SQL statement
@@ -96,10 +96,12 @@ public class BooksDb implements BooksDbInterface {
                 int bookId = rs.getInt("book_id");
                 String ISBN = rs.getString("ISBN");
                 String title = rs.getString("title");
-/*
-                Author author = new Author();
-                author.setfName(rs.getString("author"));
-*/
+
+                List<Integer> authorIds = getAuthorIdForBook(bookId);
+                for(int i = 0; i < authorIds.size(); i++){
+                    authors.add(getAuthorById(authorIds.get(i)));
+                }
+
                 String author = rs.getString("fullName");
                 //String author = rs.getString("author");
                 Date published = rs.getDate("published");
@@ -107,8 +109,9 @@ public class BooksDb implements BooksDbInterface {
                 //  String language = rs.getString("language");
                 String genre = rs.getString("genre");
                 int grade = rs.getInt("grade");
-              //  Book book = new Book(bookId, ISBN, title,author, published, genre, grade);
-               // System.out.println(book.toString());
+                Book book = new Book(bookId, ISBN, title, published, genre, grade);
+                book.addAuthor(authors);
+                // System.out.println(book.toString());
               //  books.add(book);
 
             }
@@ -137,13 +140,13 @@ public class BooksDb implements BooksDbInterface {
 
     public static ArrayList<Author> getAuthorById(int authorId) throws RuntimeException{
         ArrayList<Author> authors =new ArrayList<>();
-        String query= "SELECT * FROM T_author WHERE id =" + authorId + ";";
+        String query= "SELECT * FROM T_author WHERE aut_id =" + authorId + ";";
 
 //hämta alla author ID från databas
         try (Statement stmt = getConnection.getConnection().createStatement()) {
             // Execute the SQL statement
             ResultSet rs = stmt.executeQuery(query);
-            if (rs.next()) {
+            while (rs.next()) {
                 authors.add(new Author(rs.getInt("aut_id"), rs.getString("fullName")));
             }
 
@@ -191,7 +194,6 @@ public class BooksDb implements BooksDbInterface {
                 System.out.println("Yes");
                 // } else System.out.println("No");
             }
-
             rs.close();
 
         } catch (SQLException e) {

@@ -146,6 +146,6 @@ public ArrayList<String> getAuthorsNames(ArrayList<Author> authors){
 
     @Override
     public String toString() {
-        return bookId +", "+ isbn + ", " + title + ", " + getAuthors() + ", " +  published + ", " + genre + ", " + grade;
+        return bookId +", "+ isbn + ", " + title + ", " + getAuthorsNames(this.authors) + ", " +  published + ", " + genre + ", " + grade;
     }
 }
