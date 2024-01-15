@@ -39,6 +39,12 @@ public class Controller {
         this.booksView = booksView;
     }
 
+    /**
+     * Handles a search operation based on the specified search criteria and mode.
+     *
+     * @param searchFor The search string or criteria.
+     * @param mode      The search mode indicating whether to search by Title, ISBN, or Author.
+     */
     protected void onSearchSelected(String searchFor, SearchMode mode) {
         String searchTitle = ("SELECT b.book_id, b.isbn,  b.title, a.fullName, b.published, b.genre, b.grade\n" +
                 "FROM T_book b \n" +
@@ -96,7 +102,15 @@ public class Controller {
         }
     }
 
-
+    /**
+     * Event handler for connecting to the database.
+     * <p>
+     * Attempts to establish a connection to the database using the {@link BooksDb} instance.
+     * </p>
+     *
+     * @param actionEvent The event triggered by the connect action.
+     * @throws RuntimeException If an exception occurs during the database connection process.
+     */
     public EventHandler<ActionEvent> connectHandler = new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent actionEvent) {
@@ -108,7 +122,15 @@ public class Controller {
         }
     };
 
-
+    /**
+     * Event handler for displaying books from the database.
+     * <p>
+     * Retrieves books from the database using a specific SQL query and displays them using the {@link BooksView}.
+     * </p>
+     *
+     * @param actionEvent The event triggered by the show books action.
+     * @throws RuntimeException If an SQL exception occurs during the process of querying and displaying books.
+     */
     public EventHandler<ActionEvent> showBooksInDB = new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent actionEvent) {
@@ -132,6 +154,15 @@ public class Controller {
         }
     };
 
+    /**
+     * Event handler for adding a book to the database.
+     * <p>
+     * Displays a dialog prompting the user to enter details for a new book, and then adds the book to the database.
+     * The database operation is performed in a separate thread to prevent blocking the UI.
+     * </p>
+     *
+     * @param actionEvent The event triggered by the add book action.
+     */
     public EventHandler<ActionEvent> addBookDB = new EventHandler<ActionEvent>() {
         Alert alert = new Alert(CONFIRMATION);
 
@@ -222,7 +253,15 @@ public class Controller {
         }
     };
 
-
+    /**
+     * Event handler for updating the grade of a book in the database.
+     * <p>
+     * Displays a dialog prompting the user to enter the title of the book and the new grade.
+     * The database operation to update the grade is performed in a separate thread to prevent blocking the UI.
+     * </p>
+     *
+     * @param actionEvent The event triggered by the update book action.
+     */
     public EventHandler<ActionEvent> updateBookDB = new EventHandler<ActionEvent>() {
         // String gradeValue = "2";
         Alert alert = new Alert(CONFIRMATION);
@@ -266,6 +305,15 @@ public class Controller {
         }
     };
 
+    /**
+     * Event handler for deleting a book from the database.
+     * <p>
+     * Displays a dialog prompting the user to enter the title of the book to be deleted.
+     * The database operation to delete the book is performed in a separate thread to prevent blocking the UI.
+     * </p>
+     *
+     * @param actionEvent The event triggered by the delete book action.
+     */
     public EventHandler<ActionEvent> deleteBookDB = new EventHandler<ActionEvent>() {
         private TextField titleField = new TextField();
 
@@ -303,6 +351,15 @@ public class Controller {
         }
     };
 
+    /**
+     * Event handler for searching books by title.
+     * <p>
+     * Displays a dialog prompting the user to enter the title of the book to be searched.
+     * The search operation is performed in a separate thread to prevent blocking the UI.
+     * </p>
+     *
+     * @param actionEvent The event triggered by the title search action.
+     */
     public EventHandler<ActionEvent> TitleSearch = new EventHandler<ActionEvent>() {
         private TextField titleField = new TextField();
 
@@ -333,6 +390,15 @@ public class Controller {
         }
     };
 
+    /**
+     * Event handler for searching books by ISBN.
+     * <p>
+     * Displays a dialog prompting the user to enter the ISBN of the book to be searched.
+     * The search operation is performed in a separate thread to prevent blocking the UI.
+     * </p>
+     *
+     * @param actionEvent The event triggered by the ISBN search action.
+     */
     public EventHandler<ActionEvent> ISBNSearch = new EventHandler<ActionEvent>() {
         private TextField ISBNField = new TextField();
 
@@ -363,6 +429,15 @@ public class Controller {
         }
     };
 
+    /**
+     * Event handler for searching books by author.
+     * <p>
+     * Displays a dialog prompting the user to enter the author's name to perform a search.
+     * The search operation is performed in a separate thread to prevent blocking the UI.
+     * </p>
+     *
+     * @param actionEvent The event triggered by the author search action.
+     */
     public EventHandler<ActionEvent> AuthorSearch = new EventHandler<ActionEvent>() {
         private TextField AuthorField = new TextField();
 
@@ -393,6 +468,16 @@ public class Controller {
         }
     };
 
+    /**
+     * Event handler for ending the database connection.
+     * <p>
+     * This handler is responsible for disconnecting from the database.
+     * It catches potential exceptions such as SQLException and BooksDbException,
+     * then wraps them in a RuntimeException for simplified error handling.
+     * </p>
+     *
+     * @param actionEvent The event triggered by the end connection action.
+     */
     public EventHandler<ActionEvent> endConnectHandler = new EventHandler<ActionEvent>() {
 
 
@@ -406,6 +491,18 @@ public class Controller {
         }
     };
 
+    /**
+     * Initializes the search view based on the provided search field and search mode.
+     * <p>
+     * This method extracts the search string from the given {@code searchField} and the
+     * search mode from the provided {@code searchModeBox}. It then invokes the
+     * {@link #onSearchSelected(String, SearchMode)} method to perform the search based on
+     * the extracted information.
+     * </p>
+     *
+     * @param searchField   The TextField containing the search string.
+     * @param searchModeBox The ComboBox containing the search mode.
+     */
     public void initSearchView (TextField searchField, ComboBox<SearchMode> searchModeBox) {
             String searchFor = searchField.getText();
             SearchMode mode = SearchMode.valueOf(String.valueOf(searchModeBox.getValue()));
