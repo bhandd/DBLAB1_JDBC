@@ -24,6 +24,8 @@ import java.util.List;
 
 import static javafx.scene.control.Alert.AlertType.*;
 
+//TODO: check interaction between controller and BooksDB so that it goes trough the interface
+//TODO: Doublecheck that there are no SQL-queries in the controller
 /**
  * The controller is responsible for handling user requests and update the view
  * (and in some cases the model).
@@ -39,6 +41,8 @@ public class Controller {
         this.booksView = booksView;
     }
 
+
+    //Ta bort joins där de inte behövds
     /**
      * Handles a search operation based on the specified search criteria and mode.
      *
@@ -46,38 +50,19 @@ public class Controller {
      * @param mode      The search mode indicating whether to search by Title, ISBN, or Author.
      */
     protected void onSearchSelected(String searchFor, SearchMode mode) {
-        String searchTitle = ("SELECT b.book_id, b.isbn,  b.title, a.fullName, b.published, b.genre, b.grade\n" +
-                "FROM T_book b \n" +
-                "INNER JOIN book_author ba \n" +
-                "ON b.book_id = ba.book_id \n" +
-                "INNER JOIN T_author a \n" +
-                "ON ba.author_id = a.aut_id WHERE b.title LIKE '%" + searchFor + "%';");
 
-        String searchISBN = ("SELECT b.book_id, b.isbn,  b.title, a.fullName, b.published, b.genre, b.grade\n" +
-                "FROM T_book b \n" +
-                "INNER JOIN book_author ba \n" +
-                "ON b.book_id = ba.book_id \n" +
-                "INNER JOIN T_author a \n" +
-                "ON ba.author_id = a.aut_id WHERE b.isbn LIKE '%" + searchFor + "%';");
-
-        String searchAuthor = ("SELECT b.book_id, b.isbn,  b.title, a.fullName, b.published, b.genre, b.grade\n" +
-                "FROM T_book b \n" +
-                "INNER JOIN book_author ba \n" +
-                "ON b.book_id = ba.book_id \n" +
-                "INNER JOIN T_author a \n" +
-                "ON ba.author_id = a.aut_id WHERE a.fullName LIKE '%" + searchFor + "%';");
         try {
             if (searchFor != null && searchFor.length() > 1) {
                 List<Book> result = new ArrayList<>();
                 switch (mode) {
                     case Title:
-                        result = BooksDb.searchDBBook(searchTitle);
+                        result = BooksDb.searchDBBook(searchFor);
                         break;
                     case ISBN:
-                        result = BooksDb.searchDBBook(searchISBN);
+                        result = BooksDb.searchDBBook(searchFor);
                         break;
                     case Author:
-                        result = BooksDb.searchDBBook(searchAuthor);
+                        result = BooksDb.searchDBBook(searchFor);
                         break;
                     default:
                         result = new ArrayList<>();
@@ -129,11 +114,10 @@ public class Controller {
     public EventHandler<ActionEvent> showBooksInDB = new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent actionEvent) {
-            String query = ("SELECT b.book_id, b.isbn, b.title, a.fullName, b.published, b.genre, b.grade\n" +
-                    "FROM T_book b INNER JOIN book_author ba ON b.book_id = ba.book_id INNER JOIN T_author a ON ba.author_id = a.aut_id;");
+
             List<Book> books = new ArrayList<>();
             try {
-               BooksDb.executeQuery(/*con,*/query, books);
+               BooksDb.executeQuery(books);
                 booksView.displayBooks(books);
             } catch (SQLException e) {
                 throw new RuntimeException(e);
