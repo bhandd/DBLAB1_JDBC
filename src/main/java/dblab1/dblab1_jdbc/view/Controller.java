@@ -6,11 +6,9 @@ package dblab1.dblab1_jdbc.view;
 
 import dblab1.dblab1_jdbc.model.*;
 import dblab1.dblab1_jdbc.model.entityClasses.Book;
-import dblab1.dblab1_jdbc.model.entityClasses.Genre;
 import dblab1.dblab1_jdbc.model.exceptions.BooksDbException;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -105,7 +103,7 @@ public class Controller {
     /**
      * Event handler for displaying books from the database.
      * <p>
-     * Retrieves books from the database using a specific SQL query and displays them using the {@link BooksView}.
+     * Retrieves books from the database using a specific SQL query and displays them using the BooksView.
      * </p>
      *
      * @param actionEvent The event triggered by the show books action.
