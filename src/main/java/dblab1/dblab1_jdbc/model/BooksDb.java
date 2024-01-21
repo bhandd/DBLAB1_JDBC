@@ -128,7 +128,7 @@ private  List<Book> getBookFromID(int bookID) throws RuntimeException, BooksDbEx
                 String genre = rs.getString("genre");
                 int grade = rs.getInt("grade");
                 Book book = new Book(bookId, ISBN, title, author, published, genre, grade);
-                book.addAuthor(authors);
+                //book.addAuthor(authors);
                 //     System.out.println("Yes");
             }
             rs.close();
@@ -194,9 +194,9 @@ private  List<Book> getBookFromID(int bookID) throws RuntimeException, BooksDbEx
 
 
     @Override
-    public List<Book> getBookList(/*java.sql.Connection con,*/ String query, List<Book> books) throws SQLException {
-
-        String query = "Select * From T_book JOIN  ";
+    public List<Book> getBookList() throws SQLException {
+        List<Book> books = new ArrayList<>();
+        String query = "SELECT T_book.book_id, T_book.isbn, T_book.title, T_author.fullname, T_book.published, T_book.genre, T_book.grade FROM T_book INNER JOIN book_author ON T_book.book_id = book_author.book_id INNER JOIN T_author ON book_author.author_id = T_author.aut_id;";
         //  Connection con = getConnection.getConnection();
         try (Statement stmt = getConnection.getConnection().createStatement()) {
             // Execute the SQL statement
@@ -227,53 +227,19 @@ private  List<Book> getBookFromID(int bookID) throws RuntimeException, BooksDbEx
                 //  String language = rs.getString("language");
                 String genre = rs.getString("genre");
                 int grade = rs.getInt("grade");
-                Book book = new Book(bookId, ISBN, title,author, published, genre, grade);
+                Book book = new Book(bookId, ISBN, title, author, published, genre, grade);
                 System.out.println(book.toString());
                 books.add(book);
 
             }
             System.out.println();
             return books ;
+        }catch (SQLException e){
+            throw new SQLException(e);
         }
     }
 
-//
-//    @Override
-//    public List<Book> searchDBBook(String query) {
-//        List<Book> result = new ArrayList<>();
-//
-//        // Connection con = getConnection.getConnection();
-//        try (Statement stmt = getConnection.getConnection().createStatement()) {
-//            // Execute the SQL statement
-//            ResultSet rs = stmt.executeQuery(query);
-//            while (rs.next()) {
-//                int bookId = rs.getInt("book_id");
-//                String ISBN = rs.getString("ISBN");
-//                String title = rs.getString("title");
-///*
-//                Author author = new Author();
-//                author.setfName(rs.getString("author"));
-//*/
-//                String author = rs.getString("fullName");
-//                //String author = rs.getString("author");
-//                Date published = rs.getDate("published");
-//                //   int pages = rs.getInt("pages");
-//                //  String language = rs.getString("language");
-//                String genre = rs.getString("genre");
-//                int grade = rs.getInt("grade");
-//                Book book = new Book(bookId, ISBN, title,author, published, genre, grade);
-//                System.out.println(book.toString());
-//                result.add(book);
-//                System.out.println(book.toString());
-//                System.out.println("Yes");
-//                // } else System.out.println("No");
-//            }
-//            rs.close();
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-//        return result;
-//    }
+
 
 
     /**
@@ -286,17 +252,21 @@ private  List<Book> getBookFromID(int bookID) throws RuntimeException, BooksDbEx
 
     @Override
     public List<Book> searchDBBook(String query, SearchMode mode ) throws BooksDbException {
-        String searchString = ("SELECT  book_id, isbn,  title, published, genre, grade FROM " +
-                "T_book WHERE '%" + mode + "%';\" ='%" + query + "%';");
-
+        String column = mode.name();
+        System.out.println(column);
+        String searchString = "SELECT  book_id, isbn,  title, published, genre, grade FROM T_book WHERE " + column + " ='%" + query + "%';";
+       // String searchString = "book_id, isbn, title, published, genre, grade FROM T_book WHERE title = 'katbok';";
+      //  book_id, isbn,  title, published, genre, grade FROM T_book WHERE TITLE ='katbok'
         List<Book> result = new ArrayList<>();
-        ArrayList authors = new ArrayList<>();
+       // ArrayList authors = new ArrayList<>();
 
 
         try (Statement stmt = getConnection.getConnection().createStatement()) {
             // Execute the SQL statement
             ResultSet rs = stmt.executeQuery(searchString);
+            System.out.println("try statement");
             while (rs.next()) {
+                System.out.println("hej");
                 int bookId = rs.getInt("book_id");
                 String ISBN = rs.getString("ISBN");
                 String title = rs.getString("title");
@@ -312,13 +282,15 @@ private  List<Book> getBookFromID(int bookID) throws RuntimeException, BooksDbEx
                 String genre = rs.getString("genre");
                 int grade = rs.getInt("grade");
                 Book book = new Book(bookId, ISBN, title,author, published, genre, grade);
-                book.addAuthor(authors);
-                //     System.out.println("Yes");
+                result.add(book);
+               // book.addAuthor(authors);
+                   System.out.println("Yes");
             }
             rs.close();
         } catch (SQLException e) {
             throw new BooksDbException(e.getMessage());
         }
+        System.out.println(result.toString());
         return result;
     }
 

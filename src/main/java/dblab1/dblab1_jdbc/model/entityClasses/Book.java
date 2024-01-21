@@ -21,8 +21,8 @@ public class Book {
 
     private int grade;
 
-     private Genre genre;
-    //private String genre;
+   //  private Genre genre;
+    private String genre;
 
     private String storyLine = "";
     private String author;
@@ -45,28 +45,59 @@ public class Book {
         this.author = author;
 
         this.published = published;
-      //  this.genre = Genre.UNDEFINED;
-        this.grade = 0;
-
-    }
-
-    public Book(){
-        this.bookId = 0;
-
-        this.isbn = null;
-        this.title = null;
-      //  this.authors = new ArrayList<>();
-//        this.authors.add(new Author(author));
-        //    this.author.setfName(author);
-
-        this.published = new java.sql.Date(2000);
-       // this.genre = Genre.UNDEFINED;
+       this.genre = genre;
         this.grade = grade;
 
+    }
+//
+//    public Book(){
+//        this.bookId = 0;
+//
+//        this.isbn = null;
+//        this.title = null;
+//      //  this.authors = new ArrayList<>();
+////        this.authors.add(new Author(author));
+//        //    this.author.setfName(author);
+//
+//        this.published = new java.sql.Date(2000);
+//       // this.genre = Genre.UNDEFINED;
+//        this.grade = grade;
+//
+//
+//    }
 
+
+    public int getBookId() {
+        return bookId;
     }
 
+    public String getIsbn() {
+        return isbn;
+    }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public Date getPublished() {
+        return published;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public String getStoryLine() {
+        return storyLine;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
 
     /**
     public int getBookId() { return bookId; }
@@ -122,7 +153,7 @@ return authors.get(index).toString();
     }
 
 
-    public void setGenre(Genre genre) {
+    public void setGenre(String genre) {
         this.genre = genre ;
     }
 
@@ -153,14 +184,14 @@ return authors.get(index).toString();
 //
 //}
 
-public ArrayList<String> getAuthorsNames(ArrayList<Author> authors){
-  ArrayList<String> nameList = new ArrayList<>();
-
-        for (int i=0; i < authors.size(); i++){
-            nameList.add(authors.get(i).getFullName()) ;
-        }
-        return nameList;
-}
+//public ArrayList<String> getAuthorsNames(ArrayList<Author> authors){
+//  ArrayList<String> nameList = new ArrayList<>();
+//
+//        for (int i=0; i < authors.size(); i++){
+//            nameList.add(authors.get(i).getFullName()) ;
+//        }
+//        return nameList;
+//}
 
     @Override
     public String toString() {
