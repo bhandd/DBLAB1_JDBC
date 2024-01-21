@@ -64,6 +64,13 @@ public interface BooksDbInterface {
    // public abstract void rateBook(int bookId, int rating) throws Exception;
 
 
+
+//    void executeQuery(/*java.sql.Connection con,*/ String query, List<Book> books) throws SQLException;
+
+    List<Book> getBookList(/*java.sql.Connection con,*/ String query, List<Book> books) throws SQLException;
+
+    List<Book> searchDBBook(String query);
+
     /**
      * Adds a new book to the database. (Rating is not done here?)
      *
@@ -75,9 +82,6 @@ public interface BooksDbInterface {
 //TODO: ska inte vara static
     public void addBook(String isbn, String title, String genre, String fullName, Date publish, String grade) throws SQLException;
 
-    public static void executeQuery(/*java.sql.Connection con,*/ String query, List<Book> books) throws SQLException {
-
-    }
     public List<Book> getBookByAuthor(String name) throws SQLException, BooksDbException;
 
     List<Book> searchDBBook(String searchFor, SearchMode mode);

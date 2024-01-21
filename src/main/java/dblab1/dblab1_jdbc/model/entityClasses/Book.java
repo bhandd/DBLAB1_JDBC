@@ -18,17 +18,16 @@ public class Book {
     private String isbn; // should check format
     private String title;
     private java.sql.Date published;
-    private int year;
+
     private int grade;
-    private int pages;
-    private String language =" ";
+
      private Genre genre;
     //private String genre;
 
     private String storyLine = "";
-  //  private String author;
+    private String author;
 
-       private ArrayList<Author> authors;
+    //   private ArrayList<Author> authors;
     // TODO:
     // Add authors, as a separate class(!), and corresponding methods, to your implementation
     // as well, i.e. "private ArrayList<Author> authors;"
@@ -36,14 +35,14 @@ public class Book {
     //TODO: avkommentera arraylist med authors då detta krävs för att representera relationen mellan book och author
     // avkommentera också String author som parameter i konstruktiorn
     // när detta göra behöver man anpassa implementeringen i övriga programmet
-    public Book(int bookId, String isbn, String title, /*Author author ,*/ java.sql.Date published, String genre, int grade   ) {
+    public Book(int bookId, String isbn, String title, String author /*Author author ,*/ ,java.sql.Date published, String genre, int grade   ) {
         this.bookId = bookId;
 
         this.isbn = isbn;
         this.title = title;
-        this.authors = new ArrayList<>();
-//        this.authors.add(new Author(author));
+       // this.authors = new ArrayList<>();
         //    this.author.setfName(author);
+        this.author = author;
 
         this.published = published;
         this.genre = Genre.UNDEFINED;
@@ -56,12 +55,12 @@ public class Book {
 
         this.isbn = null;
         this.title = null;
-        this.authors = new ArrayList<>();
+      //  this.authors = new ArrayList<>();
 //        this.authors.add(new Author(author));
         //    this.author.setfName(author);
 
         this.published = new java.sql.Date(2000);
-        this.genre;
+        this.genre = Genre.UNDEFINED;
         this.grade = grade;
 
 

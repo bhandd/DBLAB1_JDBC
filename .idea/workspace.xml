@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9d7239cd-08d7-4e6b-8966-b7b7055103ea" name="Changes" comment="implemented methods for getting book by author name">
-      <change afterPath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/entityClasses/Genre.java" afterDir="false" />
+    <list default="true" id="9d7239cd-08d7-4e6b-8966-b7b7055103ea" name="Changes" comment="SQL-querys moved from controller&#10;Deleted executeQuery because id was not used">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/BooksDb.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/BooksDb.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/BooksDbInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/BooksDbInterface.java" afterDir="false" />
@@ -414,7 +413,15 @@
       <option name="project" value="LOCAL" />
       <updated>1705849558613</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="SQL-querys moved from controller&#10;Deleted executeQuery because id was not used">
+      <option name="closed" value="true" />
+      <created>1705853985963</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1705853985963</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -432,7 +439,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Updated with GUI from AndersLm" />
     <MESSAGE value="added packages. Added classes; Author, review. changed name of BooksDbMockImpl to BooksDb" />
     <MESSAGE value="search method version2" />
     <MESSAGE value="Search for title, ISBN and author" />
@@ -457,7 +463,8 @@
     <MESSAGE value="deleted unnecessary methods and comments" />
     <MESSAGE value="Just prepared Controller and BooksDb with TODO´s for the komplettering" />
     <MESSAGE value="implemented methods for getting book by author name" />
-    <option name="LAST_COMMIT_MESSAGE" value="implemented methods for getting book by author name" />
+    <MESSAGE value="SQL-querys moved from controller&#10;Deleted executeQuery because id was not used" />
+    <option name="LAST_COMMIT_MESSAGE" value="SQL-querys moved from controller&#10;Deleted executeQuery because id was not used" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
