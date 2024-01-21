@@ -6,6 +6,7 @@ package dblab1.dblab1_jdbc.view;
 
 import dblab1.dblab1_jdbc.model.*;
 import dblab1.dblab1_jdbc.model.entityClasses.Book;
+import dblab1.dblab1_jdbc.model.entityClasses.Genre;
 import dblab1.dblab1_jdbc.model.exceptions.BooksDbException;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -60,7 +61,7 @@ public class Controller  {
                         result = booksDb.searchDBBook(searchFor, mode);
                         break;
                     case Author:
-                        result = BooksDb.;
+                        result = booksDb.getBookByAuthor(searchFor);
                         break;
                     default:
                         result = new ArrayList<>();

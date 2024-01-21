@@ -23,14 +23,10 @@ import java.util.List;
  * @author anderslm@kth.se
  */
 public class BooksDb implements BooksDbInterface {
-
     private final List<Book> books;
-
     public BooksDb() {
-
         books = List.of();
     }
-
     /**
      * A class that represents a connection to a database.
      *
@@ -57,45 +53,72 @@ public class BooksDb implements BooksDbInterface {
         getConnection.EndConnection();
     }
 
+    public List<Book> getBookByAuthor(String name) throws SQLException, BooksDbException {
+      return getBookFromID(getBookIdFromAuthorId(getAuthorIdByName(name)));
+    }
 
 
-//TODO: Already moved the query from controller,  Just check functionality
-    /**
-     * Executes a specified SQL query and populates a list of `Book` objects with the retrieved data.
-     * Used to show books in GUI
-     * @param// The SQL query to execute.
-     * @param books The list of `Book` objects to populate.
-     * @throws SQLException If an error occurs during database interaction.
-     */
-    public static void executeQuery( List<Book> books) throws SQLException {
-        ArrayList authors = new ArrayList<>();
-
-        String query = ("SELECT b.book_id, b.isbn, b.title, a.fullName, b.published, b.genre, b.grade\n" +
-                "FROM T_book b INNER JOIN book_author ba ON b.book_id = ba.book_id INNER JOIN T_author a ON ba.author_id = a.aut_id;");
+    private int getAuthorIdByName(String name) throws RuntimeException{
+        int authorId = -1;
+        String query= "SELECT aut_id\n" +
+                "FROM T_author\n" +
+                "WHERE fullName ="+ name + ";";
 
         try (Statement stmt = getConnection.getConnection().createStatement()) {
             // Execute the SQL statement
             ResultSet rs = stmt.executeQuery(query);
-            // Get the attribute names
-            ResultSetMetaData metaData = rs.getMetaData();
-            int ccount = metaData.getColumnCount();
-            for (int c = 1; c <= ccount; c++) {
-                System.out.print(metaData.getColumnName(c) + "\t");
-            }
-            System.out.println();
-
-            // Get the attribute values
             while (rs.next()) {
+                authorId = rs.getInt("author_id");
+            }
+            rs.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
+        return authorId;
+    }
+
+
+//Todo: implementera
+   private int getBookIdFromAuthorId(int authorId) throws RuntimeException{
+       int bookId= -1;
+        String query= "SELECT book_id\n" +
+                "FROM book_author\n" +
+                "WHERE author_id ="+ authorId + ";";
+        try (Statement stmt = getConnection.getConnection().createStatement()) {
+            // Execute the SQL statement
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+               bookId = rs.getInt("book_id");
+            }
+            rs.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return bookId;
+    }
+
+//TODO: implementera
+private  List<Book> getBookFromID(int bookID) throws RuntimeException, BooksDbException, SQLException {
+    String query = "SELECT *\n" +
+            "FROM T_book\n" +
+            "WHERE book_id =" + bookID + ";";
+
+        List<Book> result = new ArrayList<>();
+        ArrayList authors = new ArrayList<>();
+
+        try (Statement stmt = getConnection.getConnection().createStatement()) {
+            // Execute the SQL statement
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
                 int bookId = rs.getInt("book_id");
                 String ISBN = rs.getString("ISBN");
                 String title = rs.getString("title");
 
                 List<Integer> authorIds = getAuthorIdForBook(bookId);
-                for(int i = 0; i < authorIds.size(); i++){
+                for (int i = 0; i < authorIds.size(); i++) {
                     authors.add(getAuthorById(authorIds.get(i)));
                 }
-                String author = rs.getString("fullName");
                 //String author = rs.getString("author");
                 Date published = rs.getDate("published");
                 //   int pages = rs.getInt("pages");
@@ -104,73 +127,14 @@ public class BooksDb implements BooksDbInterface {
                 int grade = rs.getInt("grade");
                 Book book = new Book(bookId, ISBN, title, published, genre, grade);
                 book.addAuthor(authors);
-                // System.out.println(book.toString());
-              //  books.add(book);
-            }
-            System.out.println();
-        }
-    }
-
-    //Todo: implementera
-    public static List<Integer> getAuthorIdByName(int name) throws RuntimeException{
-        List<Integer> authorIds = new ArrayList<>();
-        String query= "SELECT aut_id\n" +
-                "FROM T_author\n" +
-                "WHERE fullName ="+ name + ";";
-
-
-        try (Statement stmt = getConnection.getConnection().createStatement()) {
-            // Execute the SQL statement
-            ResultSet rs = stmt.executeQuery(query);
-            while (rs.next()) {
-                authorIds.add(rs.getInt("author_id"));
+                //     System.out.println("Yes");
             }
             rs.close();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new BooksDbException(e.getMessage());
         }
-        return authorIds;
-    }
+        return result;
 
-
-//Todo: implementera
-    public static List<Integer> getBookFromAuthorId(int authorId) throws RuntimeException{
-        List<Integer> authorIds = new ArrayList<>();
-        String query= "SELECT book_id\n" +
-                "FROM book_author\n" +
-                "WHERE author_id ="+ authorId + ";";
-        try (Statement stmt = getConnection.getConnection().createStatement()) {
-            // Execute the SQL statement
-            ResultSet rs = stmt.executeQuery(query);
-            while (rs.next()) {
-                authorIds.add(rs.getInt("book_id"));
-            }
-            rs.close();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return authorIds;
-    }
-
-//TODO: implementera
-    public static List<Integer> getBookFromID(int bookID) throws RuntimeException{
-        List<Integer> authorIds = new ArrayList<>();
-        String query= "SELECT *\n" +
-                "FROM T_book\n" +
-                "WHERE book_id ="+ bookID + ";";
-
-        try (Statement stmt = getConnection.getConnection().createStatement()) {
-            // Execute the SQL statement
-            ResultSet rs = stmt.executeQuery(query);
-            while (rs.next()) {
-                authorIds.add(rs.getInt("author_id"));
-                //Todo. lägg till resultset för hela boken
-            }
-            rs.close();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return authorIds;
     }
 
 
@@ -226,132 +190,6 @@ public class BooksDb implements BooksDbInterface {
         return authors;
     }
 
-    //TODO: anpassa så den söker på titel, kolla om JOIN behövs. (fixa så author läses in från DB?)
-    public static List<Book> searchTitle(String query) throws BooksDbException {
-
-        String searchTitle = ("SELECT b.book_id, b.isbn,  b.title, a.fullName, b.published, b.genre, b.grade\n" +
-                "FROM T_book b \n" +
-                "INNER JOIN book_author ba \n" +
-                "ON b.book_id = ba.book_id \n" +
-                "INNER JOIN T_author a \n" +
-                "ON ba.author_id = a.aut_id WHERE b.title LIKE '%" + searchFor + "%';");
-
-        List<Book> result = new ArrayList<>();
-        ArrayList authors = new ArrayList<>();
-
-
-        try (Statement stmt = getConnection.getConnection().createStatement()) {
-            // Execute the SQL statement
-            ResultSet rs = stmt.executeQuery(query);
-            while (rs.next()) {
-                int bookId = rs.getInt("book_id");
-                String ISBN = rs.getString("ISBN");
-                String title = rs.getString("title");
-
-                List<Integer> authorIds = getAuthorIdForBook(bookId);
-            for(int i = 0; i < authorIds.size(); i++){
-                authors.add(getAuthorById(authorIds.get(i)));
-            }
-                //String author = rs.getString("author");
-                Date published = rs.getDate("published");
-                //   int pages = rs.getInt("pages");
-                //  String language = rs.getString("language");
-                String genre = rs.getString("genre");
-                int grade = rs.getInt("grade");
-                Book book = new Book(bookId, ISBN, title, published, genre, grade);
-                book.addAuthor(authors);
-           //     System.out.println("Yes");
-            }
-            rs.close();
-        } catch (SQLException e) {
-            throw new BooksDbException(e.getMessage());
-        }
-        return result;
-    }
-
-    //TODO: anpassa så den söker efter ISBN, kolla om det går att ta bort JOIN. fixa först inläsning av author?
-    public static List<Book> searchISBN(String query) throws BooksDbException {
-        String searchISBN = ("SELECT b.book_id, b.isbn,  b.title, a.fullName, b.published, b.genre, b.grade\n" +
-                "FROM T_book b \n" +
-                "INNER JOIN book_author ba \n" +
-                "ON b.book_id = ba.book_id \n" +
-                "INNER JOIN T_author a \n" +
-                "ON ba.author_id = a.aut_id WHERE b.isbn LIKE '%" + searchFor + "%';");
-
-        List<Book> result = new ArrayList<>();
-        ArrayList authors = new ArrayList<>();
-
-
-        try (Statement stmt = getConnection.getConnection().createStatement()) {
-            // Execute the SQL statement
-            ResultSet rs = stmt.executeQuery(query);
-            while (rs.next()) {
-                int bookId = rs.getInt("book_id");
-                String ISBN = rs.getString("ISBN");
-                String title = rs.getString("title");
-
-                List<Integer> authorIds = getAuthorIdForBook(bookId);
-                for(int i = 0; i < authorIds.size(); i++){
-                    authors.add(getAuthorById(authorIds.get(i)));
-                }
-                //String author = rs.getString("author");
-                Date published = rs.getDate("published");
-                //   int pages = rs.getInt("pages");
-                //  String language = rs.getString("language");
-                String genre = rs.getString("genre");
-                int grade = rs.getInt("grade");
-                Book book = new Book(bookId, ISBN, title, published, genre, grade);
-                book.addAuthor(authors);
-                //     System.out.println("Yes");
-            }
-            rs.close();
-        } catch (SQLException e) {
-            throw new BooksDbException(e.getMessage());
-        }
-        return result;
-    }
-
-    //TODO: Fixa så den söker efter author, kolla om JOIN behövs. Fixa först inläsning av Author?
-    public static List<Book> searchAuthor(String query) throws BooksDbException {
-        String searchAuthor = ("SELECT b.book_id, b.isbn,  b.title, a.fullName, b.published, b.genre, b.grade\n" +
-                "FROM T_book b \n" +
-                "INNER JOIN book_author ba \n" +
-                "ON b.book_id = ba.book_id \n" +
-                "INNER JOIN T_author a \n" +
-                "ON ba.author_id = a.aut_id WHERE a.fullName LIKE '%" + searchFor + "%';");
-        List<Book> result = new ArrayList<>();
-        ArrayList authors = new ArrayList<>();
-
-
-        try (Statement stmt = getConnection.getConnection().createStatement()) {
-            // Execute the SQL statement
-            ResultSet rs = stmt.executeQuery(query);
-            while (rs.next()) {
-                int bookId = rs.getInt("book_id");
-                String ISBN = rs.getString("ISBN");
-                String title = rs.getString("title");
-
-                List<Integer> authorIds = getAuthorIdForBook(bookId);
-                for(int i = 0; i < authorIds.size(); i++){
-                    authors.add(getAuthorById(authorIds.get(i)));
-                }
-                //String author = rs.getString("author");
-                Date published = rs.getDate("published");
-                //   int pages = rs.getInt("pages");
-                //  String language = rs.getString("language");
-                String genre = rs.getString("genre");
-                int grade = rs.getInt("grade");
-                Book book = new Book(bookId, ISBN, title, published, genre, grade);
-                book.addAuthor(authors);
-                //     System.out.println("Yes");
-            }
-            rs.close();
-        } catch (SQLException e) {
-            throw new BooksDbException(e.getMessage());
-        }
-        return result;
-    }
-
 
 
     /**
@@ -400,8 +238,6 @@ public class BooksDb implements BooksDbInterface {
         return result;
     }
 
-
-
     /**
      * Retrieves the error count from the database for the specified query.
      *
@@ -422,10 +258,8 @@ int errorCount = 0;
                 System.out.print(metaData.getColumnName(c) + "\t");
             }
             System.out.println();
-
                 rs.next();
                 errorCount = rs.getInt("@@error_count");
-
            // System.out.println("executed a query");
         }catch (SQLException e){
             System.err.println(e.getMessage());
@@ -450,8 +284,6 @@ int errorCount = 0;
             System.err.println(e.getMessage());
         }
     }
-
-
 
     /**
      * Updates the grade for a book with the specified title.

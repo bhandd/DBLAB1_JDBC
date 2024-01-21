@@ -78,6 +78,7 @@ public interface BooksDbInterface {
     public static void executeQuery(/*java.sql.Connection con,*/ String query, List<Book> books) throws SQLException {
 
     }
+    public List<Book> getBookByAuthor(String name) throws SQLException, BooksDbException;
 
     List<Book> searchDBBook(String searchFor, SearchMode mode);
 }

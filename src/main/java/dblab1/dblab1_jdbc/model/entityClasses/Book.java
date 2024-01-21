@@ -1,5 +1,7 @@
 package dblab1.dblab1_jdbc.model.entityClasses;
 
+import dblab1.dblab1_jdbc.model.Dialog.FooBook;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -20,8 +22,8 @@ public class Book {
     private int grade;
     private int pages;
     private String language =" ";
-    // private Genre genre;
-    private String genre;
+     private Genre genre;
+    //private String genre;
 
     private String storyLine = "";
   //  private String author;
@@ -44,8 +46,24 @@ public class Book {
         //    this.author.setfName(author);
 
         this.published = published;
-        this.genre = genre;
+        this.genre = Genre.UNDEFINED;
+        this.grade = 0;
+
+    }
+
+    public Book(){
+        this.bookId = 0;
+
+        this.isbn = null;
+        this.title = null;
+        this.authors = new ArrayList<>();
+//        this.authors.add(new Author(author));
+        //    this.author.setfName(author);
+
+        this.published = new java.sql.Date(2000);
+        this.genre;
         this.grade = grade;
+
 
     }
 
