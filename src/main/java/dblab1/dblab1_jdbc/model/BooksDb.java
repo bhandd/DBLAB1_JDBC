@@ -24,9 +24,9 @@ import java.util.List;
  */
 public class BooksDb implements BooksDbInterface {
     private final List<Book> books;
-    public BooksDb() {
-        books = List.of();
-    }
+//    public BooksDb() {
+//        books = List.of();
+//    }
     /**
      * A class that represents a connection to a database.
      *
@@ -302,19 +302,11 @@ private  List<Book> getBookFromID(int bookID) throws RuntimeException, BooksDbEx
 //                    authors.add(getAuthorById(authorIds.get(i)));
 //                }
 //                String author = rs.getString("fullname");
-            }               rs.close();
-        } catch (SQLException e) {
-            throw new BooksDbException(e.getMessage());
-        }
 
 
-                try (Statement stmt = getConnection.getConnection().createStatement()) {
-                    ResultSet rs = stmt.executeQuery(searchString);
-               String author ="";
-
-           //     System.out.println(author);
+                //     System.out.println(author);
                 Date published = rs.getDate("published");
-                book.add("p")
+                // books.setPublished;
                 System.out.println(published);
                 //   int pages = rs.getInt("pages");
                 //  String language = rs.getString("language");
@@ -323,17 +315,13 @@ private  List<Book> getBookFromID(int bookID) throws RuntimeException, BooksDbEx
                 int grade = rs.getInt("grade");
                 System.out.println(grade);
 
-                Book book = new Book( published, genre, grade);
+                Book book = new Book(published, genre, grade);
                 System.out.println(book.toString());
                 result.add(book);
-               // book.addAuthor(authors);
-                   System.out.println("Yes");
-                    rs.close();
-            } catch (SQLException ex) {
-                    throw new RuntimeException(ex);
-                }
-
-
+                // book.addAuthor(authors);
+                System.out.println("Yes");
+                rs.close();
+            }
         } catch (SQLException e) {
             throw new BooksDbException(e.getMessage());
         }
