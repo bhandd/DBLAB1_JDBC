@@ -116,7 +116,7 @@ public class Controller  {
 
             List<Book> books = new ArrayList<>();
             try {
-               booksDb.getBookList(books);
+               booksDb.executeQuery(books);
                 booksView.displayBooks(books);
             } catch (SQLException e) {
                 throw new RuntimeException(e);

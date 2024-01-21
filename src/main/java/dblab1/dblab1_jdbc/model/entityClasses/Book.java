@@ -2,8 +2,8 @@ package dblab1.dblab1_jdbc.model.entityClasses;
 
 import dblab1.dblab1_jdbc.model.Dialog.FooBook;
 
+import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -35,7 +35,7 @@ public class Book {
     //TODO: avkommentera arraylist med authors då detta krävs för att representera relationen mellan book och author
     // avkommentera också String author som parameter i konstruktiorn
     // när detta göra behöver man anpassa implementeringen i övriga programmet
-    public Book(int bookId, String isbn, String title, String author /*Author author ,*/ ,java.sql.Date published, String genre, int grade   ) {
+    public Book(int bookId, String isbn, String title, String author /*Author author ,*/ ,java.sql.Date published, String genre, int grade) {
         this.bookId = bookId;
 
         this.isbn = isbn;
@@ -45,7 +45,7 @@ public class Book {
         this.author = author;
 
         this.published = published;
-        this.genre = Genre.UNDEFINED;
+      //  this.genre = Genre.UNDEFINED;
         this.grade = 0;
 
     }
@@ -60,13 +60,15 @@ public class Book {
         //    this.author.setfName(author);
 
         this.published = new java.sql.Date(2000);
-        this.genre = Genre.UNDEFINED;
+       // this.genre = Genre.UNDEFINED;
         this.grade = grade;
 
 
     }
 
 
+
+    /**
     public int getBookId() { return bookId; }
     public String getIsbn() { return isbn; }
     public String getTitle() { return title; }
@@ -88,7 +90,7 @@ return authors.get(index).toString();
     public String getGenre() {
         return genre;
     }
-
+*/
     public int getGrade() {
         return grade;
     }
@@ -114,43 +116,42 @@ return authors.get(index).toString();
         this.published = published;
     }
 
-    public void setYear(int year) {
-        this.year = year;
-    }
 
     public void setGrade(int grade) {
         this.grade = grade;
     }
 
-    public void setPages(int pages) {
-        this.pages = pages;
+
+    public void setGenre(Genre genre) {
+        this.genre = genre ;
     }
 
-    public void setLanguage(String language) {
-        this.language = language;
-    }
 
-    public void setGenre(String genre) {
-        this.genre = genre;
-    }
-
-    public void addAuthor(ArrayList<Author> authors) {
-        this.authors = authors;
-    }
+    /**Add author to the list of authors
+     *
+     * */
+//    public void addAuthor(ArrayList<Author> authors) {
+//        this.authors = authors;
+//    }
 
     public void setStoryLine(String storyLine) {
         this.storyLine = storyLine;
     }
 
-public void printAuthors(){
 
-        for (int i=0; i < authors.size(); i++){
-            System.out.println("Name:" + authors.get(i).getFullName());
-            System.out.println("ID: "+ authors.get(i).getId());
+    /**For printing the authors from the List of authors
+     *
+     * */
 
-        }
-
-}
+//public void printAuthors(){
+//
+//        for (int i=0; i < authors.size(); i++){
+//            System.out.println("Name:" + authors.get(i).getFullName());
+//            System.out.println("ID: "+ authors.get(i).getId());
+//
+//        }
+//
+//}
 
 public ArrayList<String> getAuthorsNames(ArrayList<Author> authors){
   ArrayList<String> nameList = new ArrayList<>();
@@ -163,6 +164,6 @@ public ArrayList<String> getAuthorsNames(ArrayList<Author> authors){
 
     @Override
     public String toString() {
-        return bookId +", "+ isbn + ", " + title + ", " + getAuthorsNames(this.authors) + ", " +  published + ", " + genre + ", " + grade;
+        return bookId +", "+ isbn + ", " + title + ", "/* + getAuthorsNames(this.authors) +*/+ author + ", " +  published + ", " + genre + ", " + grade;
     }
 }

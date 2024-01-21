@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9d7239cd-08d7-4e6b-8966-b7b7055103ea" name="Changes" comment="SQL-querys moved from controller&#10;Deleted executeQuery because id was not used">
+    <list default="true" id="9d7239cd-08d7-4e6b-8966-b7b7055103ea" name="Changes" comment="ongoing update for komplettering.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/BooksDb.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/BooksDb.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/BooksDbInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/BooksDbInterface.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/entityClasses/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/entityClasses/Book.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/view/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/view/Controller.java" afterDir="false" />
     </list>
@@ -421,7 +420,15 @@
       <option name="project" value="LOCAL" />
       <updated>1705853985963</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="ongoing update for komplettering.">
+      <option name="closed" value="true" />
+      <created>1705855570841</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1705855570841</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -439,7 +446,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added packages. Added classes; Author, review. changed name of BooksDbMockImpl to BooksDb" />
     <MESSAGE value="search method version2" />
     <MESSAGE value="Search for title, ISBN and author" />
     <MESSAGE value="added arraylist authors in Book" />
@@ -464,14 +470,15 @@
     <MESSAGE value="Just prepared Controller and BooksDb with TODO´s for the komplettering" />
     <MESSAGE value="implemented methods for getting book by author name" />
     <MESSAGE value="SQL-querys moved from controller&#10;Deleted executeQuery because id was not used" />
-    <option name="LAST_COMMIT_MESSAGE" value="SQL-querys moved from controller&#10;Deleted executeQuery because id was not used" />
+    <MESSAGE value="ongoing update for komplettering." />
+    <option name="LAST_COMMIT_MESSAGE" value="ongoing update for komplettering." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/BooksDb.java</url>
-          <line>153</line>
+          <line>155</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
