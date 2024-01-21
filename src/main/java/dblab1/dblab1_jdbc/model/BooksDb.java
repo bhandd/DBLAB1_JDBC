@@ -63,7 +63,7 @@ public class BooksDb implements BooksDbInterface {
     /**
      * Executes a specified SQL query and populates a list of `Book` objects with the retrieved data.
      * Used to show books in GUI
-     * @param The SQL query to execute.
+     * @param// The SQL query to execute.
      * @param books The list of `Book` objects to populate.
      * @throws SQLException If an error occurs during database interaction.
      */
@@ -110,6 +110,70 @@ public class BooksDb implements BooksDbInterface {
             System.out.println();
         }
     }
+
+    //Todo: implementera
+    public static List<Integer> getAuthorIdByName(int name) throws RuntimeException{
+        List<Integer> authorIds = new ArrayList<>();
+        String query= "SELECT aut_id\n" +
+                "FROM T_author\n" +
+                "WHERE fullName ="+ name + ";";
+
+
+        try (Statement stmt = getConnection.getConnection().createStatement()) {
+            // Execute the SQL statement
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                authorIds.add(rs.getInt("author_id"));
+            }
+            rs.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return authorIds;
+    }
+
+
+//Todo: implementera
+    public static List<Integer> getBookFromAuthorId(int authorId) throws RuntimeException{
+        List<Integer> authorIds = new ArrayList<>();
+        String query= "SELECT book_id\n" +
+                "FROM book_author\n" +
+                "WHERE author_id ="+ authorId + ";";
+        try (Statement stmt = getConnection.getConnection().createStatement()) {
+            // Execute the SQL statement
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                authorIds.add(rs.getInt("book_id"));
+            }
+            rs.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return authorIds;
+    }
+
+//TODO: implementera
+    public static List<Integer> getBookFromID(int bookID) throws RuntimeException{
+        List<Integer> authorIds = new ArrayList<>();
+        String query= "SELECT *\n" +
+                "FROM T_book\n" +
+                "WHERE book_id ="+ bookID + ";";
+
+        try (Statement stmt = getConnection.getConnection().createStatement()) {
+            // Execute the SQL statement
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                authorIds.add(rs.getInt("author_id"));
+                //Todo. lägg till resultset för hela boken
+            }
+            rs.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return authorIds;
+    }
+
+
 
     /**
      * Retrieves a list of author IDs for a specified book ID from the database.
@@ -298,14 +362,18 @@ public class BooksDb implements BooksDbInterface {
      * @throws RuntimeException If an error occurs during database interaction.
      */
 
-    public static List<Book> searchDBBook(String query) throws BooksDbException {
+    @Override
+    public List<Book> searchDBBook(String query, SearchMode mode ) throws BooksDbException {
+        String searchString = ("SELECT  book_id, isbn,  title, published, genre, grade FROM " +
+                "T_book WHERE '%" + mode + "%';\" ='%" + query + "%';");
+
         List<Book> result = new ArrayList<>();
         ArrayList authors = new ArrayList<>();
 
 
         try (Statement stmt = getConnection.getConnection().createStatement()) {
             // Execute the SQL statement
-            ResultSet rs = stmt.executeQuery(query);
+            ResultSet rs = stmt.executeQuery(searchString);
             while (rs.next()) {
                 int bookId = rs.getInt("book_id");
                 String ISBN = rs.getString("ISBN");
@@ -331,6 +399,8 @@ public class BooksDb implements BooksDbInterface {
         }
         return result;
     }
+
+
 
     /**
      * Retrieves the error count from the database for the specified query.
@@ -380,6 +450,8 @@ int errorCount = 0;
             System.err.println(e.getMessage());
         }
     }
+
+
 
     /**
      * Updates the grade for a book with the specified title.

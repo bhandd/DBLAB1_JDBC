@@ -30,7 +30,7 @@ import static javafx.scene.control.Alert.AlertType.*;
  *
  * @author anderslm@kth.se
  */
-public class Controller {
+public class Controller  {
     private BooksPaneView booksView; // view
     private BooksDbInterface booksDb; // model
 
@@ -54,13 +54,13 @@ public class Controller {
                 List<Book> result = new ArrayList<>();
                 switch (mode) {
                     case Title:
-                        result = BooksDb.searchDBBook(searchFor);
+                        result = booksDb.searchDBBook(searchFor, mode);
                         break;
                     case ISBN:
-                        result = BooksDb.searchDBBook(searchFor);
+                        result = booksDb.searchDBBook(searchFor, mode);
                         break;
                     case Author:
-                        result = BooksDb.searchDBBook(searchFor);
+                        result = BooksDb.;
                         break;
                     default:
                         result = new ArrayList<>();

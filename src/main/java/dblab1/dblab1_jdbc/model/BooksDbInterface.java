@@ -79,4 +79,5 @@ public interface BooksDbInterface {
 
     }
 
+    List<Book> searchDBBook(String searchFor, SearchMode mode);
 }
