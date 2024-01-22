@@ -36,7 +36,7 @@ public interface BooksDbInterface {
 
     List<Book> getBookList() throws SQLException;
 
-    List<Book> searchDBBook(String query, SearchMode mode) throws BooksDbException;
+    List<Book> searchBookByMode(String query, SearchMode mode) throws BooksDbException;
 
     /**
      * Adds a new book to the database. (Rating is not done here?)

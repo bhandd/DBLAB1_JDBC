@@ -55,10 +55,10 @@ public class Controller  {
                 List<Book> result = new ArrayList<>();
                 switch (mode) {
                     case Title:
-                        result = booksDb.searchDBBook(searchFor, mode);
+                        result = booksDb.searchBookByMode(searchFor, mode);
                         break;
                     case ISBN:
-                        result = booksDb.searchDBBook(searchFor, mode);
+                        result = booksDb.searchBookByMode(searchFor, mode);
                         break;
                     case Author:
                         result = booksDb.getBookByAuthor(searchFor);
