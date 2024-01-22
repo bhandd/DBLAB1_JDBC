@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9d7239cd-08d7-4e6b-8966-b7b7055103ea" name="Changes" comment="TODO: Search-funktion med tre metoder">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024-01-14_16_12_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024-01-14_16_12__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024-01-14_18_20_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024-01-14_18_20__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024-01-14_20_58_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024-01-14_20_58__Changes_.xml" beforeDir="false" />
+    <list default="true" id="9d7239cd-08d7-4e6b-8966-b7b7055103ea" name="Changes" comment="searchDBBook -&gt; searchBookByMode">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/BooksDb.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/BooksDb.java" afterDir="false" />
     </list>
@@ -464,7 +458,15 @@
       <option name="project" value="LOCAL" />
       <updated>1705872936677</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="searchDBBook -&gt; searchBookByMode">
+      <option name="closed" value="true" />
+      <created>1705960557752</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1705960557752</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -482,7 +484,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Search method updated, (skipped the searchBooksByTitle--method in BooksDb),and working but get error messages. Maybe something with the connection. need to update the view methods for the book to display more book-info." />
     <MESSAGE value="moved executeQuery and searchBookDB-methods from getConnection to BooksDb. The methods are commented out in getConnection" />
     <MESSAGE value="Author implemented in view, search for author possible. Author changed to a String -&gt; 1 book - 1 Author" />
     <MESSAGE value="method updateGrade created. But needs a dialogue-view. Values can be modified in eventhandler Controller.updateBookDB. uses the prepareStatement-method from the java Connection-class" />
@@ -507,14 +508,15 @@
     <MESSAGE value="error correction" />
     <MESSAGE value="trying to search again" />
     <MESSAGE value="TODO: Search-funktion med tre metoder" />
-    <option name="LAST_COMMIT_MESSAGE" value="TODO: Search-funktion med tre metoder" />
+    <MESSAGE value="searchDBBook -&gt; searchBookByMode" />
+    <option name="LAST_COMMIT_MESSAGE" value="searchDBBook -&gt; searchBookByMode" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/BooksDb.java</url>
-          <line>163</line>
+          <line>162</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
