@@ -270,18 +270,26 @@ private  List<Book> getBookFromBookID(int bookID) throws RuntimeException, Books
     }
 
 
+//TODO: fungerar, kopiera och gör en för ISBN.
+// Author blir nästan lika men måste söka med getBookByAuthor();
+// troligen går det sen att ta bort searchmode i varje metod för varje mode får en egen metod
 
-private int getBookIDFromSearchMode(String searchFor, SearchMode mode)throws RuntimeException{
+    private int getBookIDFromSearchMode(String searchFor, SearchMode mode)throws RuntimeException{
         int bookId = -1;
     String column = mode.name();
+
+
     System.out.println(column);
-        String query= "SELECT book_id FROM T_book WHERE "+ column +" LIKE '%"+ searchFor + "%';";
+        String query= "SELECT book_id FROM T_book WHERE title LIKE '%"+ searchFor + "%';";
     System.out.println(query);
         try (Statement stmt = getConnection.getConnection().createStatement()) {
             // Execute the SQL statement
             ResultSet rs = stmt.executeQuery(query);
 
-            while (rs.next()) {
+            if(!rs.next()) {
+              //TODO: fixa lämplig felhantering?
+                throw new IllegalArgumentException("there are no books with that title(this is probably not the right way to handle this exception)");
+            }else {
 
                 bookId = rs.getInt("book_id");
             }
