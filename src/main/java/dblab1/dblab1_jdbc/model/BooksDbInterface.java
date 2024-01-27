@@ -36,8 +36,10 @@ public interface BooksDbInterface {
 
     List<Book> getBookList() throws SQLException;
 
-    List<Book> searchBookByMode(String query, SearchMode mode) throws BooksDbException;
+    List<Book> searchBookByTitle(String query/* SearchMode mode*/) throws BooksDbException;
+    public List<Book> searchBookByISBN(String searchFor/*, SearchMode mode*/ ) throws BooksDbException;
 
+    public List<Book> searchBookByAuthor(String searchFor/*, SearchMode mode*/ ) throws BooksDbException;
     /**
      * Adds a new book to the database. (Rating is not done here?)
      *
@@ -49,6 +51,6 @@ public interface BooksDbInterface {
 
     public void addBook(String isbn, String title, String genre, String fullName, Date publish, String grade) throws SQLException;
 
-    public List<Book> getBookByAuthor(String name) throws SQLException, BooksDbException;
+  //  public List<Book> getBookByAuthor(String name) throws SQLException, BooksDbException;
 
 }

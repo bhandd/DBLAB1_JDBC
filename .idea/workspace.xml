@@ -4,9 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9d7239cd-08d7-4e6b-8966-b7b7055103ea" name="Changes" comment="searchDBBook -&gt; searchBookByMode.&#10;getAuthorNameById(), getAuthorIdFromBookId(), getBookIdFromSearchMode">
+    <list default="true" id="9d7239cd-08d7-4e6b-8966-b7b7055103ea" name="Changes" comment="searchDBBook -&gt; searchBookByMode.&#10;getAuthorNameById(), getAuthorIdFromBookId(), getBookIdFromSearchMode.&#10;Search for title works but do not read correct to javafx">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/BooksDb.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/BooksDb.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/BooksDbInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/BooksDbInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/entityClasses/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/entityClasses/Book.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/view/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/view/Controller.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -474,7 +478,15 @@
       <option name="project" value="LOCAL" />
       <updated>1705962320543</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="searchDBBook -&gt; searchBookByMode.&#10;getAuthorNameById(), getAuthorIdFromBookId(), getBookIdFromSearchMode.&#10;Search for title works but do not read correct to javafx">
+      <option name="closed" value="true" />
+      <created>1705963230352</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1705963230352</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -492,7 +504,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Author implemented in view, search for author possible. Author changed to a String -&gt; 1 book - 1 Author" />
     <MESSAGE value="method updateGrade created. But needs a dialogue-view. Values can be modified in eventhandler Controller.updateBookDB. uses the prepareStatement-method from the java Connection-class" />
     <MESSAGE value="addBookToDB and checkIfAuthorExists added. No Dialog implemented yet. test checkIfAuthorExists with add in the menu" />
     <MESSAGE value="Added alert to Set new grade" />
@@ -517,7 +528,8 @@
     <MESSAGE value="TODO: Search-funktion med tre metoder" />
     <MESSAGE value="searchDBBook -&gt; searchBookByMode" />
     <MESSAGE value="searchDBBook -&gt; searchBookByMode.&#10;getAuthorNameById(), getAuthorIdFromBookId(), getBookIdFromSearchMode" />
-    <option name="LAST_COMMIT_MESSAGE" value="searchDBBook -&gt; searchBookByMode.&#10;getAuthorNameById(), getAuthorIdFromBookId(), getBookIdFromSearchMode" />
+    <MESSAGE value="searchDBBook -&gt; searchBookByMode.&#10;getAuthorNameById(), getAuthorIdFromBookId(), getBookIdFromSearchMode.&#10;Search for title works but do not read correct to javafx" />
+    <option name="LAST_COMMIT_MESSAGE" value="searchDBBook -&gt; searchBookByMode.&#10;getAuthorNameById(), getAuthorIdFromBookId(), getBookIdFromSearchMode.&#10;Search for title works but do not read correct to javafx" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

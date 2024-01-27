@@ -55,13 +55,13 @@ public class Controller  {
                 List<Book> result = new ArrayList<>();
                 switch (mode) {
                     case Title:
-                        result = booksDb.searchBookByMode(searchFor, mode);
+                        result = booksDb.searchBookByTitle(searchFor);
                         break;
                     case ISBN:
-                        result = booksDb.searchBookByMode(searchFor, mode);
+                        result = booksDb.searchBookByISBN(searchFor/* mode*/);
                         break;
                     case Author:
-                        result = booksDb.getBookByAuthor(searchFor);
+                        result =  booksDb.searchBookByTitle(searchFor);
                         break;
                     default:
                         result = new ArrayList<>();
@@ -142,7 +142,6 @@ public class Controller  {
         String author = null;
 
         String published = null;
-
         String genre = null;
         String grade = null;
 

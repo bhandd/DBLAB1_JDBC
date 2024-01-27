@@ -49,6 +49,8 @@ public class Book {
         this.grade = grade;
 
     }
+
+
 //
 //    public Book(){
 //        this.bookId = 0;
@@ -165,6 +167,7 @@ return authors.get(index).toString();
 //        this.authors = authors;
 //    }
 
+
     public void setStoryLine(String storyLine) {
         this.storyLine = storyLine;
     }
@@ -192,7 +195,10 @@ return authors.get(index).toString();
 //        }
 //        return nameList;
 //}
-
+public String addAuthor(String name){
+    author = name;
+    return name;
+}
     @Override
     public String toString() {
         return bookId +", "+ isbn + ", " + title + ", "/* + getAuthorsNames(this.authors) +*/+ author + ", " +  published + ", " + genre + ", " + grade;
