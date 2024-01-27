@@ -58,7 +58,7 @@ public class Controller  {
                         result = booksDb.searchBookByTitle(searchFor);
                         break;
                     case ISBN:
-                        result = booksDb.searchBookByISBN(searchFor/* mode*/);
+                        result = booksDb.searchBookByISBN(searchFor);
                         break;
                     case Author:
                         result =  booksDb.searchBookByAuthor(searchFor);
@@ -253,7 +253,7 @@ public class Controller  {
             gradeValue = gradeField.getText();
             new Thread(() -> {
                 try {
-                    BooksDb.updateGrade(Integer.parseInt(gradeValue), String.valueOf(title));
+                    booksDb.updateGrade(Integer.parseInt(gradeValue), String.valueOf(title));
                     Platform.runLater(() -> {
                         titleField.setText("");
                         gradeField.setText("");
@@ -299,7 +299,7 @@ public class Controller  {
             title = titleField.getText();
             new Thread(() -> {
                 try {
-                    BooksDb.deleteBook(title);
+                    booksDb.deleteBook(title);
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                     //TODO. hantera på nåt bra vis

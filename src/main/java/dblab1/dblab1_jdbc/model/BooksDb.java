@@ -32,6 +32,7 @@ public class BooksDb implements BooksDbInterface {
      */
     @Override
     public boolean connect() throws Exception {
+
 return StartConnection() != null;
     }
 
@@ -42,6 +43,7 @@ return StartConnection() != null;
      * @throws SQLException if an error occurs during database interaction.
      */
     public void disconnect() throws BooksDbException, SQLException {
+
         EndConnection();
     }
 
@@ -85,7 +87,6 @@ return StartConnection() != null;
     }
 
 /** get a connection
- *
  * */
     public static Connection getConnection() {
         return con;
@@ -124,42 +125,6 @@ return StartConnection() != null;
     }
 
 
-    private  List<Book> getBookFromBookID(int bookID) throws RuntimeException, BooksDbException, SQLException {
-        String query = "SELECT *\n" +
-                "FROM T_book\n" +
-                "WHERE book_id =" + bookID + ";";
-        List<Book> result = new ArrayList<>();
-        ArrayList authors = new ArrayList<>();
-
-        try (Statement stmt = getConnection().createStatement()) {
-            // Execute the SQL statement
-            ResultSet rs = stmt.executeQuery(query);
-            while (rs.next()) {
-                int bookId = rs.getInt("book_id");
-                String ISBN = rs.getString("ISBN");
-                String title = rs.getString("title");
-//                List<Integer> authorIds = getAuthorIdFromBookId(bookId);
-//                for (int i = 0; i < authorIds.size(); i++) {
-//                    authors.add(getAuthorNameById(authorIds.get(i)));
-//                }
-//                String author = rs.getString("author");
-                String author = getAuthorNameById(getAuthorIdFromBookId(bookID));
-                Date published = rs.getDate("published");
-                //   int pages = rs.getInt("pages");
-                //  String language = rs.getString("language");
-                String genre = rs.getString("genre");
-                int grade = rs.getInt("grade");
-                Book book = new Book(bookId, ISBN, title, author, published, genre, grade);
-                //book.addAuthor(authors);
-                //     System.out.println("Yes");
-            }
-            rs.close();
-        } catch (SQLException e) {
-            throw new BooksDbException(e.getMessage());
-        }
-        return result;
-
-    }
 
     /**
      * Retrieves a list of author IDs for a specified book ID from the database.
@@ -363,7 +328,7 @@ return StartConnection() != null;
                     } catch (SQLException e) {
             throw new BooksDbException(e.getMessage());
         }
-        System.out.println(result.toString());
+        //System.out.println(result.toString());
         return result;
     }
 
@@ -399,7 +364,7 @@ return StartConnection() != null;
                 String genre = rs.getString("genre");
                 int grade = rs.getInt("grade");
                 Book book = new Book(bookId, ISBN, title,searchFor, published, genre, grade);
-                System.out.println(book.toString());
+               // System.out.println(book.toString());
                 result.add(book);
 
             }
@@ -456,7 +421,8 @@ return StartConnection() != null;
      * @param grade The new grade for the book.
      * @param title The title of the book to update.
      */
-    public static void updateGrade(int grade, String title) {
+    @Override
+    public void updateGrade(int grade, String title) {
         var sql = "UPDATE T_book "
                 + "SET grade = ? "
                 + "WHERE title = ?";
@@ -530,7 +496,8 @@ return StartConnection() != null;
      * @param title The title of the book to be deleted.
      * @throws SQLException If an error occurs during database interaction.
      */
-    public static void deleteBook(String title) throws SQLException {
+    @Override
+    public void deleteBook(String title) throws SQLException {
         try{
             getConnection().setAutoCommit(false);
             executeStatement("DELETE FROM book_author WHERE book_id IN (SELECT book_id FROM T_book WHERE title = '" + title + "');");
