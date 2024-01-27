@@ -4,9 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9d7239cd-08d7-4e6b-8966-b7b7055103ea" name="Changes" comment="SearchBookByTitle, SearchBookByISBN">
+    <list default="true" id="9d7239cd-08d7-4e6b-8966-b7b7055103ea" name="Changes" comment="SearchBookByAuthor">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/BooksDb.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/BooksDb.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/BooksDbInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/BooksDbInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/getConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/getConnection.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/view/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/view/Controller.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -491,7 +494,15 @@
       <option name="project" value="LOCAL" />
       <updated>1706371915089</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="SearchBookByAuthor">
+      <option name="closed" value="true" />
+      <created>1706373856622</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1706373856622</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -509,7 +520,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="addBookToDB and checkIfAuthorExists added. No Dialog implemented yet. test checkIfAuthorExists with add in the menu" />
     <MESSAGE value="Added alert to Set new grade" />
     <MESSAGE value="updated searchBookDb and executeQuery with JOIN. Changes to the database:&#10;&#10;T_book:&#10;Delete author&#10;genre_id (change to)-&gt; genre" />
     <MESSAGE value="just a save of the addBook-method. Changes made to: controller handle addbookDB; added string genre, BooksDB; changed int genre = rs.getInt(...) to String genre = rs.getString." />
@@ -534,18 +544,8 @@
     <MESSAGE value="searchDBBook -&gt; searchBookByMode.&#10;getAuthorNameById(), getAuthorIdFromBookId(), getBookIdFromSearchMode" />
     <MESSAGE value="searchDBBook -&gt; searchBookByMode.&#10;getAuthorNameById(), getAuthorIdFromBookId(), getBookIdFromSearchMode.&#10;Search for title works but do not read correct to javafx" />
     <MESSAGE value="SearchBookByTitle, SearchBookByISBN" />
-    <option name="LAST_COMMIT_MESSAGE" value="SearchBookByTitle, SearchBookByISBN" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/dblab1/dblab1_jdbc/model/BooksDb.java</url>
-          <line>143</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="SearchBookByAuthor" />
+    <option name="LAST_COMMIT_MESSAGE" value="SearchBookByAuthor" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

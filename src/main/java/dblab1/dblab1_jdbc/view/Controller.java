@@ -444,7 +444,7 @@ public class Controller  {
         @Override
         public void handle(ActionEvent actionEvent) {
             try {
-                BooksDbInterface.disconnect();
+                booksDb.EndConnection();
             } catch (SQLException | BooksDbException e) {
                 throw new RuntimeException(e);
             }

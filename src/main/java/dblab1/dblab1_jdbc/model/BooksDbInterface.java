@@ -30,9 +30,7 @@ public interface BooksDbInterface {
     public boolean connect() throws Exception;
 
 
-    public static void disconnect() throws BooksDbException, SQLException {
-        getConnection.EndConnection();
-    }
+    public void EndConnection() throws BooksDbException, SQLException;
 
     List<Book> getBookList() throws SQLException;
 

@@ -22,6 +22,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        BooksDbInterface booksDbInterface;
         BooksDb booksDb = new BooksDb(); // model
         // Don't forget to connect to the db, somewhere...
         try {
@@ -47,7 +48,8 @@ public class Main extends Application {
 
     @Override
     public void stop() throws Exception {
-        BooksDbInterface.disconnect();
+        BooksDb booksDb = new BooksDb();
+        booksDb.disconnect();
         super.stop();
     }
     public static void main(String[] args) {
