@@ -52,37 +52,25 @@ public class BooksDb implements BooksDbInterface {
         getConnection.EndConnection();
     }
 
-//    public List<Book> getBookByAuthor(String name) throws SQLException, BooksDbException {
-////        System.out.println("getBookByAuthor");
-////        int autId = getAuthorIdByName(name);
-////        int bookId= getBookIdFromAuthorId(autId);
-//      return getBookFromBookID(bookId);
-//    }
-
 
     private int getAuthorIdByName(String name) throws RuntimeException{
         System.out.println("getAuthorIdByName");
         int authorId = -1;
         String query= "SELECT aut_id FROM T_author WHERE fullName LIKE'%" + name + "%';";
-
         try (Statement stmt = getConnection.getConnection().createStatement()) {
             // Execute the SQL statement
             ResultSet rs = stmt.executeQuery(query);
-
             while (rs.next()) {
                 System.out.println("getAuthor");
                 authorId = rs.getInt("aut_id");
             }
-           // rs.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
         return authorId;
     }
 
 
-    //Todo: quick check and javadoc comment
     private int getBookIdFromAuthorId(int authorId) throws RuntimeException{
         System.out.println("getBookIdFromAuthorId");
         int bookId= -1;
@@ -101,15 +89,11 @@ public class BooksDb implements BooksDbInterface {
     }
 
 
-
-    //TODO: quick check and javadoc comment
     private  List<Book> getBookFromBookID(int bookID) throws RuntimeException, BooksDbException, SQLException {
         System.out.println("getBookFromBookId");
-
         String query = "SELECT *\n" +
                 "FROM T_book\n" +
                 "WHERE book_id =" + bookID + ";";
-
         List<Book> result = new ArrayList<>();
         ArrayList authors = new ArrayList<>();
 
@@ -120,7 +104,6 @@ public class BooksDb implements BooksDbInterface {
                 int bookId = rs.getInt("book_id");
                 String ISBN = rs.getString("ISBN");
                 String title = rs.getString("title");
-//
 //                List<Integer> authorIds = getAuthorIdFromBookId(bookId);
 //                for (int i = 0; i < authorIds.size(); i++) {
 //                    authors.add(getAuthorNameById(authorIds.get(i)));
@@ -143,8 +126,6 @@ public class BooksDb implements BooksDbInterface {
         return result;
 
     }
-
-
 
     /**
      * Retrieves a list of author IDs for a specified book ID from the database.
@@ -200,6 +181,13 @@ public class BooksDb implements BooksDbInterface {
         return authors;
     }
 
+    /**
+     * Get the full name of an author by their ID from the database.
+     *
+     * @param authorId The ID of the author to retrieve.
+     * @return The full name of the author, or an empty string if the author is not found.
+     * @throws RuntimeException If there is an error retrieving the author from the database.
+     */
     private static String getAuthorNameById(int authorId) throws RuntimeException{
         System.out.println("getAuthorByName");
         String author;
@@ -212,7 +200,6 @@ public class BooksDb implements BooksDbInterface {
             ResultSet rs = stmt.executeQuery(query);
             rs.next();
             author = rs.getString("fullname");
-
             System.out.println(author);
             rs.close();
 
@@ -223,6 +210,12 @@ public class BooksDb implements BooksDbInterface {
         return author;
     }
 
+    /**
+     * Retrieves a list of all books from the database and returns them as a {@code List<Book>} object.
+     *
+     * @return A list of all books in the database, or an empty list if there are no books.
+     * @throws SQLException If there is an error retrieving the books from the database.
+     */
     @Override
     public List<Book> getBookList() throws SQLException {
         List<Book> books = new ArrayList<>();
@@ -242,7 +235,6 @@ public class BooksDb implements BooksDbInterface {
 
             // Get the attribute values
             while (rs.next()) {
-
                 int bookId = rs.getInt("book_id");
                 String ISBN = rs.getString("ISBN");
                 String title = rs.getString("title");
@@ -260,7 +252,6 @@ public class BooksDb implements BooksDbInterface {
                 Book book = new Book(bookId, ISBN, title, author, published, genre, grade);
                 System.out.println(book.toString());
                 books.add(book);
-
             }
             System.out.println();
             return books ;
@@ -270,66 +261,17 @@ public class BooksDb implements BooksDbInterface {
     }
 
 
-//TODO: fungerar, kopiera och gör en för ISBN.
-// Author blir nästan lika men måste söka med getBookByAuthor();
-// troligen går det sen att ta bort searchmode i varje metod för varje mode får en egen metod
 
-    private int getBookIDFromTitle(String searchFor /*SearchMode mode*/)throws RuntimeException{
-        int bookId = -1;
-    //    String column = mode.name();
-      //  System.out.println(column);
-        String query= "SELECT book_id FROM T_book WHERE title LIKE '%"+ searchFor + "%';";
-        System.out.println(query);
-        try (Statement stmt = getConnection.getConnection().createStatement()) {
-            // Execute the SQL statement
-            ResultSet rs = stmt.executeQuery(query);
-
-            if(!rs.next()) {
-                //TODO: fixa lämplig felhantering?
-                throw new IllegalArgumentException("there are no books with that title(this is probably not the right way to handle this exception)");
-            }else {
-                bookId = rs.getInt("book_id");
-            }
-        //    rs.close();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        System.out.println("getBookId DONE");
-        return bookId;
-    }
-
-
-    private int getBookIDFromISBN(String searchFor)throws RuntimeException{
-        int bookId = -1;
-       // String column = mode.name();
-     //   System.out.println(column);
-        String query= "SELECT book_id FROM T_book WHERE ISBN LIKE '%"+ searchFor + "%';";
-        System.out.println(query);
-        try (Statement stmt = getConnection.getConnection().createStatement()) {
-            // Execute the SQL statement
-            ResultSet rs = stmt.executeQuery(query);
-            if(!rs.next()) {
-                //TODO: fixa lämplig felhantering?
-                throw new IllegalArgumentException("there are no books with that title(this is probably not the right way to handle this exception)");
-            }else {
-                bookId = rs.getInt("book_id");
-            }
-            //    rs.close();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        System.out.println("getBookId DONE");
-        return bookId;
-    }
-//TODO: lägg till metod för sök på author
-
-
+    /**
+     * Searches for books by title and returns a list of matching books.
+     *
+     * @param searchFor The title to search for.
+     * @return A list of books with titles that match the search string.
+     * @throws BooksDbException If there is an error searching for the books.
+     */
     @Override
     public List<Book> searchBookByTitle(String searchFor/*, SearchMode mode*/ ) throws BooksDbException {
 
-      //  String author = getAuthorNameById(getAuthorIdFromBookId(getBookIDFromTitle(searchFor, mode)));
-      //  System.out.println("The author " + author);
-        //TODO: byt ut title mot ISBN
         String searchString = "SELECT book_id, isbn, title, published, genre, grade FROM T_book WHERE Title LIKE '%" +searchFor + "%';";
         //  book_id, isbn,  title, published, genre, grade FROM T_book WHERE TITLE ='katbok'
         List<Book> result = new ArrayList<>();
@@ -359,36 +301,32 @@ public class BooksDb implements BooksDbInterface {
                 result.add(book);
                 // book.addAuthor(authors);
                 System.out.println("Yes");
-               // rs.close();
             }
-
-
-
+            rs.close();
         } catch (SQLException e) {
             throw new BooksDbException(e.getMessage());
         }
-
         System.out.println(result.toString());
         return result;
     }
 
+    /**
+     * Searches for books by ISBN and returns a list of matching books.
+     *
+     * @param searchFor The ISBN to search for.
+     * @return A list of books with ISBNs that match the search string.
+     * @throws BooksDbException If there is an error searching for the books.
+     */
     @Override
     public List<Book> searchBookByISBN(String searchFor/*, SearchMode mode*/ ) throws BooksDbException {
 
-        //  String author = getAuthorNameById(getAuthorIdFromBookId(getBookIDFromTitle(searchFor, mode)));
-        //  System.out.println("The author " + author);
-        //TODO: byt ut title mot ISBN
         String searchString = "SELECT book_id, ISBN, title, published, genre, grade FROM T_book WHERE ISBN LIKE '%" +searchFor + "%';";
-        //  book_id, isbn,  title, published, genre, grade FROM T_book WHERE TITLE ='katbok'
         List<Book> result = new ArrayList<>();
         // ArrayList authors = new ArrayList<>();
-        System.out.println(searchString);
-
         try (Statement stmt = getConnection.getConnection().createStatement()) {
 
             // Execute the SQL statement
             ResultSet rs = stmt.executeQuery(searchString);
-            System.out.println("try statement");
             while (rs.next()) {
                 int bookId = rs.getInt("book_id");
                 String ISBN = rs.getString("ISBN");
@@ -406,35 +344,33 @@ public class BooksDb implements BooksDbInterface {
                 System.out.println(book.toString());
                 result.add(book);
                 // book.addAuthor(authors);
-                System.out.println("Yes");
-                // rs.close();
             }
+            rs.close();
                     } catch (SQLException e) {
             throw new BooksDbException(e.getMessage());
         }
-
         System.out.println(result.toString());
         return result;
     }
 
+
+    /**
+     * Searches for books by author and returns a list of matching books.
+     *
+     * @param searchFor The author's name to search for.
+     * @return A list of books with authors that match the search string.
+     * @throws BooksDbException If there is an error searching for the books.
+     */
     @Override
     public List<Book> searchBookByAuthor(String searchFor/*, SearchMode mode*/ ) throws BooksDbException {
-
-        /**
-         *
-         * //        System.out.println("getBookByAuthor");
-         * //        int autId = getAuthorIdByName(name);
-         * //        int bookId= getBookIdFromAuthorId(autId);
-         * //        return getBookFromBookID(bookId);
-         * */
 
         //  String author = getAuthorNameById(getAuthorIdFromBookId(getBookIDFromTitle(searchFor, mode)));
         //  System.out.println("The author " + author);
         //TODO: byt ut title mot ISBN
-        String searchString = "SELECT aut_id FROM T_author WHERE fullName ='"+ searchFor +"';";
-        int author_id = getAuthorIdByName(searchString);
-
-        int book_id = getBookIdFromAuthorId(author_id);
+        String searchString = "SELECT b.book_id, b.isbn,  b.title, a.fullName, b.published, b.genre, b.grade FROM T_book b INNER JOIN book_author ba ON b.book_id = ba.book_id INNER JOIN T_author a ON ba.author_id = a.aut_id WHERE a.fullName LIKE '%" + searchFor + "%';";
+//        int author_id = getAuthorIdByName(searchString);
+//
+//        int book_id = getBookIdFromAuthorId(author_id);
 
         //  book_id, isbn,  title, published, genre, grade FROM T_book WHERE TITLE ='katbok'
         List<Book> result = new ArrayList<>();
@@ -442,7 +378,7 @@ public class BooksDb implements BooksDbInterface {
         System.out.println(searchString);
 
         try (Statement stmt = getConnection.getConnection().createStatement()) {
-            result = getBookFromBookID(book_id);
+         //   result = getBookFromBookID(book_id);
 
             // Execute the SQL statement
             ResultSet rs = stmt.executeQuery(searchString);
@@ -455,7 +391,7 @@ public class BooksDb implements BooksDbInterface {
 //                for(int i = 0; i < authorIds.size(); i++){
 //                    authors.add(getAuthorById(authorIds.get(i)));
 //                }
-                String author = rs.getString("fullname");
+                String author = rs.getString("fullName");
            //     String author = getAuthorNameById(getAuthorIdFromBookId(bookId));
                 Date published = rs.getDate("published");
                 String genre = rs.getString("genre");
@@ -464,9 +400,8 @@ public class BooksDb implements BooksDbInterface {
                 System.out.println(book.toString());
                 result.add(book);
 
-                System.out.println("Yes");
-                // rs.close();
             }
+            rs.close();
         } catch (SQLException e) {
             throw new BooksDbException(e.getMessage());
         }
@@ -614,7 +549,6 @@ public class BooksDb implements BooksDbInterface {
             }
         }
     }
-
 
     /**
      * Deletes a book from the database with the specified title.

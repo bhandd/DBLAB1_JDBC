@@ -61,7 +61,7 @@ public class Controller  {
                         result = booksDb.searchBookByISBN(searchFor/* mode*/);
                         break;
                     case Author:
-                        result =  booksDb.searchBookByTitle(searchFor);
+                        result =  booksDb.searchBookByAuthor(searchFor);
                         break;
                     default:
                         result = new ArrayList<>();
